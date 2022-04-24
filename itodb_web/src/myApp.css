@@ -1,0 +1,27 @@
+.noscroll {
+
+  /* hide scrollbar for IE, Edge and Firefox */
+  position: fixed;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* hide scrollbar for chrome, safari and opera */
+.noscroll::-webkit-scrollbar {
+  display: none;
+}
+
+.btn_hov {
+}
+.btn_hov:hover {
+  background-color: #202836;
+}
+
+.custom_menu_item{
+  max-height: 22px;
+  font-size: 8px;
+}
+.custom_menu_item:hover{
+  background-color: red;
+
+}
