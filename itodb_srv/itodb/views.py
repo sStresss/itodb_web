@@ -9,6 +9,7 @@ from django.http import JsonResponse
 # from .scripts.states import getObjStat
 
 from .models import Student, Object, SubObject, Stuff, Type, Model, Manufacturer, Warehouse, Seller, SubType, SubModel, Status
+from django.contrib.auth.models import User
 from django.db.models import CharField, Value
 from .serializers import *
 import time
@@ -281,7 +282,6 @@ def modal_stat_new_rec(request):
             return Response(status=status.HTTP_201_CREATED)
         else:
             print(serializer.errors)
-
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'DELETE'])
@@ -313,3 +313,19 @@ def getElemStat(curRows, objName, curType, curModel):
     pFactNum = str(pFactNum)
     print('FACTNUM: ', pFactNum)
     return pFactNum
+
+@api_view(['POST'])
+def login(request):
+    if request.method == 'POST':
+        check = False
+        userLst = User.objects.all().order_by('id')
+        for user in userLst:
+            if (user.username == request.data['username']) and (User.check_password(user, request.data['password']) == True):
+                check = True
+        if check == True:
+            data = {"res": 'success'}
+        else:
+            data = {"res": 'denied'}
+        json_data = json.dumps(data)
+        json_res = json.loads(json_data)
+        return JsonResponse(json_res, content_type='application/json')

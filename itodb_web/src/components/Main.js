@@ -5,7 +5,6 @@ import ObjectTree from "./ObjectTree"
 import Table_Control from "./Table_Control"
 import MessageBox from './MessageBox'
 import WebSocket from './WebHook'
-import Header from "../components/Header";
 
 
 const promise = new Promise((resolve) => {
@@ -14,6 +13,7 @@ const promise = new Promise((resolve) => {
 
 
 export default function Main() {
+  console.log('MAIN')
     const [updateTable, setUpdateTable] = React.useState(['false', 'none', '', '','','']);
     const [selectedTableLst, setSelectedTableLst] = React.useState([])
     var [srchData, setSrchData] = React.useState('');
@@ -60,9 +60,6 @@ export default function Main() {
 
     return (
       <Container style={{ marginTop: "0px", marginLeft: "0px"}}>
-        {/*<Row style={{maxWidth:"240px"}}>*/}
-          {/*<Header/>*/}
-        {/*</Row>*/}
         <Row >
           <Col xs={2} style={{ height: "937px", backgroundColor: "#151B26", width: "240px"}}>
               <ObjectTree

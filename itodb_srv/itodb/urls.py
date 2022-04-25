@@ -23,5 +23,6 @@ urlpatterns = [
     re_path(r'^api/statnewrec/$', modal_stat_new_rec),
     re_path(r'^api/stateditrec/([0-9]{1})$', modal_stat_edit_rec),
     re_path(r'^api/stateditrec/([0-9]{2})$', modal_stat_edit_rec),
-    re_path(r'^api/stateditrec/([0-9]{3})$', modal_stat_edit_rec)
+    re_path(r'^api/stateditrec/([0-9]{3})$', modal_stat_edit_rec),
+    re_path(r'^api/logincheck/$', login)
 ]

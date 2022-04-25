@@ -11,3 +11,4 @@ export const API_OBJECT_STATUS = "http://localhost:8000/api/objectstatus/";
 export const API_NEWSTAT_URL = "http://localhost:8000/api/statdatalst/";
 export const API_STATNEWREC_URL = "http://localhost:8000/api/statnewrec/";
 export const API_STATEDITREC_URL = "http://localhost:8000/api/stateditrec/";
+export const API_LOGINCHECK_URL = "http://localhost:8000/api/logincheck/";
