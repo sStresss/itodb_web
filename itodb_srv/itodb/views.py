@@ -317,15 +317,23 @@ def getElemStat(curRows, objName, curType, curModel):
 @api_view(['POST'])
 def login(request):
     if request.method == 'POST':
-        check = False
+        check_name = False
+        check_pwd = False
         userLst = User.objects.all().order_by('id')
         for user in userLst:
-            if (user.username == request.data['username']) and (User.check_password(user, request.data['password']) == True):
-                check = True
-        if check == True:
-            data = {"res": 'success'}
+            if (user.username == request.data['username']):
+              check_name = True
+              if (User.check_password(user, request.data['password']) == True):
+                check_pwd = True
+        print(check_name)
+        print(check_pwd)
+        if check_name and check_pwd == True:
+            data = {"res": 'success', 'mes': 'none'}
         else:
-            data = {"res": 'denied'}
+          if check_name == False:
+            data = {"res": 'denied', 'mes': 'wr_name'}
+          else:
+            data = {"res": 'denied', 'mes': 'wr_pwd'}
         json_data = json.dumps(data)
         json_res = json.loads(json_data)
         return JsonResponse(json_res, content_type='application/json')

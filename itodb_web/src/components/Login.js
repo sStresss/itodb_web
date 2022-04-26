@@ -21,13 +21,18 @@ async function loginUser(credentials) {
 export default function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [lblWrName, setLblWrName] =useState(true);
+  const [lblWrPwd, setLblWrPwd] =useState(true);
+
 
   const handleSubmit = async e => {
     e.preventDefault();
       let check = 'false'
+      let mes = ''
       await axios.post(API_LOGINCHECK_URL, { username, password }).then(res => {
         console.log()
         check = res.data['res']
+        mes = res.data['mes']
       })
       if (check == 'success') {
         var token = await loginUser({
@@ -37,7 +42,8 @@ export default function Login({ setToken }) {
         setToken(token);
       }
       else {
-        console.log('SOSI HUI')
+        if (mes == 'wr_name') {setLblWrName(false) }
+        else {setLblWrPwd(false)}
       }
 
   }
@@ -52,16 +58,25 @@ export default function Login({ setToken }) {
               <div className="col-lg-12 login-form" style={{marginLeft:"15px"}}>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
-                    <label className="form-control-label">ЛОГИН</label>
-                    <br/>
-                    <input type="text" className="inp" style={{borderBottom:"1px solid"}} onChange={e => setUserName(e.target.value)}/>
+                    <Row>
+                      <Col style={{minHeight:"80px"}}>
+                        <label className="form-control-label">ЛОГИН</label>
+                        <br/>
+                        <input type="text" className="inp" style={{borderBottom:"1px solid"}} onChange={e => {setUserName(e.target.value); setLblWrName(true); setLblWrPwd(true)}}/>
+                        <a id={'label_wrong_name'} style={{color:'red', fontSize:'14px'}} hidden={lblWrName}>неверный логин</a>
+                      </Col>
+                    </Row>
                   </div>
                   <div className="form-group">
-                    <label className="form-control-label">ПАРОЛЬ</label>
-                    <br/>
-                    <input type="password" className="inp" i onChange={e => setPassword(e.target.value)}/>
+                    <Row>
+                      <Col style={{minHeight:"90px"}}>
+                        <label className="form-control-label">ПАРОЛЬ</label>
+                        <br/>
+                        <input type="password" className="inp" i onChange={e => {setPassword(e.target.value); setLblWrName(true); setLblWrPwd(true)}}/>
+                        <a id={'label_wrong_pwd'} style={{color:'red', fontSize:'14px'}} hidden={lblWrPwd}>неверный пароль</a>
+                      </Col>
+                    </Row>
                   </div>
-
                   <div className="col-lg-12 loginbttm">
                     <div className="col-lg-6 login-btm login-text">
                     </div>
