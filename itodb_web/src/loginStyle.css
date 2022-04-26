@@ -38,40 +38,35 @@ body {
 
 input[type=text] {
     background-color: rgba(26,34,38,0.0);
-    /*border: none;*/
-    /*border-bottom: 2px solid #3aa4de; linear-gradient( #3aa4de,  #3aa4de);*/
-    /*border: 3px;*/
-    /*border-style: solid;*/
-    /*border-image: linear-gradient(#532477, #3aa4de) 1 100%;*/
+    margin-top: 5px;
+    min-width: 385px;
     border-top: 0px;
     border-radius: 0px;
-    font-weight: bold;
+    font-weight: normal !important;
     outline: 0;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     padding-left: 0px;
     color: #ECF0F5;
     border-left: none;
     border-right: none;
     border-top: none;
-    border-bottom: 2px solid;
+    /*border-bottom: 1px solid;*/
     border-image: linear-gradient(to right, #ffffff, #90acaa, #6A9393, #ffffff ) 47% 0%;
 }
 
 input[type=password] {
     background-color: rgba(26,34,38,0.0);
-    /*border: none;*/
-    /*border-bottom: 2px solid #3aa4de;*/
-    /*border-top: 0px;*/
-    /*border-radius: 0px;*/
-    font-weight: bold;
+    margin-top: 5px;
+    min-width: 385px;
+    font-weight: normal !important;
     outline: none;
     padding-left: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #ECF0F5;
     border-left: none;
     border-right: none;
     border-top: none;
-    border-bottom: 2px solid;
+    border-bottom: 1px solid;
     border-image: linear-gradient(to right, #ffffff, #90acaa, #6A9393, #ffffff ) 47% 0%;
 }
 
@@ -89,6 +84,21 @@ input[type=password] {
     /*background-color: #1A2226;*/
     /*color: #ECF0F5;*/
     /*outline: 0 !important;*/
+}
+
+
+.inp:focus {
+    background-color: rgba(26,34,38,0.0);
+    font-weight: bold;
+    outline: none;
+    padding-left: 0px;
+    color: #ECF0F5;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid;
+    border-image: linear-gradient(to right, #ffffff, #90acaa, #6A9393, #ffffff ) 47% 0%;
+
 }
 
 input:focus {

@@ -868,6 +868,7 @@ export default function ObjectTree(props) {
                   minWidth:'240px'
                 }}
                style={{cursor:"pointer"}} onClick={globalTreeRefresh}
+               style={{cursor:"pointer"}} onClick={globalTreeRefresh}
           >
             <Col style={{maxWidth:"180px"}}>
               <h1 style={{ marginLeft: "17px", textAlign: 'left', color: 'white', fontFamily: 'Aeroport', fontSize: '30px', paddingTop:'10px'}}>

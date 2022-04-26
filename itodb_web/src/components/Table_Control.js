@@ -509,6 +509,11 @@ export default function Table_Control(props)  {
         window.open('myproto://\\\\SINAPS-INZH-01\\itoDB\\netconfsource\\001');
 
     }
+    const exit = () => {
+        localStorage.removeItem('token')
+        window.location.reload()
+    }
+
     const metricColumns = [
         { field: 'type', headerName: 'Тип объекта', width: 190 },
         { field: 'model', headerName: 'Модель', width: 190 },
@@ -989,6 +994,7 @@ export default function Table_Control(props)  {
                     <MenuItem onClick={addTableStuff}>Добавить</MenuItem>
                     <MenuItem onClick={deleteTableStuff}>Удалить</MenuItem>
                     <MenuItem onClick={transferTableStuff}>Переместить</MenuItem>
+                    <MenuItem onClick={exit}>Выход</MenuItem>
                 </Menu>
                 {stuffModal}
                 {transferModal}

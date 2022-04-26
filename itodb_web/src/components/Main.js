@@ -4,7 +4,6 @@ import Table_Stuff from "./Table_Stuff";
 import ObjectTree from "./ObjectTree"
 import Table_Control from "./Table_Control"
 import MessageBox from './MessageBox'
-import WebSocket from './WebHook'
 
 
 const promise = new Promise((resolve) => {
@@ -59,7 +58,7 @@ export default function Main() {
     }
 
     return (
-      <Container style={{ marginTop: "0px", marginLeft: "0px"}}>
+      <Container style={{ marginTop: "0px", marginLeft: "0px", position:"fixed"}}>
         <Row >
           <Col xs={2} style={{ height: "937px", backgroundColor: "#151B26", width: "240px"}}>
               <ObjectTree

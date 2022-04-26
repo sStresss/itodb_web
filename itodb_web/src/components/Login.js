@@ -43,7 +43,7 @@ export default function Login({ setToken }) {
   }
 
   return(
-    <div style={{backgroundImage:'url(\'./login_background.jpg\'', backgroundSize:"cover", minHeight:"100vh", textAlign:"center"}}>
+    <div style={{backgroundImage:'url(\'./login_background_black.jpg\'', backgroundSize:"cover", minHeight:"100vh", textAlign:"center"}}>
       <div className="container" >
         <div className="row" style={{marginLeft:"250px", paddingTop:"300px"}}>
           <div className="col-lg-2 col-md-2" style={{textAlign:"center"}}></div>
@@ -53,11 +53,13 @@ export default function Login({ setToken }) {
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label className="form-control-label">ЛОГИН</label>
-                    <input type="text" className="form-control" onChange={e => setUserName(e.target.value)}/>
+                    <br/>
+                    <input type="text" className="inp" style={{borderBottom:"1px solid"}} onChange={e => setUserName(e.target.value)}/>
                   </div>
                   <div className="form-group">
                     <label className="form-control-label">ПАРОЛЬ</label>
-                    <input type="password" className="" i onChange={e => setPassword(e.target.value)}/>
+                    <br/>
+                    <input type="password" className="inp" i onChange={e => setPassword(e.target.value)}/>
                   </div>
 
                   <div className="col-lg-12 loginbttm">
