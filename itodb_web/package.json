@@ -60,6 +60,7 @@
   "devDependencies": {
     "cors": "^2.8.5",
     "devextreme-themebuilder": "^21.2.4",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "react-error-overlay": "^6.0.9"
   }
 }

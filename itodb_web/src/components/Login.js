@@ -62,7 +62,7 @@ export default function Login({ setToken }) {
                       <Col style={{minHeight:"80px"}}>
                         <label className="form-control-label">ЛОГИН</label>
                         <br/>
-                        <input type="text" className="inp" style={{borderBottom:"1px solid"}} onChange={e => {setUserName(e.target.value); setLblWrName(true); setLblWrPwd(true)}}/>
+                        <input type="text" className="inp" style={{borderBottom:"1px solid", marginTop: "5px"}} onChange={e => {setUserName(e.target.value); setLblWrName(true); setLblWrPwd(true)}}/>
                         <a id={'label_wrong_name'} style={{color:'red', fontSize:'14px'}} hidden={lblWrName}>неверный логин</a>
                       </Col>
                     </Row>

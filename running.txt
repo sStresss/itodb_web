@@ -2,3 +2,4 @@ itodb_srv> python manage.py runserver
 itodb_srv> celery -A itodb_srv_app.celery worker --pool=solo -l info
 itodb_srv> celery -A itodb_srv_app.celery beat
 itodb_web> npm start
+itodb_web> node server js

@@ -56,6 +56,9 @@ export default function Main() {
       setUpdTree(true);
       setUpdTree(false);
     }
+    const updateTableCallback = () => {
+      return <Table_Stuff/>
+    }
 
     return (
       <Container style={{ marginTop: "0px", marginLeft: "0px", position:"fixed"}}>
@@ -76,6 +79,7 @@ export default function Main() {
                 metricConfirm = {metricConfirm}
               />
               <Table_Stuff
+                reload = {updateData}
                 update={updateTable}
                 selectedLst={updateTblLst}
                 srch={srchData}

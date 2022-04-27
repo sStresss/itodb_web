@@ -336,7 +336,6 @@ export default function Table_Control(props)  {
             setModalOpen(false);
         }
     }
-    // const updateTree = () => {promise.then(()=>{props.setUpdateTree('true')})}
     const updateTable = () =>{
         console.log('parent: '+ stuffTblStateParent)
         console.log('child: '+ stuffTblStateChild)
@@ -543,191 +542,190 @@ export default function Table_Control(props)  {
                         }}
                         onSortModelChange={(model) => setSortModel(model)}
                       />
-    const stuffModal = <Modal
-                open={modalopen || false}
-                onClose={handleModalClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                onBackdropClick = {handleModalBackDrop}
-                disableEscapeKeyDown={true}
-
-                >
-                <Box sx={modalstyle}>
-                    <Row style={{  marginLeft: "-32px", marginTop: "0px", width: "500px", textAlign:"center" }}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2" >
-                            <ToggleButtonGroup
-                              color="primary"
-                              value={nsToggle}
-                              exclusive
-                              onChange={handleNsModalToggleChange}
+    const stuffModal =  <Modal
+                            open={modalopen || false}
+                            onClose={handleModalClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                            onBackdropClick = {handleModalBackDrop}
+                            disableEscapeKeyDown={true}
                             >
-                              <ToggleButton value="stuff">Оборудование</ToggleButton>
-                              <ToggleButton value="subStuff">Комплектующее</ToggleButton>
-                            </ToggleButtonGroup>
-                        </Typography>
-                    </Row>
-                        <Row>
-                            <Col>
-                                <Row style={{marginTop:"23px"}}><span>Тип</span></Row>
-                                <Row style={{marginTop:"28px"}}><span>Модель</span></Row>
-                                <Row style={{marginTop:"25px"}}><span>Серийный номер</span></Row>
-                                <Row style={{marginTop:"28px"}}><span>Производитель</span></Row>
-                                <Row style={{marginTop:"28px"}}><span>Поставщик</span></Row>
-                                <Row style={{marginTop:"28px"}}><span>Целевой объект</span></Row>
-                                <Row style={{marginTop:"50px"}}><span>Дата поступления</span></Row>
-                                <Row style={{marginTop:"41px"}}><span>Поступил на</span></Row>
-                                <Row style={{marginTop:"52px"}}><span>Комментарий</span></Row>
-                            </Col>
-                            <Col>
-                                <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                    <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                        <Select
-                                          labelId="seType"
-                                          id="seType"
-                                          value={nsSeType || nsTypeLst[0]}
-                                          onChange={handleNsTypeChange}
-                                          label="Age"
+                            <Box sx={modalstyle}>
+                                <Row style={{  marginLeft: "-32px", marginTop: "0px", width: "500px", textAlign:"center" }}>
+                                    <Typography id="modal-modal-title" variant="h6" component="h2" >
+                                        <ToggleButtonGroup
+                                          color="primary"
+                                          value={nsToggle}
+                                          exclusive
+                                          onChange={handleNsModalToggleChange}
                                         >
-                                          {nsTypeLst.map(type=> {
-                                            return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                          })}
-                                        </Select>
-                                    </FormControl>
+                                          <ToggleButton value="stuff">Оборудование</ToggleButton>
+                                          <ToggleButton value="subStuff">Комплектующее</ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Typography>
                                 </Row>
-                                <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                    <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                        <Select
-                                          labelId="seModel"
-                                          id="seModel"
-                                          value={nsSeModel || nsModelLst[0]}
-                                          onChange={handleNsModelChange}
-                                          label="Age"
-                                        >
-                                          {nsModelLst.map(type=> {
-                                            return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                          })}
-                                        </Select>
-                                    </FormControl>
-                                </Row>
-                                <Row style={{marginTop:"17px", height:"60px", width:'300px'}}>
-                                    <form ref={nameStuffForm}>
-                                        <TextField
-                                            sx = {{width:"276px"}}
-                                            error = {nsSnPropsError['error']}
-                                            helperText = {nsSnPropsError['helpertext']}
-                                            id="ns_serial"
-                                            name={"ns_serial1"}
-                                            defaultValue=""
-                                            variant="standard"
-                                        />
-                                    </form>
-                                </Row>
-                                <Row style={{marginTop:"-9px", width:"288px", paddingLeft:"12px"}}>
-                                    <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                        <Select
-                                          labelId="seManufacturer"
-                                          id="seManufacturer"
-                                          value={nsSeManufacturer || nsManufacturerLst[0]}
-                                          onChange={handleNsManufacturerChange}
-                                          label="Age"
-                                        >
-                                          {nsManufacturerLst.map(type=> {
-                                            return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                          })}
-                                        </Select>
-                                    </FormControl>
-                                </Row>
-                                <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                    <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                        <Select
-                                          labelId="seSeller"
-                                          id="seSeller"
-                                          value={nsSeSeller || nsSellerLst[0]}
-                                          onChange={handleNsSellerChange}
-                                          label="Age"
-                                        >
-                                          {nsSellerLst.map(type=> {
-                                            return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                          })}
-                                        </Select>
-                                    </FormControl>
-                                </Row>
-                                <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                      <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                        <Select
-                                          labelId="seTargetObject"
-                                          id="seTargetObject"
-                                          value={nsSeTargetObject || nsObjectLst[0]}
-                                          onChange={handleNsTargetObjectChange}
-                                          label="Age"
-                                        >
-                                          {nsObjectLst.map(type=> {
-                                            return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                          })}
-                                        </Select>
-                                    </FormControl>
-                                </Row>
-                                <Row style={{marginTop:"30px"}}>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                      <Stack spacing={3}  >
-                                        <DesktopDatePicker
-                                          label="дд/мм/гг"
-                                          inputFormat="dd/MM/yyyy"
-                                          value={stuffDatePurchase}
-                                          onChange={handleStuffDatePurchaseChange}
-                                          renderInput={(params) => <TextField id="new_stuff_datepurchase" {...params} />}
-                                        />
-                                      </Stack>
-                                    </LocalizationProvider>
-                                </Row>
-                                <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                      <FormControl variant="standard" sx={{  }}>
-                                        <Select
-                                          labelId="seWarehouse"
-                                          id="seWarehouse"
-                                          value={nsSeWarehouse || nsWarehouseLst[0]}
-                                          onChange={handleNsWarehouseChange}
-                                          label="Age"
-                                        >
-                                          {nsWarehouseLst.map(type=> {
-                                            return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                          })}
-                                        </Select>
-                                    </FormControl>
-                                </Row>
+                                    <Row>
+                                        <Col>
+                                            <Row style={{marginTop:"23px"}}><span>Тип</span></Row>
+                                            <Row style={{marginTop:"28px"}}><span>Модель</span></Row>
+                                            <Row style={{marginTop:"25px"}}><span>Серийный номер</span></Row>
+                                            <Row style={{marginTop:"28px"}}><span>Производитель</span></Row>
+                                            <Row style={{marginTop:"28px"}}><span>Поставщик</span></Row>
+                                            <Row style={{marginTop:"28px"}}><span>Целевой объект</span></Row>
+                                            <Row style={{marginTop:"50px"}}><span>Дата поступления</span></Row>
+                                            <Row style={{marginTop:"41px"}}><span>Поступил на</span></Row>
+                                            <Row style={{marginTop:"52px"}}><span>Комментарий</span></Row>
+                                        </Col>
+                                        <Col>
+                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
+                                                <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
+                                                    <Select
+                                                      labelId="seType"
+                                                      id="seType"
+                                                      value={nsSeType || nsTypeLst[0]}
+                                                      onChange={handleNsTypeChange}
+                                                      label="Age"
+                                                    >
+                                                      {nsTypeLst.map(type=> {
+                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
+                                                      })}
+                                                    </Select>
+                                                </FormControl>
+                                            </Row>
+                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
+                                                <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
+                                                    <Select
+                                                      labelId="seModel"
+                                                      id="seModel"
+                                                      value={nsSeModel || nsModelLst[0]}
+                                                      onChange={handleNsModelChange}
+                                                      label="Age"
+                                                    >
+                                                      {nsModelLst.map(type=> {
+                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
+                                                      })}
+                                                    </Select>
+                                                </FormControl>
+                                            </Row>
+                                            <Row style={{marginTop:"17px", height:"60px", width:'300px'}}>
+                                                <form ref={nameStuffForm}>
+                                                    <TextField
+                                                        sx = {{width:"276px"}}
+                                                        error = {nsSnPropsError['error']}
+                                                        helperText = {nsSnPropsError['helpertext']}
+                                                        id="ns_serial"
+                                                        name={"ns_serial1"}
+                                                        defaultValue=""
+                                                        variant="standard"
+                                                    />
+                                                </form>
+                                            </Row>
+                                            <Row style={{marginTop:"-9px", width:"288px", paddingLeft:"12px"}}>
+                                                <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
+                                                    <Select
+                                                      labelId="seManufacturer"
+                                                      id="seManufacturer"
+                                                      value={nsSeManufacturer || nsManufacturerLst[0]}
+                                                      onChange={handleNsManufacturerChange}
+                                                      label="Age"
+                                                    >
+                                                      {nsManufacturerLst.map(type=> {
+                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
+                                                      })}
+                                                    </Select>
+                                                </FormControl>
+                                            </Row>
+                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
+                                                <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
+                                                    <Select
+                                                      labelId="seSeller"
+                                                      id="seSeller"
+                                                      value={nsSeSeller || nsSellerLst[0]}
+                                                      onChange={handleNsSellerChange}
+                                                      label="Age"
+                                                    >
+                                                      {nsSellerLst.map(type=> {
+                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
+                                                      })}
+                                                    </Select>
+                                                </FormControl>
+                                            </Row>
+                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
+                                                  <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
+                                                    <Select
+                                                      labelId="seTargetObject"
+                                                      id="seTargetObject"
+                                                      value={nsSeTargetObject || nsObjectLst[0]}
+                                                      onChange={handleNsTargetObjectChange}
+                                                      label="Age"
+                                                    >
+                                                      {nsObjectLst.map(type=> {
+                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
+                                                      })}
+                                                    </Select>
+                                                </FormControl>
+                                            </Row>
+                                            <Row style={{marginTop:"30px"}}>
+                                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                  <Stack spacing={3}  >
+                                                    <DesktopDatePicker
+                                                      label="дд/мм/гг"
+                                                      inputFormat="dd/MM/yyyy"
+                                                      value={stuffDatePurchase}
+                                                      onChange={handleStuffDatePurchaseChange}
+                                                      renderInput={(params) => <TextField id="new_stuff_datepurchase" {...params} />}
+                                                    />
+                                                  </Stack>
+                                                </LocalizationProvider>
+                                            </Row>
+                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
+                                                  <FormControl variant="standard" sx={{  }}>
+                                                    <Select
+                                                      labelId="seWarehouse"
+                                                      id="seWarehouse"
+                                                      value={nsSeWarehouse || nsWarehouseLst[0]}
+                                                      onChange={handleNsWarehouseChange}
+                                                      label="Age"
+                                                    >
+                                                      {nsWarehouseLst.map(type=> {
+                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
+                                                      })}
+                                                    </Select>
+                                                </FormControl>
+                                            </Row>
+                                            <Row>
+                                                <Box
+                                                  component="form"
+                                                  sx={{
+                                                    '& .MuiTextField-root': { marginTop: 4, width: '276px' },
+                                                  }}
+                                                  noValidate
+                                                  autoComplete="off"
+                                                >
+                                                    <TextField
+                                                      id="new_stuff_comment"
+                                                      label="Комментарий"
+                                                      multiline
+                                                      rows={4}
+                                                      defaultValue=""
+                                                    />
+                                                </Box>
+                                            </Row>
+                                        </Col>
+                                    </Row>
+                                    <br/>
                                 <Row>
-                                    <Box
-                                      component="form"
-                                      sx={{
-                                        '& .MuiTextField-root': { marginTop: 4, width: '276px' },
-                                      }}
-                                      noValidate
-                                      autoComplete="off"
+                                    <ButtonDefault
+                                        color="primary"
+                                        className="float-right"
+                                        onClick={addNewTableStuffSave}
+                                        style={{ marginTop: "20px", marginLeft: "auto", marginRight: "10px", width: "100px", minWidth: "120px", height: "30px", padding: "0rem"}}
                                     >
-                                        <TextField
-                                          id="new_stuff_comment"
-                                          label="Комментарий"
-                                          multiline
-                                          rows={4}
-                                          defaultValue=""
-                                        />
-                                    </Box>
+                                        <a  style={{ paddingBottom: "10px" }}>Добавить</a>
+                                    </ButtonDefault>
                                 </Row>
-                            </Col>
-                        </Row>
-                        <br/>
-                    <Row>
-                        <ButtonDefault
-                            color="primary"
-                            className="float-right"
-                            onClick={addNewTableStuffSave}
-                            style={{ marginTop: "20px", marginLeft: "auto", marginRight: "10px", width: "100px", minWidth: "120px", height: "30px", padding: "0rem"}}
-                        >
-                            <a  style={{ paddingBottom: "10px" }}>Добавить</a>
-                        </ButtonDefault>
-                    </Row>
-                </Box>
-            </Modal>
+                            </Box>
+                        </Modal>
     const filterModal = <Modal
             open={modalFilterOpen || false}
             onClose={handleModalFilterClose}
