@@ -259,7 +259,7 @@ export default function Table_Stuff(props)  {
                                 setStuffTemp(resLst);
                                 setStuff(resLst);
                                 props.setUpdateTree('true')
-                                setAddStuffBtnHide(true)
+                                setAddStuffBtnHide(false)
                             })
                         }
                         if (document.getElementById('connect_state').textContent === 'tree_parent') {
