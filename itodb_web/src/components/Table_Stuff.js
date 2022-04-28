@@ -354,7 +354,10 @@ export default function Table_Stuff(props)  {
                 srchState = null;
                 console.log('go back!')
                 setStuff(stuffTemp);
-                setAddStuffBtnHide(false)
+                if ((props.update)[1] === 'none') {
+                    setAddStuffBtnHide(false)
+                }
+
 
             })
         }
