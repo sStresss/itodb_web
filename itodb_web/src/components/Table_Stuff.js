@@ -46,7 +46,6 @@ const modalstyle = {
 console.log('REFRESH!')
 const search = (srch) => {
     let res = null
-    console.log('srch: ' + srch)
     if (srch === undefined) {
         res = null
     }
@@ -58,7 +57,6 @@ const search = (srch) => {
             res = true;
         }
     }
-    console.log(res)
     return res
 };
 
@@ -296,19 +294,14 @@ export default function Table_Stuff(props)  {
         }
     }
     loadTableData();
-    console.log('111')
     const p_srchState = search(props.srch);
     if (p_srchState === true) {
-        console.log('srch!')
-        console.log('srchType: '+props.srchType)
         let p_rows = new Array(0);
         let j = 0
         promise.then(()=> {
             if (srchState === null) {
                 srchState = true;
-                console.log('NEW SEARCH')
                 if (props.srchType === 'серийный номер') {
-                    console.log('srch by serial num!')
                     for(i=0; i < stuffTemp.length; i++) {
                         if (stuffTemp[i]['serial'].startsWith(props.srch)) {
                              p_rows[j] = {pk: i,type: stuffTemp[i]['type'],
@@ -330,7 +323,6 @@ export default function Table_Stuff(props)  {
                 else {
                      for(i=0; i < stuffTemp.length; i++) {
                          if (stuffTemp[i]['object_fact'].startsWith(props.srch)) {
-                             console.log('srch by object fact!')
                              p_rows[j] = {
                                  pk: i,
                                  type: stuffTemp[i]['type'],
@@ -349,8 +341,10 @@ export default function Table_Stuff(props)  {
                          };
                     };
                 }
-
+                setAddStuffBtnHide(true)
                 setStuff(p_rows);
+                // setAddStuffBtnHide(true)
+                console.log()
             }
         })
     }
@@ -360,6 +354,7 @@ export default function Table_Stuff(props)  {
                 srchState = null;
                 console.log('go back!')
                 setStuff(stuffTemp);
+                setAddStuffBtnHide(false)
 
             })
         }
