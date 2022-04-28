@@ -126,9 +126,14 @@ export default function AddSTuffModal(props) {
     setModalOpen(false);
     promise.then(()=> {
       props.stateCallback()
-      state = false}
-      )
+      state = false})
+  }
 
+  const reloadTableCallback = () => {
+    setModalOpen(false);
+    promise.then(()=> {
+      props.stateSaveCallback()
+      state = false})
   }
 
   const handleModalOpen = () => {
@@ -211,12 +216,11 @@ export default function AddSTuffModal(props) {
         object_fact, date_transfer, comment, state
       })
         .then(res => {
-          // reload()
           if (res.statusText !== 'Created') {
             alert('Ошибка добавления новой записи в базу!')
           }
         })
-      setModalOpen(false);
+      reloadTableCallback()
     }
   }
 

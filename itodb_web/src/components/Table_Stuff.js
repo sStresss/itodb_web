@@ -204,6 +204,38 @@ export default function Table_Stuff(props)  {
         setAddStuffModalShow('false')
     }
 
+    async function stateModalAddNewStuffSaveCallback (event)  {
+        setAddStuffModalShow('false')
+        // let p_rows = stuff
+        // let row = {pk: p_rows[p_rows.length-1]['pk']+1,
+        //             type: "Коммутатор",
+        //             model: "IE-3000-8-TC-E",
+        //             serial: "qqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
+        //             manufacturer: "Cisco",
+        //             seller: "Серф Консалтинг",
+        //             date_purchase: "01.01.2000",
+        //             object_target: "СЗХ",
+        //             object_fact: "Склад Офис",
+        //             date_transfer: "",
+        //             comment: "dfgdfg",
+        //             state: "Оборудование"}
+        //
+        // console.log(p_rows)
+        // p_rows[p_rows.length] = row
+        // setStuff(p_rows)
+        var p_rows = []
+        await axios.get(API_STUFF_URL).then((response) => {
+            p_rows = getFilter(response.data)
+        });
+        setStuff(p_rows);
+        setStuffTemp(p_rows);
+
+
+
+    }
+    {
+}
+
     const loadTableData = () => {
         if ((props.update)[0] === 'true') {
             if ((props.update)[1] === 'none') {
@@ -385,7 +417,7 @@ export default function Table_Stuff(props)  {
             <img src={"./add.png"} style={{height:'10px'}}/>
         </IconButton>
         {Table}
-        <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback}/>
+        <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
     </Row>
     );
 }

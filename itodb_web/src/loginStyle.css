@@ -45,7 +45,7 @@ input[type=text] {
     outline: 0;
     margin-bottom: 0px;
     padding-left: 0px;
-    color: #ECF0F5;
+    /*color: #ECF0F5;*/
     border-left: none;
     border-right: none;
     border-top: none;
