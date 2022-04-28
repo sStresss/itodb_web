@@ -66,15 +66,11 @@ const promise = new Promise((resolve) => {
     resolve()
 });
 
-// const reload = () => {
-//     Table_Stuff.reload()
-// }
-
-
 export default function Table_Stuff(props)  {
 
 
     var [srchDataTemp, setSrchDataTemp] = React.useState('');
+    var [addStuffBtnHide, setAddStuffBtnHide] = React.useState(false)
     const [stuff, setStuff] = React.useState(new Array(0));
     const [stuffTemp, setStuffTemp] = React.useState(new Array(0));
     var [srchData, setSrchData] = React.useState('');
@@ -206,23 +202,6 @@ export default function Table_Stuff(props)  {
 
     async function stateModalAddNewStuffSaveCallback (event)  {
         setAddStuffModalShow('false')
-        // let p_rows = stuff
-        // let row = {pk: p_rows[p_rows.length-1]['pk']+1,
-        //             type: "Коммутатор",
-        //             model: "IE-3000-8-TC-E",
-        //             serial: "qqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
-        //             manufacturer: "Cisco",
-        //             seller: "Серф Консалтинг",
-        //             date_purchase: "01.01.2000",
-        //             object_target: "СЗХ",
-        //             object_fact: "Склад Офис",
-        //             date_transfer: "",
-        //             comment: "dfgdfg",
-        //             state: "Оборудование"}
-        //
-        // console.log(p_rows)
-        // p_rows[p_rows.length] = row
-        // setStuff(p_rows)
         var p_rows = []
         await axios.get(API_STUFF_URL).then((response) => {
             p_rows = getFilter(response.data)
@@ -243,6 +222,7 @@ export default function Table_Stuff(props)  {
                 document.getElementById('connect_state').innerText = 'global';
                 setStuffTemp(response.data);
                 setStuff(response.data);
+                setAddStuffBtnHide(false);
             })}
             else {
                 if ((props.update)[1] === 'tree_parent') {
@@ -256,6 +236,7 @@ export default function Table_Stuff(props)  {
                         let resLst = getFilter(response.data);
                         setStuffTemp(resLst);
                         setStuff(resLst);
+                        setAddStuffBtnHide(true)
                     })
                 }
                 if ((props.update)[1] === 'tree_child') {
@@ -268,6 +249,7 @@ export default function Table_Stuff(props)  {
                         document.getElementById('connect_cid').innerText = (props.update)[3];
                         setStuffTemp(response.data);
                         setStuff(response.data);
+                        setAddStuffBtnHide(true)
                     })
                 }
                 if ((props.update)[1] === 'control') {
@@ -279,6 +261,7 @@ export default function Table_Stuff(props)  {
                                 setStuffTemp(resLst);
                                 setStuff(resLst);
                                 props.setUpdateTree('true')
+                                setAddStuffBtnHide(true)
                             })
                         }
                         if (document.getElementById('connect_state').textContent === 'tree_parent') {
@@ -290,6 +273,7 @@ export default function Table_Stuff(props)  {
                                 setStuffTemp(resLst);
                                 setStuff(resLst);
                                 props.setUpdateTree('true')
+                                setAddStuffBtnHide(true)
                             })
                         }
                         if (document.getElementById('connect_state').textContent === 'tree_child') {
@@ -301,6 +285,7 @@ export default function Table_Stuff(props)  {
                                 setStuffTemp(resLst);
                                 setStuff(resLst);
                                 props.setUpdateTree('true')
+                                setAddStuffBtnHide(true)
                             })
                         }
 
@@ -312,17 +297,18 @@ export default function Table_Stuff(props)  {
     }
     loadTableData();
     console.log('111')
-    const p_srchState = (event) => search(props.srch);
+    const p_srchState = search(props.srch);
     if (p_srchState === true) {
         console.log('srch!')
+        console.log('srchType: '+props.srchType)
         let p_rows = new Array(0);
         let j = 0
         promise.then(()=> {
-            // if (props.srch !== srchDataTemp) {srchState = null}
             if (srchState === null) {
                 srchState = true;
                 console.log('NEW SEARCH')
-                if (props.srchType === 'Серийный номер') {
+                if (props.srchType === 'серийный номер') {
+                    console.log('srch by serial num!')
                     for(i=0; i < stuffTemp.length; i++) {
                         if (stuffTemp[i]['serial'].startsWith(props.srch)) {
                              p_rows[j] = {pk: i,type: stuffTemp[i]['type'],
@@ -344,6 +330,7 @@ export default function Table_Stuff(props)  {
                 else {
                      for(i=0; i < stuffTemp.length; i++) {
                          if (stuffTemp[i]['object_fact'].startsWith(props.srch)) {
+                             console.log('srch by object fact!')
                              p_rows[j] = {
                                  pk: i,
                                  type: stuffTemp[i]['type'],
@@ -409,12 +396,13 @@ export default function Table_Stuff(props)  {
         <span id={"connect_pid"} hidden={true}></span>
         <span id={"connect_cid"} hidden={true}></span>
         <IconButton
-            sx={{width:"40px",height:"41px", marginLeft:"17px", marginRight:"-8px", marginTop:"7px", color:"#5f5f5f", position:"absolute",zIndex:1}}
+            sx={{width:"40px",height:"41px", marginLeft:"17px", marginRight:"0px", marginTop:"7px", color:"#5f5f5f", position:"absolute",zIndex:1}}
             aria-label="filter"
-            id="filter"
+            id="addNewSruffBtn"
             onClick={(e)=>addTableStuff(e)}
+            hidden={addStuffBtnHide}
         >
-            <img src={"./add.png"} style={{height:'10px'}}/>
+            <img src={"./add_btn.png"} style={{height:'18px'}}/>
         </IconButton>
         {Table}
         <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
