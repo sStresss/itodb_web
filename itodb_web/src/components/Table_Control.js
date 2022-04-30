@@ -85,14 +85,7 @@ export default function Table_Control(props)  {
     const classes = style()
     var [metricRows, setMetricRows] = React.useState([])
     var [metricTblHeight, setMetricTblHeight] = React.useState(0)
-    const [nsToggle, setNsToggle] = React.useState('stuff');
     const [filterViewToggle, setFilterViewToggle] = React.useState(() => ['view_stuff', 'view_subStuff']);
-    const [nsSeType, setNsSeType] = React.useState('');
-    const [nsSeModel, setNsSeModel] = React.useState('');
-    const [nsSeManufacturer, setNsSeManufacturer] = React.useState('');
-    const [nsSeSeller, setNsSeSeller] = React.useState('');
-    const [nsSeTargetObject, setNsSeTargetObject] = React.useState('');
-    const [nsSeWarehouse, setNsSeWarehouse] = React.useState('');
     const [trTargetObj, setTrTargetObj] = React.useState('');
     const [trTargetSubObj, setTrTargetSubObj] = React.useState('');
     var [stuffTblStateParent, setStuffTblStateParent] = React.useState('Главная');
@@ -145,24 +138,6 @@ export default function Table_Control(props)  {
         console.log('123321123321')
         setModalFilterOpen(true)
     }
-    const handleNsTypeChange = (event) => {
-        setNsSeType(event.target.value);
-    };
-    const handleNsModelChange = (event) => {
-        setNsSeModel(event.target.value);
-    };
-    const handleNsManufacturerChange = (event) => {
-        setNsSeManufacturer(event.target.value);
-    };
-    const handleNsSellerChange = (event) => {
-        setNsSeSeller(event.target.value);
-    };
-    const handleNsTargetObjectChange = (event) => {
-        setNsSeTargetObject(event.target.value);
-    };
-    const handleNsWarehouseChange = (event) => {
-        setNsSeWarehouse(event.target.value);
-    };
     const handleSrchTypeChange = (event) => {
         setSrchTypeObj(event.target.value);
         promise.then(()=>{
@@ -170,12 +145,7 @@ export default function Table_Control(props)  {
             props.srch(document.getElementById('srchTextField').value, document.getElementById('srchType').textContent);
         })
     }
-    const handleSrchOnChange = (event) => {
-        promise.then(()=> {
-            // props.srch('', document.getElementById('srchType').textContent);
-            props.srch(document.getElementById('srchTextField').value, document.getElementById('srchType').textContent);
-        });
-    }
+
     const handleTrTargetObj = (event) => {
         console.log('GET TRANSFER DATA LSTS')
         setTrTargetObj(event.target.value);
@@ -208,67 +178,22 @@ export default function Table_Control(props)  {
     const handleTrTargetSubObj = (event) => {
         setTrTargetSubObj(event.target.value);
     };
-    const [stuffDatePurchase, setStuffDatePurchase] = React.useState(new Date('2000-01-01T21:11:54'));
     const [stuffTransferDate, setStuffTransferDate] = React.useState(new Date('2000-01-01T21:11:54'));
     const [anchorEl, setAnchorEl] = React.useState(null);
-    var [modalopen, setModalOpen] = React.useState(false);
     var [modalFilterOpen, setModalFilterOpen] = React.useState(false)
     var [modalMetricOpen, setModalMetricOpen] = React.useState(false)
     var [transferModalOpen, setTransferModalOpen] = React.useState(false);
-    const nameStuffForm = React.useRef(null)
+
     const menuopen = Boolean(anchorEl);
-    const handleStuffDatePurchaseChange = (newValue) => {
-        setStuffDatePurchase(newValue);
-    };
     const handleTransferDateChange = (newValue) => {
         setStuffTransferDate(newValue);
     };
-    const [nsSnPropsError, setNsSnPropsError] = React.useState({'error':false, 'helpertext': ''})
-    var [nsTypeLst, setNsTypeLst] = React.useState([])
-    var [nsModelLst, setNsModelLst] = React.useState([])
     var [trObjectLst, setTrObjectLst] = React.useState([])
     var [trSubObjectLst, setTrSubObjectLst] = React.useState([])
     var [trSubObjectFullLst, setTrSubObjectFullLst] = React.useState([])
-    var [nsManufacturerLst, setNsManufacturerLst] = React.useState([])
-    var [nsWarehouseLst, setNsWarehouseLst] = React.useState([])
-    var [nsSellerLst, setNsSellerLst] = React.useState([])
-    var [nsObjectLst, setNsObjectLst] = React.useState([])
-    var ns_types = []
-    var ns_models = []
-    var ns_manufacturer = []
-    var ns_warehouse = []
-    var ns_seller = []
-    var ns_object = []
     var tr_objects = []
     var tr_subObject = []
-    const handleNsModalToggleChange = (event, newTgState) => {
-        setNsToggle(newTgState);
-        var req = ''
-        if (newTgState === 'subStuff') {
-            req = API_NEWSUBSTUFF_URL
-        } else {
-            req = API_NEWSTUFF_URL
-        }
-        axios.get(req).then((response) => {
-                console.log(response.data)
-                ns_types = (response.data)['types'];
-                ns_models = (response.data)['models'];
-                var rows = [];
-                var p_rows = [];
-                for (var i = 0; i < ns_types.length; i++) {
-                    rows[i] = ns_types[i];
-                }
-                ;
-                for (var i = 0; i < ns_models.length; i++) {
-                    p_rows[i] = ns_models[i];
-                };
-                setNsTypeLst(rows);
-                setNsSeType(rows[0])
-                setNsModelLst(p_rows);
-                setNsSeModel(p_rows[0])
-            }
-        );
-    };
+
     const handleFilterViewModalToggleChange = (event, newTgState) => {
         // setFilterViewToggle(newTgState);
         if (newTgState.length) {
@@ -295,47 +220,9 @@ export default function Table_Control(props)  {
     const handleMainMenuClose = (event) => {
         setAnchorEl(null);
     };
-    const handleModalBackDrop = (event, reason) => {
 
-    };
-    const addTableStuff = event => {
 
-        handleMainMenuClose()
-        handleModalOpen()
-    }
-    const addNewTableStuffSave = (event, props) => {
-        console.log(nsToggle)
-        const form = nameStuffForm.current
-        const serial = `${form['ns_serial'].value}`
-        if (serial.length === 0) {
-            setNsSnPropsError({'error': true, 'helpertext': 'Error'})
-        }
-        else {
-            const type = document.getElementById("seType").textContent
-            const model = document.getElementById("seModel").textContent
-            const manufacturer = document.getElementById("seManufacturer").textContent
-            const seller = document.getElementById("seSeller").textContent
-            const object_target = document.getElementById("seTargetObject").textContent
-            const date_purchase = (document.getElementById("new_stuff_datepurchase").value).replaceAll('/', '.')
-            const date_transfer = ""
-            const object_fact = document.getElementById("seWarehouse").textContent
-            const comment = document.getElementById("new_stuff_comment").value
-            var state = ''
-            if (nsToggle === 'stuff') {state = 'Оборудование'}
-            else {state = 'Комплектующее'}
-            axios.post(API_NEWSTUFF_URL, { type, model, serial, manufacturer, seller, date_purchase, object_target,
-                object_fact, date_transfer, comment, state })
-                .then(res=> {
-                     updateTable();
 
-                    if (res.statusText !== 'Created') {
-                        alert('Ошибка добавления новой записи в базу!')
-                    }
-                })
-
-            setModalOpen(false);
-        }
-    }
     const updateTable = () =>{
         console.log('parent: '+ stuffTblStateParent)
         console.log('child: '+ stuffTblStateChild)
@@ -349,53 +236,7 @@ export default function Table_Control(props)  {
         }
         })
     }
-    const handleModalOpen = (event) => {
-        axios.get(API_NEWSTUFF_URL).then((response) => {
-        console.log(response.data)
-        ns_types = (response.data)['types'];
-        ns_models = (response.data)['models'];
-        ns_manufacturer = (response.data)['manufacturer'];
-        ns_warehouse = (response.data)['warehouse'];
-        ns_seller = (response.data)['seller'];
-        ns_object = (response.data)['object']
-        var ns_rows = [];
-        var ns_p_rows = [];
-        var ns_pp_rows = [];
-        var ns_ppp_rows = [];
-        var ns_pppp_rows = [];
-        var ns_ppppp_rows = [];
-        for(var i=0; i < ns_types.length; i++) {
-            ns_rows[i] = ns_types[i];
-        };
-        for(var i=0; i < ns_models.length; i++) {
-            ns_p_rows[i] = ns_models[i]
-        };
-        for(var i=0; i < ns_manufacturer.length; i++) {
-            ns_pp_rows[i] = ns_manufacturer[i]
-        };
-        for(var i=0; i < ns_warehouse.length; i++) {
-            ns_ppp_rows[i] = ns_warehouse[i]
-        };
-        for(var i=0; i < ns_seller.length; i++) {
-            ns_pppp_rows[i] = ns_seller[i]
-        };
-        for(var i=0; i < ns_object.length; i++) {
-            ns_ppppp_rows[i] = ns_object[i]
-        };
-        setNsTypeLst(ns_rows);
-        setNsSeType(ns_rows[0]);
-        setNsModelLst(ns_p_rows);
-        setNsSeModel(ns_p_rows[0]);
-        setNsManufacturerLst(ns_pp_rows);
-        setNsWarehouseLst(ns_ppp_rows);
-        setNsSellerLst(ns_pppp_rows);
-        setNsObjectLst(ns_ppppp_rows);
-        setStuffDatePurchase(new Date('2000-01-01T21:11:54'));
-        setNsToggle('stuff');
-        setModalOpen(true);
 
-        });
-    }
     const handleModalFilterClose = (event) => {setModalFilterOpen(false)}
     const handleModalMetricClose = (event) => {
         setModalMetricOpen(false)
@@ -418,7 +259,6 @@ export default function Table_Control(props)  {
     const handleModalMetricOpen = (event) => {
         props.getMetric()
     }
-    const handleModalClose = () => setModalOpen(false);
     const handleTransferModalClose = () => setTransferModalOpen(false);
     const deleteTableStuff = event => {
         handleMainMenuClose()
@@ -542,190 +382,7 @@ export default function Table_Control(props)  {
                         }}
                         onSortModelChange={(model) => setSortModel(model)}
                       />
-    const stuffModal =  <Modal
-                            open={modalopen || false}
-                            onClose={handleModalClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                            onBackdropClick = {handleModalBackDrop}
-                            disableEscapeKeyDown={true}
-                            >
-                            <Box sx={modalstyle}>
-                                <Row style={{  marginLeft: "-32px", marginTop: "0px", width: "500px", textAlign:"center" }}>
-                                    <Typography id="modal-modal-title" variant="h6" component="h2" >
-                                        <ToggleButtonGroup
-                                          color="primary"
-                                          value={nsToggle}
-                                          exclusive
-                                          onChange={handleNsModalToggleChange}
-                                        >
-                                          <ToggleButton value="stuff">Оборудование</ToggleButton>
-                                          <ToggleButton value="subStuff">Комплектующее</ToggleButton>
-                                        </ToggleButtonGroup>
-                                    </Typography>
-                                </Row>
-                                    <Row>
-                                        <Col>
-                                            <Row style={{marginTop:"23px"}}><span>Тип</span></Row>
-                                            <Row style={{marginTop:"28px"}}><span>Модель</span></Row>
-                                            <Row style={{marginTop:"25px"}}><span>Серийный номер</span></Row>
-                                            <Row style={{marginTop:"28px"}}><span>Производитель</span></Row>
-                                            <Row style={{marginTop:"28px"}}><span>Поставщик</span></Row>
-                                            <Row style={{marginTop:"28px"}}><span>Целевой объект</span></Row>
-                                            <Row style={{marginTop:"50px"}}><span>Дата поступления</span></Row>
-                                            <Row style={{marginTop:"41px"}}><span>Поступил на</span></Row>
-                                            <Row style={{marginTop:"52px"}}><span>Комментарий</span></Row>
-                                        </Col>
-                                        <Col>
-                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                                <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                                    <Select
-                                                      labelId="seType"
-                                                      id="seType"
-                                                      value={nsSeType || nsTypeLst[0]}
-                                                      onChange={handleNsTypeChange}
-                                                      label="Age"
-                                                    >
-                                                      {nsTypeLst.map(type=> {
-                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                                      })}
-                                                    </Select>
-                                                </FormControl>
-                                            </Row>
-                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                                <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                                    <Select
-                                                      labelId="seModel"
-                                                      id="seModel"
-                                                      value={nsSeModel || nsModelLst[0]}
-                                                      onChange={handleNsModelChange}
-                                                      label="Age"
-                                                    >
-                                                      {nsModelLst.map(type=> {
-                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                                      })}
-                                                    </Select>
-                                                </FormControl>
-                                            </Row>
-                                            <Row style={{marginTop:"17px", height:"60px", width:'300px'}}>
-                                                <form ref={nameStuffForm}>
-                                                    <TextField
-                                                        sx = {{width:"276px"}}
-                                                        error = {nsSnPropsError['error']}
-                                                        helperText = {nsSnPropsError['helpertext']}
-                                                        id="ns_serial"
-                                                        name={"ns_serial1"}
-                                                        defaultValue=""
-                                                        variant="standard"
-                                                    />
-                                                </form>
-                                            </Row>
-                                            <Row style={{marginTop:"-9px", width:"288px", paddingLeft:"12px"}}>
-                                                <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                                    <Select
-                                                      labelId="seManufacturer"
-                                                      id="seManufacturer"
-                                                      value={nsSeManufacturer || nsManufacturerLst[0]}
-                                                      onChange={handleNsManufacturerChange}
-                                                      label="Age"
-                                                    >
-                                                      {nsManufacturerLst.map(type=> {
-                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                                      })}
-                                                    </Select>
-                                                </FormControl>
-                                            </Row>
-                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                                <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                                    <Select
-                                                      labelId="seSeller"
-                                                      id="seSeller"
-                                                      value={nsSeSeller || nsSellerLst[0]}
-                                                      onChange={handleNsSellerChange}
-                                                      label="Age"
-                                                    >
-                                                      {nsSellerLst.map(type=> {
-                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                                      })}
-                                                    </Select>
-                                                </FormControl>
-                                            </Row>
-                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                                  <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                                    <Select
-                                                      labelId="seTargetObject"
-                                                      id="seTargetObject"
-                                                      value={nsSeTargetObject || nsObjectLst[0]}
-                                                      onChange={handleNsTargetObjectChange}
-                                                      label="Age"
-                                                    >
-                                                      {nsObjectLst.map(type=> {
-                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                                      })}
-                                                    </Select>
-                                                </FormControl>
-                                            </Row>
-                                            <Row style={{marginTop:"30px"}}>
-                                                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                                  <Stack spacing={3}  >
-                                                    <DesktopDatePicker
-                                                      label="дд/мм/гг"
-                                                      inputFormat="dd/MM/yyyy"
-                                                      value={stuffDatePurchase}
-                                                      onChange={handleStuffDatePurchaseChange}
-                                                      renderInput={(params) => <TextField id="new_stuff_datepurchase" {...params} />}
-                                                    />
-                                                  </Stack>
-                                                </LocalizationProvider>
-                                            </Row>
-                                            <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                                  <FormControl variant="standard" sx={{  }}>
-                                                    <Select
-                                                      labelId="seWarehouse"
-                                                      id="seWarehouse"
-                                                      value={nsSeWarehouse || nsWarehouseLst[0]}
-                                                      onChange={handleNsWarehouseChange}
-                                                      label="Age"
-                                                    >
-                                                      {nsWarehouseLst.map(type=> {
-                                                        return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                                      })}
-                                                    </Select>
-                                                </FormControl>
-                                            </Row>
-                                            <Row>
-                                                <Box
-                                                  component="form"
-                                                  sx={{
-                                                    '& .MuiTextField-root': { marginTop: 4, width: '276px' },
-                                                  }}
-                                                  noValidate
-                                                  autoComplete="off"
-                                                >
-                                                    <TextField
-                                                      id="new_stuff_comment"
-                                                      label="Комментарий"
-                                                      multiline
-                                                      rows={4}
-                                                      defaultValue=""
-                                                    />
-                                                </Box>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                    <br/>
-                                <Row>
-                                    <ButtonDefault
-                                        color="primary"
-                                        className="float-right"
-                                        onClick={addNewTableStuffSave}
-                                        style={{ marginTop: "20px", marginLeft: "auto", marginRight: "10px", width: "100px", minWidth: "120px", height: "30px", padding: "0rem"}}
-                                    >
-                                        <a  style={{ paddingBottom: "10px" }}>Добавить</a>
-                                    </ButtonDefault>
-                                </Row>
-                            </Box>
-                        </Modal>
+
     const filterModal = <Modal
             open={modalFilterOpen || false}
             onClose={handleModalFilterClose}
@@ -989,12 +646,10 @@ export default function Table_Control(props)  {
                         },
                       }}
                 >
-                    <MenuItem onClick={addTableStuff}>Добавить</MenuItem>
                     <MenuItem onClick={deleteTableStuff}>Удалить</MenuItem>
                     <MenuItem onClick={transferTableStuff}>Переместить</MenuItem>
                     <MenuItem onClick={exit}>Выход</MenuItem>
                 </Menu>
-                {stuffModal}
                 {transferModal}
                 {filterModal}
                 {metricModal}

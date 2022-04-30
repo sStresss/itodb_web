@@ -10,7 +10,7 @@ import {
     API_SUBSTUFF_URL,
     API_STUFFBYTREE_URL,
     API_NEWSTUFF_URL,
-    API_NEWSUBSTUFF_URL
+    API_NEWSUBSTUFF_URL, API_OBJECTS_URL, API_SUBOBJECTS_URL, API_EDITSTUFF_URL
 } from "../constants";
 import MessageBox from './MessageBox'
 import IconButton from '@mui/material/IconButton';
@@ -28,6 +28,7 @@ import Stack from '@mui/material/Stack';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AddStuffModal from './AddNewStuff'
+import TransferStuffModal from './TransferStuff'
 
 
 var srchState = null;
@@ -42,9 +43,11 @@ const modalstyle = {
   boxShadow: 24,
   p: 4,
 };
+var selectedCells = []
 
 console.log('REFRESH!')
 const search = (srch) => {
+
     let res = null
     if (srch === undefined) {
         res = null
@@ -63,10 +66,12 @@ const search = (srch) => {
 const promise = new Promise((resolve) => {
     resolve()
 });
+var connect_pid = ''
+var connect_cid = ''
+var connect_state = 'global'
 
 export default function Table_Stuff(props)  {
-
-
+    const [selectedLst, setSelectedLst] = React.useState()
     var [srchDataTemp, setSrchDataTemp] = React.useState('');
     var [addStuffBtnHide, setAddStuffBtnHide] = React.useState(false)
     const [stuff, setStuff] = React.useState(new Array(0));
@@ -107,12 +112,21 @@ export default function Table_Stuff(props)  {
         },
     });
     const [addStuffModalShow, setAddStuffModalShow] = React.useState('false')
-    console.log('MODAL SHOW STATE: '+addStuffModalShow)
     const addTableStuff = (event) => {
-        console.log('MODAL OPEN')
+        // console.log('MODAL OPEN')
         promise.then(()=>{setAddStuffModalShow('true')})
         setAddStuffModalShow('false')
         setAddStuffModalShow('false')
+    }
+    const [transferStuffModalShow, setTransferStuffModalShow] = React.useState(['false',[]])
+    async function transTableStuff (event)  {
+        console.log(selectedLst)
+            if (selectedLst.length === 0) {
+            alert('Оборудование не выбрано!')
+        }
+        else {await setTransferStuffModalShow(['true',selectedLst])}
+
+        // setTransferStuffModalShow(['false',[]])
     }
 
     const columns = [
@@ -128,6 +142,7 @@ export default function Table_Stuff(props)  {
       { field: 'comment', headerName: 'Комментарий', width:282},
       { field: 'state', headerName:'state', hide:true}
     ];
+
     const getFilter = (dataLst) => {
         let res = []
         let filterViewStuff = window.sessionStorage.getItem('filterViewStuff');
@@ -168,6 +183,25 @@ export default function Table_Stuff(props)  {
         }
     }
     const classes = style()
+
+
+
+    const [selectedStatusTblRow, setSelectedStatusTblRow] = React.useState();
+    const [contextStatusTblMenu, setContextStatusTblMenu] = React.useState(null);
+    async function handleStatusTblMenuClose () {
+      setContextStatusTblMenu(null);
+    };
+    async function handleContextStatusTblMenu (event)  {
+        console.log(selectedCells)
+        setSelectedLst(selectedCells)
+      event.preventDefault();
+      setSelectedStatusTblRow(Number(event.currentTarget.getAttribute('data-id')));
+      setContextStatusTblMenu(
+        contextStatusTblMenu === null
+          ? { mouseX: event.clientX - 2, mouseY: event.clientY - 4 }
+          : null,
+      );
+    };
     if (!stuff) return null;
     const Table = <DataGrid
             sx={{
@@ -185,38 +219,120 @@ export default function Table_Stuff(props)  {
             rows={rows}
             columns={columns}
             checkboxSelection
-            disableSelectionOnClick
+            // disableSelectionOnClick
             hideFooter={true}
             rowHeight = {30}
             sortModel = {sortModel}
             onSelectionModelChange={(ids) => {
-                props.selectedLst(ids);
+                selectedCells = ids
             }}
             onSortModelChange={(model) => setSortModel(model)}
+            componentsProps={{
+              row: {
+                onContextMenu: handleContextStatusTblMenu,
+                style: { cursor: 'context-menu' },
+              },
+            }}
           />
+    const TableContextMenu = <Menu
+                                sx={{
+                                  '& .MuiPaper-root': {
+                                    borderRadius: 0,
+                                  },
+                                  '& .MuiMenu-list': {
+                                    padding: '0px',
+                                  },
+                                  '& .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root': {
+                                    fontSize: '12px',
+                                  },
+                                  '& .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover': {
+                                    backgroundColor:"rgb(75, 110, 175)",
+                                    color:"white"
+                                  },
+                                }}
+                                open={contextStatusTblMenu !== null}
+                                onClose={handleStatusTblMenuClose}
+                                anchorReference="anchorPosition"
+                                anchorPosition={
+                                  contextStatusTblMenu !== null
+                                    ? { top: contextStatusTblMenu.mouseY, left: contextStatusTblMenu.mouseX }
+                                    : undefined
+                                }
+                                componentsProps={{
+                                  root: {
+                                    onContextMenu: (e) => {
+                                      e.preventDefault();
+                                      handleStatusTblMenuClose();
+                                    }
+
+                                  },
+                                }}
+                              >
+                                <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);transTableStuff(e)}}>Переместить</MenuItem>
+                                <MenuItem onClick={(e)=>{}}>Удалить</MenuItem>
+                            </Menu>
+
     const stateModalAddNewStuffCallback = (event) => {
         setAddStuffModalShow('false')
     }
-
     async function stateModalAddNewStuffSaveCallback (event)  {
         setAddStuffModalShow('false')
         var p_rows = []
+
         await axios.get(API_STUFF_URL).then((response) => {
             p_rows = getFilter(response.data)
         });
         setStuff(p_rows);
         setStuffTemp(p_rows);
-
-
+    }
+    const stateModalTransferStuffCallback = (event) => {
+        setTransferStuffModalShow('false')
+    }
+    async function stateModalTransferStuffSaveCallback (event)  {
+        console.log('=======STATE======')
+        console.log(connect_state)
+        console.log(connect_pid)
+        console.log(connect_cid)
+        console.log('==================')
+        setTransferStuffModalShow('false')
+        var p_rows = []
+        if (connect_state === 'global') {
+            await axios.get(API_STUFF_URL).then((response) => {
+                p_rows = getFilter(response.data)
+            });
+            setStuff(p_rows);
+            setStuffTemp(p_rows);
+        }
+        else {
+            if (connect_state === 'tree_parent') {
+                let type = 'parent'
+                let pid = connect_pid
+                await axios.post(API_STUFFBYTREE_URL, {type, pid}).then((response) => {
+                    p_rows = getFilter(response.data)
+                });
+                setStuff(p_rows);
+                setStuffTemp(p_rows);
+            }
+            else {
+                let type = 'child'
+                let pid = connect_pid
+                let cid = connect_cid
+                await axios.post(API_STUFFBYTREE_URL, {type, pid, cid}).then((response) => {
+                    p_rows = getFilter(response.data)
+                })
+                setStuff(p_rows);
+                setStuffTemp(p_rows);
+            }
+        }
 
     }
-    {
-}
+
 
     const loadTableData = () => {
         if ((props.update)[0] === 'true') {
             if ((props.update)[1] === 'none') {
             axios.get(API_STUFF_URL).then((response) => {
+                connect_state = 'global'
                 document.getElementById('connect_state').innerText = 'global';
                 setStuffTemp(response.data);
                 setStuff(response.data);
@@ -229,8 +345,12 @@ export default function Table_Stuff(props)  {
                     console.log('pid: '+pid.toString())
                     console.log('connect: '+document.getElementById('connect_pid').value)
                     axios.post(API_STUFFBYTREE_URL, {type, pid}).then((response) => {
+                        connect_state = 'tree_parent'
+                        connect_pid = props.update[2]
+                        connect_cid = props.update[3]
                         document.getElementById('connect_state').innerText = 'tree_parent';
                         document.getElementById('connect_pid').value = (props.update)[2];
+                        document.getElementById('connect_pid').innerText = (props.update)[2];
                         let resLst = getFilter(response.data);
                         setStuffTemp(resLst);
                         setStuff(resLst);
@@ -238,10 +358,14 @@ export default function Table_Stuff(props)  {
                     })
                 }
                 if ((props.update)[1] === 'tree_child') {
+                    console.log('CHILD CLICK PID: '+props.update[2])
                     const type = 'child';
                     const pid = (props.update)[2];
                     const cid = (props.update)[3];
                     axios.post(API_STUFFBYTREE_URL, {type, pid, cid}).then((response) => {
+                        connect_state = 'tree_child'
+                        connect_pid = props.update[2]
+                        connect_cid = props.update[3]
                         document.getElementById('connect_state').innerText = 'tree_child';
                         document.getElementById('connect_pid').innerText = (props.update)[2];
                         document.getElementById('connect_cid').innerText = (props.update)[3];
@@ -286,7 +410,6 @@ export default function Table_Stuff(props)  {
                                 setAddStuffBtnHide(true)
                             })
                         }
-
                     })
                 }
             }
@@ -403,7 +526,9 @@ export default function Table_Stuff(props)  {
             <img src={"./add_btn.png"} style={{height:'18px'}}/>
         </IconButton>
         {Table}
+        {TableContextMenu}
         <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
+        <TransferStuffModal show={transferStuffModalShow} stateCallback={stateModalTransferStuffCallback} stateSaveCallback={stateModalTransferStuffSaveCallback}/>
     </Row>
     );
 }

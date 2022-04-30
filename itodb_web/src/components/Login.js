@@ -59,7 +59,7 @@ export default function Login({ setToken }) {
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <Row>
-                      <Col style={{minHeight:"80px"}}>
+                      <Col style={{minHeight:"80px", maxHeight:"80px", marginTop:"20px"}}>
                         <label className="form-control-label">ЛОГИН</label>
                         <br/>
                         <input type="text" className="inp" style={{borderBottom:"1px solid", marginTop: "5px", color:"#ECF0F5"}} onChange={e => {setUserName(e.target.value); setLblWrName(true); setLblWrPwd(true)}}/>
@@ -69,7 +69,7 @@ export default function Login({ setToken }) {
                   </div>
                   <div className="form-group">
                     <Row>
-                      <Col style={{minHeight:"90px"}}>
+                      <Col style={{minHeight:"90px", marginTop:"-20px"}}>
                         <label className="form-control-label">ПАРОЛЬ</label>
                         <br/>
                         <input type="password" className="inp" i onChange={e => {setPassword(e.target.value); setLblWrName(true); setLblWrPwd(true)}} style={{color:"#ECF0F5"}}/>
