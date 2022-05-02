@@ -58,7 +58,6 @@ export default function TransferStuffModal(props) {
         setStuffTransferDate(newValue);
     };
   const transferTableStuffSave = () => {
-
         setModalOpen(false);
         let object = document.getElementById('trTargetObj').textContent
         let subObject = document.getElementById('trTargetSubObj').textContent

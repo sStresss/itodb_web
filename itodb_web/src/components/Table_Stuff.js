@@ -4,29 +4,15 @@ import { DataGrid } from '@mui/x-data-grid';
 import { makeStyles } from '@mui/styles';
 import '../App.css';
 import axios from "axios";
-import Typography from '@mui/material/Typography';
 import {
     API_STUFF_URL,
     API_SUBSTUFF_URL,
-    API_STUFFBYTREE_URL,
-    API_NEWSTUFF_URL,
-    API_NEWSUBSTUFF_URL, API_OBJECTS_URL, API_SUBOBJECTS_URL, API_EDITSTUFF_URL
+    API_STUFFBYTREE_URL
 } from "../constants";
-import MessageBox from './MessageBox'
+import DialogBoxDelStuff from './DialogBoxDelStuff'
 import IconButton from '@mui/material/IconButton';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Select from '@mui/material/Select';
-import FormControl, { useFormControl}  from '@mui/material/FormControl';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AddStuffModal from './AddNewStuff'
 import TransferStuffModal from './TransferStuff'
 
@@ -71,6 +57,7 @@ var connect_cid = ''
 var connect_state = 'global'
 
 export default function Table_Stuff(props)  {
+    const [dialogBoxDelStuffState, setDialogBoxDelStuffState] = React.useState(false)
     const [selectedLst, setSelectedLst] = React.useState()
     var [srchDataTemp, setSrchDataTemp] = React.useState('');
     var [addStuffBtnHide, setAddStuffBtnHide] = React.useState(false)
@@ -118,7 +105,6 @@ export default function Table_Stuff(props)  {
         setAddStuffModalShow('false')
         setAddStuffModalShow('false')
     }
-    const [transferStuffModalShow, setTransferStuffModalShow] = React.useState(['false',[]])
     async function transTableStuff (event)  {
         console.log(selectedLst)
             if (selectedLst.length === 0) {
@@ -127,7 +113,24 @@ export default function Table_Stuff(props)  {
         else {await setTransferStuffModalShow(['true',selectedLst])}
 
         // setTransferStuffModalShow(['false',[]])
+}
+    const openDeleteStuffDialog = (e) => {
+        setDialogBoxDelStuffState(true)
+
     }
+    const dialogBoxDelStuffCallback = (resp) => {
+        setDialogBoxDelStuffState(false)
+        console.log('DEL RESP: '+resp)
+        if (resp == true) {
+            for (let ind = 0; ind < selectedLst.length; ind++) {
+                let pk = selectedLst[ind]
+                axios.delete(API_STUFF_URL + pk).then(res=>{
+                    if (parseInt(ind, 10)  === parseInt((((selectedLst).length)-1),10)) {tblUpdate()};
+                });
+            };
+        }
+    }
+    const [transferStuffModalShow, setTransferStuffModalShow] = React.useState(['false',[]])
 
     const columns = [
       { field: 'type', headerName: 'Тип', width: 200},
@@ -142,7 +145,6 @@ export default function Table_Stuff(props)  {
       { field: 'comment', headerName: 'Комментарий', width:282},
       { field: 'state', headerName:'state', hide:true}
     ];
-
     const getFilter = (dataLst) => {
         let res = []
         let filterViewStuff = window.sessionStorage.getItem('filterViewStuff');
@@ -183,9 +185,6 @@ export default function Table_Stuff(props)  {
         }
     }
     const classes = style()
-
-
-
     const [selectedStatusTblRow, setSelectedStatusTblRow] = React.useState();
     const [contextStatusTblMenu, setContextStatusTblMenu] = React.useState(null);
     async function handleStatusTblMenuClose () {
@@ -269,7 +268,7 @@ export default function Table_Stuff(props)  {
                                 }}
                               >
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);transTableStuff(e)}}>Переместить</MenuItem>
-                                <MenuItem onClick={(e)=>{}}>Удалить</MenuItem>
+                                <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);openDeleteStuffDialog(e)}}>Удалить</MenuItem>
                             </Menu>
 
     const stateModalAddNewStuffCallback = (event) => {
@@ -288,13 +287,13 @@ export default function Table_Stuff(props)  {
     const stateModalTransferStuffCallback = (event) => {
         setTransferStuffModalShow('false')
     }
-    async function stateModalTransferStuffSaveCallback (event)  {
-        console.log('=======STATE======')
-        console.log(connect_state)
-        console.log(connect_pid)
-        console.log(connect_cid)
-        console.log('==================')
+    const stateModalTransferStuffSaveCallback = (event) => {
         setTransferStuffModalShow('false')
+        tblUpdate()
+
+
+    }
+    async function tblUpdate() {
         var p_rows = []
         if (connect_state === 'global') {
             await axios.get(API_STUFF_URL).then((response) => {
@@ -324,9 +323,7 @@ export default function Table_Stuff(props)  {
                 setStuffTemp(p_rows);
             }
         }
-
     }
-
 
     const loadTableData = () => {
         if ((props.update)[0] === 'true') {
@@ -529,6 +526,7 @@ export default function Table_Stuff(props)  {
         {TableContextMenu}
         <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
         <TransferStuffModal show={transferStuffModalShow} stateCallback={stateModalTransferStuffCallback} stateSaveCallback={stateModalTransferStuffSaveCallback}/>
+        <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>
     </Row>
     );
 }
