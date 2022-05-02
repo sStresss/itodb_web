@@ -115,12 +115,16 @@ export default function Table_Stuff(props)  {
         // setTransferStuffModalShow(['false',[]])
 }
     const openDeleteStuffDialog = (e) => {
-        setDialogBoxDelStuffState(true)
+        if (selectedLst.length !=0) {
+            setDialogBoxDelStuffState(true)
+        }
+        else {
+            alert('оборудование не выбрано!')
+        }
 
     }
     const dialogBoxDelStuffCallback = (resp) => {
         setDialogBoxDelStuffState(false)
-        console.log('DEL RESP: '+resp)
         if (resp == true) {
             for (let ind = 0; ind < selectedLst.length; ind++) {
                 let pk = selectedLst[ind]

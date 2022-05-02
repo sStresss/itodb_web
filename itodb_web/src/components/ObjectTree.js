@@ -745,7 +745,6 @@ export default function ObjectTree(props) {
                                                   {object.name}
                                                 </Col>
                                               </Row>
-
                                             </Col>
                                             <Col style={{maxWidth:"10px", marginRight:"16px"}}>
                                               <img src={node_par_state} style={{height:'7px'}} alt="sate"/>
@@ -1267,16 +1266,11 @@ export default function ObjectTree(props) {
               },
             }}
           >
-              <MenuItem
-                onClick={getNote}
-                className={'custom_menu_item'}
-              >
-                Заметки
-              </MenuItem>
+              <MenuItem onClick={getNote} className={'custom_menu_item'}>Заметки</MenuItem>
+              <MenuItem onClick={getStatus} className={'custom_menu_item'}>Статус</MenuItem>
               <MenuItem onClick={()=>{openFolder('documentation')}} className={'custom_menu_item'}>Документы</MenuItem>
               <MenuItem onClick={()=>{openFolder('photo')}} className={'custom_menu_item'}>Фотографии</MenuItem>
-              <MenuItem onClick={()=>{openFolder('network')}} className={'custom_menu_item'}>Сеть</MenuItem>
-              <MenuItem onClick={getStatus} className={'custom_menu_item'}>Статус</MenuItem>
+              <MenuItem onClick={()=>{openFolder('network')}} className={'custom_menu_item'}>Интеграция</MenuItem>
               <MenuItem onClick={addTreeSubNode} className={'custom_menu_item'}>Добавить</MenuItem>
               <MenuItem onClick={handleDeleteNodeBtnClick} className={'custom_menu_item'}>Удалить</MenuItem>
           </Menu>
