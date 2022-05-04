@@ -4,14 +4,10 @@ import '../App.css';
 import axios from "axios";
 import Typography from '@mui/material/Typography';
 import {
-  API_STUFF_URL,
   API_SUBSTUFF_URL,
-  API_STUFFBYTREE_URL,
   API_NEWSTUFF_URL,
   API_NEWSUBSTUFF_URL,
-  API_OBJECTS_URL,
-  API_SUBOBJECTS_URL,
-  API_EDITSTUFF_URL, API_TRANSFERSTUFF_URL
+  API_EDITSTUFFSINGLE_URL
 } from "../constants";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Box from '@mui/material/Box';
@@ -47,7 +43,7 @@ export default function EditStuffSingleModal(props) {
   var [modalopen, setModalOpen] = React.useState(false);
   async function editTableStufSinglefSave() {
     let pk = props.show[1][0]
-    await axios.put(API_EDITSTUFF_URL + pk, {type: document.getElementById("seType").textContent,
+    await axios.put(API_EDITSTUFFSINGLE_URL + pk, {type: document.getElementById("seType").textContent,
       model: document.getElementById("seModel").textContent,
       serial: document.getElementById("edit_stuff_serialnum").value,
       manufacturer: document.getElementById("seManufacturer").textContent,

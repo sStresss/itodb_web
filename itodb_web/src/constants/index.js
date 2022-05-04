@@ -12,4 +12,5 @@ export const API_NEWSTAT_URL = "http://localhost:8000/api/statdatalst/";
 export const API_STATNEWREC_URL = "http://localhost:8000/api/statnewrec/";
 export const API_STATEDITREC_URL = "http://localhost:8000/api/stateditrec/";
 export const API_LOGINCHECK_URL = "http://localhost:8000/api/logincheck/";
-export const API_EDITSTUFF_URL = "http://localhost:8000/api/stuffedit/";
+export const API_EDITSTUFFSINGLE_URL = "http://localhost:8000/api/stuffsingleedit/";
+export const API_EDITSTUFFGROUP_URL = "http://localhost:8000/api/stuffgroupedit/";

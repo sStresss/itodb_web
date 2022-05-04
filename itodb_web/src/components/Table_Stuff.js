@@ -16,6 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AddStuffModal from './AddNewStuff'
 import TransferStuffModal from './TransferStuff'
 import EditStuffSingleModal from './EditStuffSingle'
+import EditStuffGroupModal from './EditStuffGroup'
 
 
 var srchState = null;
@@ -112,17 +113,21 @@ export default function Table_Stuff(props)  {
         }
         else {await setTransferStuffModalShow(['true',selectedLst])}
     }
-    async function editTableStuffSingle (event)  {
+    async function editTableStuff (event)  {
         if (selectedLst.length === 0) {
             alert('Оборудование не выбрано!')
         }
         else {
-            for (let i = 0; i < stuff.length; i++) {
+            if (selectedLst.length === 1) {
+                for (let i = 0; i < stuff.length; i++) {
                     if (stuff[i]['pk'] == selectedLst[0]) {
                         selectedCellData = stuff[i]
                     }
                 }
-            await setEditSingleModalShow(['true',selectedLst, selectedCellData])
+                await setEditSingleModalShow(['true',selectedLst, selectedCellData])
+            }
+            else {setEditGroupModalShow(['true', selectedLst])}
+
         }
     }
     const openDeleteStuffDialog = (e) => {
@@ -147,6 +152,7 @@ export default function Table_Stuff(props)  {
     }
     const [transferStuffModalShow, setTransferStuffModalShow] = React.useState(['false',[]])
     const [editSingleModalShow, setEditSingleModalShow] = React.useState(['false',[]])
+    const [editGroupModalShow, setEditGroupModalShow] = React.useState(['false',[]])
 
     const columns = [
       { field: 'type', headerName: 'Тип', width: 200},
@@ -288,7 +294,7 @@ export default function Table_Stuff(props)  {
                                   },
                                 }}
                               >
-                                <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);editTableStuffSingle(e)}}>Редактировать</MenuItem>
+                                <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);editTableStuff(e)}}>Редактировать</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);transTableStuff(e)}}>Переместить</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);openDeleteStuffDialog(e)}}>Удалить</MenuItem>
                             </Menu>
@@ -310,8 +316,12 @@ export default function Table_Stuff(props)  {
         setTransferStuffModalShow('false')
     }
 
-    const stateModalEditStuffSibleCallback = (event) => {
+    const stateModalEditStuffSingleCallback = (event) => {
         setEditSingleModalShow('false')
+    }
+
+    const stateModalEditStuffGroupCallback = (event) => {
+        setEditGroupModalShow('false')
     }
 
     const stateModalTransferStuffSaveCallback = (event) => {
@@ -319,8 +329,13 @@ export default function Table_Stuff(props)  {
         tblUpdate()
     }
 
-    const stateModalEditStuffSaveCallback = (event) => {
+    const stateModalEditStuffSingleSaveCallback = (event) => {
         setEditSingleModalShow('false')
+        tblUpdate()
+    }
+
+    const stateModalEditStuffGroupSaveCallback = (event) => {
+        setEditGroupModalShow('false')
         tblUpdate()
     }
 
@@ -558,7 +573,8 @@ export default function Table_Stuff(props)  {
         <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
         <TransferStuffModal show={transferStuffModalShow} stateCallback={stateModalTransferStuffCallback} stateSaveCallback={stateModalTransferStuffSaveCallback}/>
         <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>
-        <EditStuffSingleModal show={editSingleModalShow} stateCallback={stateModalEditStuffSibleCallback} stateSaveCallback={stateModalEditStuffSaveCallback}/>
+        <EditStuffSingleModal show={editSingleModalShow} stateCallback={stateModalEditStuffSingleCallback} stateSaveCallback={stateModalEditStuffSingleSaveCallback}/>
+        <EditStuffGroupModal show={editGroupModalShow} stateCallback={stateModalEditStuffGroupCallback} stateSaveCallback={stateModalEditStuffGroupSaveCallback}/>
     </Row>
     );
 }

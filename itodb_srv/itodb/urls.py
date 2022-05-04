@@ -25,7 +25,9 @@ urlpatterns = [
     re_path(r'^api/stateditrec/([0-9]{2})$', modal_stat_edit_rec),
     re_path(r'^api/stateditrec/([0-9]{3})$', modal_stat_edit_rec),
     re_path(r'^api/logincheck/$', login),
-    re_path(r'^api/stuffedit/([0-9]{1})$', stuff_edit),
-    re_path(r'^api/stuffedit/([0-9]{2})$', stuff_edit),
-    re_path(r'^api/stuffedit/([0-9]{3})$', stuff_edit)
+    re_path(r'^api/stuffsingleedit/([0-9]{1})$', stuff_edit_single),
+    re_path(r'^api/stuffsingleedit/([0-9]{2})$', stuff_edit_single),
+    re_path(r'^api/stuffsingleedit/([0-9]{3})$', stuff_edit_single),
+    re_path(r'^api/stuffgroupedit/$', stuff_edit_group),
+
 ]

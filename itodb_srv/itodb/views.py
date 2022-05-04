@@ -339,10 +339,9 @@ def login(request):
         return JsonResponse(json_res, content_type='application/json')
 
 @api_view(['PUT'])
-def stuff_edit(request, pk):
+def stuff_edit_single(request, pk):
     object = Stuff.objects.get(id=int(pk))
     if request.method == 'PUT':
-        print(request.data)
         data = request.data
         object.type = data['type']
         object.model = data['model']
@@ -353,5 +352,16 @@ def stuff_edit(request, pk):
         object.object_target = data['object_target']
         object.comment = data['comment']
         object.save(update_fields=['type', 'model', 'serial', 'manufacturer', 'seller', 'date_purchase', 'object_target', 'comment'])
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def stuff_edit_group(request):
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+        for pk in data['ids']:
+            object = Stuff.objects.get(id=int(pk))
+            object.comment = data['comment']
+            object.save(update_fields=['comment'])
         return Response(status=status.HTTP_204_NO_CONTENT)
 
