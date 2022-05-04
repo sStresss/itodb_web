@@ -33,7 +33,7 @@ const modalstyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 500,
+  width: 550,
   bgcolor: 'background.paper',
   border: '0px solid #000',
   boxShadow: 24,
@@ -64,12 +64,10 @@ export default function AddSTuffModal(props) {
         var p_rows = [];
         for (var i = 0; i < ns_types.length; i++) {
           rows[i] = ns_types[i];
-        }
-        ;
+        };
         for (var i = 0; i < ns_models.length; i++) {
           p_rows[i] = ns_models[i];
-        }
-        ;
+        };
         setNsTypeLst(rows);
         setNsSeType(rows[0])
         setNsModelLst(p_rows);

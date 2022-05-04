@@ -180,7 +180,7 @@ def stuff_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
-def stuff_edit(request, pk):
+def stuff_transfer(request, pk):
     object = Stuff.objects.get(id=int(pk))
     if request.method == 'PUT':
         print(request.data)
@@ -337,3 +337,21 @@ def login(request):
         json_data = json.dumps(data)
         json_res = json.loads(json_data)
         return JsonResponse(json_res, content_type='application/json')
+
+@api_view(['PUT'])
+def stuff_edit(request, pk):
+    object = Stuff.objects.get(id=int(pk))
+    if request.method == 'PUT':
+        print(request.data)
+        data = request.data
+        object.type = data['type']
+        object.model = data['model']
+        object.serial = data['serial']
+        object.manufacturer = data['manufacturer']
+        object.seller = data['seller']
+        object.date_purchase = data['date_purchase']
+        object.object_target = data['object_target']
+        object.comment = data['comment']
+        object.save(update_fields=['type', 'model', 'serial', 'manufacturer', 'seller', 'date_purchase', 'object_target', 'comment'])
+        return Response(status=status.HTTP_204_NO_CONTENT)
+

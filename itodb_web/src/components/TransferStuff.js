@@ -1,7 +1,5 @@
 import React, {useEffect} from "react";
 import { Col, Row, Button as ButtonDefault } from "reactstrap";
-import { DataGrid } from '@mui/x-data-grid';
-import { makeStyles } from '@mui/styles';
 import '../App.css';
 import axios from "axios";
 import Typography from '@mui/material/Typography';
@@ -10,18 +8,16 @@ import {
   API_SUBSTUFF_URL,
   API_STUFFBYTREE_URL,
   API_NEWSTUFF_URL,
-  API_NEWSUBSTUFF_URL, API_EDITSTUFF_URL, API_OBJECTS_URL, API_SUBOBJECTS_URL
+  API_NEWSUBSTUFF_URL,
+  API_TRANSFERSTUFF_URL,
+  API_OBJECTS_URL,
+  API_SUBOBJECTS_URL
 } from "../constants";
-import MessageBox from './MessageBox'
-import IconButton from '@mui/material/IconButton';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Select from '@mui/material/Select';
 import FormControl, { useFormControl}  from '@mui/material/FormControl';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -64,7 +60,7 @@ export default function TransferStuffModal(props) {
         let date = document.getElementById('transDate').value
         for (let ind in props.show[1]) {
             let pk = (props.show[1])[ind]
-            axios.put(API_EDITSTUFF_URL + pk, {object, subObject, date}).then(res=> {
+            axios.put(API_TRANSFERSTUFF_URL + pk, {object, subObject, date}).then(res=> {
                 if (parseInt(ind, 10)  === parseInt((((props.show[1]).length))-1,10)) {
                   setModalOpen(false);
                   props.stateSaveCallback()

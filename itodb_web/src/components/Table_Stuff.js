@@ -15,6 +15,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AddStuffModal from './AddNewStuff'
 import TransferStuffModal from './TransferStuff'
+import EditStuffSingleModal from './EditStuffSingle'
 
 
 var srchState = null;
@@ -30,6 +31,7 @@ const modalstyle = {
   p: 4,
 };
 var selectedCells = []
+var selectedCellData = []
 
 console.log('REFRESH!')
 const search = (srch) => {
@@ -100,20 +102,29 @@ export default function Table_Stuff(props)  {
     });
     const [addStuffModalShow, setAddStuffModalShow] = React.useState('false')
     const addTableStuff = (event) => {
-        // console.log('MODAL OPEN')
         promise.then(()=>{setAddStuffModalShow('true')})
         setAddStuffModalShow('false')
         setAddStuffModalShow('false')
     }
     async function transTableStuff (event)  {
-        console.log(selectedLst)
-            if (selectedLst.length === 0) {
+        if (selectedLst.length === 0) {
             alert('Оборудование не выбрано!')
         }
         else {await setTransferStuffModalShow(['true',selectedLst])}
-
-        // setTransferStuffModalShow(['false',[]])
-}
+    }
+    async function editTableStuffSingle (event)  {
+        if (selectedLst.length === 0) {
+            alert('Оборудование не выбрано!')
+        }
+        else {
+            for (let i = 0; i < stuff.length; i++) {
+                    if (stuff[i]['pk'] == selectedLst[0]) {
+                        selectedCellData = stuff[i]
+                    }
+                }
+            await setEditSingleModalShow(['true',selectedLst, selectedCellData])
+        }
+    }
     const openDeleteStuffDialog = (e) => {
         if (selectedLst.length !=0) {
             setDialogBoxDelStuffState(true)
@@ -135,6 +146,7 @@ export default function Table_Stuff(props)  {
         }
     }
     const [transferStuffModalShow, setTransferStuffModalShow] = React.useState(['false',[]])
+    const [editSingleModalShow, setEditSingleModalShow] = React.useState(['false',[]])
 
     const columns = [
       { field: 'type', headerName: 'Тип', width: 200},
@@ -205,6 +217,10 @@ export default function Table_Stuff(props)  {
           : null,
       );
     };
+    const tblCellWasClicked = (event) => {
+
+    }
+
     if (!stuff) return null;
     const Table = <DataGrid
             sx={{
@@ -226,6 +242,7 @@ export default function Table_Stuff(props)  {
             hideFooter={true}
             rowHeight = {30}
             sortModel = {sortModel}
+            // onRowSelected={(x) => {)}}
             onSelectionModelChange={(ids) => {
                 selectedCells = ids
             }}
@@ -271,6 +288,7 @@ export default function Table_Stuff(props)  {
                                   },
                                 }}
                               >
+                                <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);editTableStuffSingle(e)}}>Редактировать</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);transTableStuff(e)}}>Переместить</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);openDeleteStuffDialog(e)}}>Удалить</MenuItem>
                             </Menu>
@@ -291,12 +309,21 @@ export default function Table_Stuff(props)  {
     const stateModalTransferStuffCallback = (event) => {
         setTransferStuffModalShow('false')
     }
+
+    const stateModalEditStuffSibleCallback = (event) => {
+        setEditSingleModalShow('false')
+    }
+
     const stateModalTransferStuffSaveCallback = (event) => {
         setTransferStuffModalShow('false')
         tblUpdate()
-
-
     }
+
+    const stateModalEditStuffSaveCallback = (event) => {
+        setEditSingleModalShow('false')
+        tblUpdate()
+    }
+
     async function tblUpdate() {
         var p_rows = []
         if (connect_state === 'global') {
@@ -531,6 +558,7 @@ export default function Table_Stuff(props)  {
         <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
         <TransferStuffModal show={transferStuffModalShow} stateCallback={stateModalTransferStuffCallback} stateSaveCallback={stateModalTransferStuffSaveCallback}/>
         <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>
+        <EditStuffSingleModal show={editSingleModalShow} stateCallback={stateModalEditStuffSibleCallback} stateSaveCallback={stateModalEditStuffSaveCallback}/>
     </Row>
     );
 }
