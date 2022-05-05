@@ -18,12 +18,18 @@
 }
 
 .custom_menu_item{
-  max-height: 22px;
+  max-height: 24px;
   font-size: 8px;
 }
 .custom_menu_item:hover{
   background-color: red;
 
+}
+
+.custom_menu_item_referal{
+  max-height: 28px;
+  font-size: 8px;
+    color: white;
 }
 
 .wrapper {

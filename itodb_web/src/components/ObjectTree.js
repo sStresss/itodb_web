@@ -7,11 +7,14 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreHoriz';
+import NestedMenuItem from "material-ui-nested-menu-item"
 import axios from "axios";
 import "../myApp.css"
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import {Col, Row, Button, Button as ButtonDefault} from "reactstrap";
 import { styled, alpha } from '@mui/material/styles';
+import Divider from '@mui/material/Divider';
+
 import {
   API_OBJECTS_URL,
   API_SUBOBJECTS_URL,
@@ -124,6 +127,7 @@ export default function ObjectTree(props) {
         }
       }
     });
+    const [menuPosition, setMenuPosition] = React.useState(null)
     var [treeItemStyle, setTreeItemStyle] = React.useState({cursor: 'context-menu', marginLeft:"0px"})
     const clases = useStyles();
     var [stNsTypeLst, setStNsTypeLst] = React.useState([])
@@ -496,6 +500,7 @@ export default function ObjectTree(props) {
     const [objects, setObject] = React.useState(null);
     const [subobjects, setSubObject] = React.useState(null);
     const [contextMenu, setContextMenu] = React.useState(null);
+    const [contextRefMenu, setContextRefMenu] = React.useState(null);
     const [contextSubMenu, setContextSubMenu] = React.useState(null);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const nameForm = React.useRef(null)
@@ -510,10 +515,20 @@ export default function ObjectTree(props) {
     var [objectNote, setObjectNote] = React.useState('');
     var [objectNoteLabel, setObjectNoteLabel] = React.useState('')
     const handleMainMenuClick = (event) => {
-      setAnchorEl(event.currentTarget);
+      // setAnchorEl(event.currentTarget);
+      setContextRefMenu(
+          contextRefMenu === null
+            ? {
+                mouseX: event.target - 21,
+                mouseY: event.target - 15,
+              }
+            : null,
+        );
+
     };
     const handleMainMenuClose = (event) => {
       setAnchorEl(null);
+      setContextRefMenu(null);
     };
     const handleMenuClose = () => {
       setContextMenu(null);
@@ -679,6 +694,9 @@ export default function ObjectTree(props) {
     const openFolder = (path) => {
       handleSubMenuClose();
       window.open('myproto://\\\\SINAPS-INZH-01\\itoDB\\web\\'+document.getElementById('connect_par_name').innerText + '\\' + path);
+    }
+    const getAsana = () => {
+      window.open("https://app.asana.com/0/1202111765226014/list")
     }
     checkUpdate()
     if (!objects) return null;
@@ -1211,32 +1229,15 @@ export default function ObjectTree(props) {
             <MenuItem onClick={(e)=>{statusTblCellEdit()}}>Редактировать</MenuItem>
             <MenuItem onClick={(e)=>{statusTblCellDelete()}}>Удалить</MenuItem>
           </Menu>
-          {/*MENU MAIN NOT USED*/}
-          <Menu
-              id="long-menu"
-              MenuListProps={{
-                'aria-labelledby': 'long-button',
-              }}
-              anchorEl={anchorEl}
-              open={menuopen}
-              onClose={handleMainMenuClose}
-              PaperProps={{
-                style: {
-                  maxHeight: ITEM_HEIGHT * 4.5,
-                  width: '13ch',
-                },
-              }}
-          >
-              <MenuItem onClick={addTreeNode}>Добавить</MenuItem>
-              <MenuItem onClick={globalTreeRefresh}>Сбросить</MenuItem>
-          </Menu>
-          {/*MENU TREE NODE*/}
+          {/*MENU ASANA REFERAL URL*/}
           <Menu
             sx={{
               '& .MuiPaper-root': {
                 borderRadius: 0,
+                border:"1px solid rgb(91,98,111)",
                 backgroundColor:"#3B4049",
-                color:"white"
+                color:"white",
+                minWidth:"160px"
               },
               '& .MuiMenu-list': {
                 padding: '0px',
@@ -1245,8 +1246,68 @@ export default function ObjectTree(props) {
                 fontSize: '12px',
               },
               '& .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover': {
-                backgroundColor:"rgb(75, 110, 175)"
+                backgroundColor:"#3B4049",
+              }
+            }}
+              id="long-menu"
+              MenuListProps={{
+                'aria-labelledby': 'long-button',
+              }}
+              // anchorEl={menuPosition}
+              // open={menuopen}
+              open={contextRefMenu !== null}
+              anchorReference="anchorPosition"
+              anchorPosition={
+                  contextRefMenu !== null
+                      ? {top: contextRefMenu.mouseY, left: contextRefMenu.mouseX}
+                      : undefined
+              }
+              onClose={handleMainMenuClose}
+              PaperProps={{
+                style: {
+                  // maxHeight: ITEM_HEIGHT * 4.5,
+                  width: '35ch',
+                  color:"white"
+                },
+              }}
+              componentsProps={{
+                root: {
+                  onContextMenu: (e) => {
+                    e.preventDefault();
+                    handleMainMenuClose();
+                  }
+
+                },
+              }}
+
+          >
+              <MenuItem
+                // onClick={addTreeNode}
+                className={'custom_menu_item_referal'}
+              >
+                <input type="text" className="inp" style={{borderBottom:"0px solid", color:"#ECF0F5", fontSize:"14px", height:"24px"}}/>
+              </MenuItem>
+
+          </Menu>
+          {/*MENU TREE NODE*/}
+          <Menu
+            sx={{
+              '& .MuiPaper-root': {
+                borderRadius: 0,
+                border:"1px solid rgb(91,98,111)",
+                backgroundColor:"#3B4049",
+                color:"white",
+                minWidth:"120px"
               },
+              '& .MuiMenu-list': {
+                padding: '0px',
+              },
+              '& .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root': {
+                fontSize: '12px',
+              },
+              '& .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover': {
+                backgroundColor:"rgb(75, 110, 175)",
+              }
             }}
             open={contextMenu !== null && contextSubMenu === null}
             onClose={handleMenuClose}
@@ -1260,18 +1321,45 @@ export default function ObjectTree(props) {
               root: {
                 onContextMenu: (e) => {
                   e.preventDefault();
-                  handleMenuClose();
+                  if (e.target.getAttribute('id') !== 'Asana') {
+                    handleMenuClose();
+                  }
+                  else {
+                    var rect = e.target.getBoundingClientRect();
+                    setContextRefMenu(
+                      contextRefMenu === null
+                          ? {
+                              mouseX: rect.right,
+                              mouseY: rect.top - 3,
+                            }
+                          : null,
+                      );
+                  }
                 }
 
               },
             }}
           >
-              <MenuItem onClick={getNote} className={'custom_menu_item'}>Заметки</MenuItem>
               <MenuItem onClick={getStatus} className={'custom_menu_item'}>Статус</MenuItem>
+              <Divider style={{ height:"1px", marginTop:"2px", marginBottom:"2px"}} />
               <MenuItem onClick={()=>{openFolder('documentation')}} className={'custom_menu_item'}>Документы</MenuItem>
               <MenuItem onClick={()=>{openFolder('photo')}} className={'custom_menu_item'}>Фотографии</MenuItem>
               <MenuItem onClick={()=>{openFolder('network')}} className={'custom_menu_item'}>Интеграция</MenuItem>
+              <Divider style={{ height:"1px", marginTop:"2px", marginBottom:"2px"}} />
+              <MenuItem onClick={getNote} className={'custom_menu_item'}>Заметки</MenuItem>
               <MenuItem onClick={addTreeSubNode} className={'custom_menu_item'}>Добавить</MenuItem>
+              <Divider style={{ height:"1px", marginTop:"2px", marginBottom:"2px"}} />
+              <MenuItem
+                // onClick={getAsana}
+                className={'custom_menu_item'}
+                onContextMenu={ (e) => {
+                      handleMainMenuClick(e)
+                    }}
+                id={'Asana'}
+              >
+                Asana
+              </MenuItem>
+              <Divider style={{ height:"1px", marginTop:"2px", marginBottom:"2px"}}  />
               <MenuItem onClick={handleDeleteNodeBtnClick} className={'custom_menu_item'}>Удалить</MenuItem>
           </Menu>
           {/*MENU TREE SUBNODE*/}
