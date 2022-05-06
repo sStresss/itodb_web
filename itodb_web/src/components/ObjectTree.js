@@ -19,11 +19,11 @@ import {
   API_OBJECTS_URL,
   API_SUBOBJECTS_URL,
   API_OBJECT_NODE,
-  API_OBJECT_WEBHOOK,
   API_OBJECT_STATUS,
   API_NEWSTAT_URL,
   API_STATNEWREC_URL,
-  API_STATEDITREC_URL
+  API_STATEDITREC_URL,
+  API_OBJECTREFERAL_URL
 } from "../constants";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -104,6 +104,8 @@ let url = `ws://127.0.0.1:8000/ws/socket-server/`
 
 const socket = new WebSocket(url)
 
+var referalUrl = ''
+
 export default function ObjectTree(props) {
     React.useEffect(() => {
         axios.get(API_OBJECTS_URL).then((response) => {
@@ -128,6 +130,7 @@ export default function ObjectTree(props) {
       }
     });
     const [menuPosition, setMenuPosition] = React.useState(null)
+    var [referal, setReferal] = React.useState('')
     var [treeItemStyle, setTreeItemStyle] = React.useState({cursor: 'context-menu', marginLeft:"0px"})
     const clases = useStyles();
     var [stNsTypeLst, setStNsTypeLst] = React.useState([])
@@ -526,8 +529,10 @@ export default function ObjectTree(props) {
         );
 
     };
-    const handleMainMenuClose = (event) => {
-      setAnchorEl(null);
+    async function handleMainMenuClose(event) {
+      setReferal(document.getElementById('referal_textfield').value)
+      let pk = document.getElementById('connect_par_name').innerText
+      axios.put(API_OBJECTREFERAL_URL + pk, {referal: referal})
       setContextRefMenu(null);
     };
     const handleMenuClose = () => {
@@ -557,9 +562,10 @@ export default function ObjectTree(props) {
             })
         })
     }
-    function handleNodeDelete(e, name) {
-        // e.target.click()
+    function handleNodeDelete(e, name, referal) {
         e.preventDefault();
+        // referalUrl = referal
+      setReferal(referal)
         setContextMenu(
           contextMenu === null
             ? {
@@ -696,8 +702,13 @@ export default function ObjectTree(props) {
       window.open('myproto://\\\\SINAPS-INZH-01\\itoDB\\web\\'+document.getElementById('connect_par_name').innerText + '\\' + path);
     }
     const getAsana = () => {
-      window.open("https://app.asana.com/0/1202111765226014/list")
+      window.open(referalUrl)
     }
+
+    const changeReferalInputHandle = e => {
+        setReferal(e.target.value)
+    }
+
     checkUpdate()
     if (!objects) return null;
     if (!subobjects) return null;
@@ -728,6 +739,7 @@ export default function ObjectTree(props) {
                 if (empty_check === false) {
                     let node_par_id = object.pk
                     let node_par_state = './'+object.state+'.png'
+                    let node_par_ref = object.referal
                     return  <Row style={{maxWidth:"264px"}}>
                               <Col
                               sx={{
@@ -770,7 +782,7 @@ export default function ObjectTree(props) {
                                           </Row>
                                         }
                                   onContextMenu={(e) => {
-                                    handleNodeDelete(e,node_par_id)
+                                    handleNodeDelete(e,node_par_id, node_par_ref)
                                   }}
                                   style={{cursor: 'context-menu', marginLeft:"0px"}}
                                 >
@@ -1253,8 +1265,6 @@ export default function ObjectTree(props) {
               MenuListProps={{
                 'aria-labelledby': 'long-button',
               }}
-              // anchorEl={menuPosition}
-              // open={menuopen}
               open={contextRefMenu !== null}
               anchorReference="anchorPosition"
               anchorPosition={
@@ -1282,10 +1292,15 @@ export default function ObjectTree(props) {
 
           >
               <MenuItem
-                // onClick={addTreeNode}
                 className={'custom_menu_item_referal'}
               >
-                <input type="text" className="inp" style={{borderBottom:"0px solid", color:"#ECF0F5", fontSize:"14px", height:"24px"}}/>
+                <input
+                  id={'referal_textfield'}
+                  type="text"
+                  className="inp"
+                  style={{borderBottom:"0px solid", color:"#ECF0F5", fontSize:"14px", height:"24px"}}
+                  value={referal}
+                  onChange={(e)=>setReferal(e.target.value)}/>
               </MenuItem>
 
           </Menu>
@@ -1349,16 +1364,7 @@ export default function ObjectTree(props) {
               <MenuItem onClick={getNote} className={'custom_menu_item'}>Заметки</MenuItem>
               <MenuItem onClick={addTreeSubNode} className={'custom_menu_item'}>Добавить</MenuItem>
               <Divider style={{ height:"1px", marginTop:"2px", marginBottom:"2px"}} />
-              <MenuItem
-                // onClick={getAsana}
-                className={'custom_menu_item'}
-                onContextMenu={ (e) => {
-                      handleMainMenuClick(e)
-                    }}
-                id={'Asana'}
-              >
-                Asana
-              </MenuItem>
+              <MenuItem onClick={getAsana} className={'custom_menu_item'} onContextMenu={(e)=>{handleMainMenuClick(e)}} id={'Asana'}>Asana</MenuItem>
               <Divider style={{ height:"1px", marginTop:"2px", marginBottom:"2px"}}  />
               <MenuItem onClick={handleDeleteNodeBtnClick} className={'custom_menu_item'}>Удалить</MenuItem>
           </Menu>

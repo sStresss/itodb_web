@@ -29,5 +29,8 @@ urlpatterns = [
     re_path(r'^api/stuffsingleedit/([0-9]{2})$', stuff_edit_single),
     re_path(r'^api/stuffsingleedit/([0-9]{3})$', stuff_edit_single),
     re_path(r'^api/stuffgroupedit/$', stuff_edit_group),
+    re_path(r'^api/objectreferal/([0-9]{1})$', object_referal_edit),
+    re_path(r'^api/objectreferal/([0-9]{2})$', object_referal_edit),
+    re_path(r'^api/objectreferal/([0-9]{3})$', object_referal_edit)
 
 ]

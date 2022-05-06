@@ -354,7 +354,7 @@ def stuff_edit_single(request, pk):
         object.save(update_fields=['type', 'model', 'serial', 'manufacturer', 'seller', 'date_purchase', 'object_target', 'comment'])
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def stuff_edit_group(request):
     if request.method == 'POST':
         data = request.data
@@ -363,5 +363,15 @@ def stuff_edit_group(request):
             object = Stuff.objects.get(id=int(pk))
             object.comment = data['comment']
             object.save(update_fields=['comment'])
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['PUT'])
+def object_referal_edit(request, pk):
+    data = request.data
+    print(data)
+    if request.method == 'PUT':
+        object = Object.objects.get(id=int(pk))
+        object.referal = data['referal']
+        object.save(update_fields=['referal'])
         return Response(status=status.HTTP_204_NO_CONTENT)
 

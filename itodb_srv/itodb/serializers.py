@@ -11,7 +11,7 @@ class objectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Object
-        fields = ('pk', 'code', 'name', 'note', 'state')
+        fields = ('pk', 'code', 'name', 'note', 'state', 'referal')
 
 class subobjectSerializer(serializers.ModelSerializer):
 

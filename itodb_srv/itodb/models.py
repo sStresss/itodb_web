@@ -15,6 +15,7 @@ class Object(models.Model):
     name = models.CharField("Name", max_length=40)
     note = models.CharField("Notes", max_length=500, blank=True)
     state = models.CharField("State", max_length=15, blank=True)
+    referal = models.CharField("referal", max_length=200, blank=True)
 
     def __str__(self):
         return f'{self.id}'
@@ -93,4 +94,3 @@ class Status(models.Model):
 
     def __str__(self):
         return f'{self.id}'
-
