@@ -97,14 +97,12 @@ const statusnewcellmodalstyle = {
 const promise = new Promise((resolve) => {
     resolve()
 });
-
+var referal_tmp = ''
 var connect = false;
 
 let url = `ws://127.0.0.1:8000/ws/socket-server/`
 
 const socket = new WebSocket(url)
-
-var referalUrl = ''
 
 export default function ObjectTree(props) {
     React.useEffect(() => {
@@ -139,6 +137,7 @@ export default function ObjectTree(props) {
     const [stNsType, setStNsType] = React.useState('');
     const [stNsModel, setStNsModel] = React.useState('');
     const [stNsCount, setStNsCount] = React.useState(null);
+    const nameStuffForm = React.useRef(null)
     const handleStNsTypeChange = (event) => {
       setStNsType(event.target.value);
     };
@@ -530,10 +529,14 @@ export default function ObjectTree(props) {
 
     };
     async function handleMainMenuClose(event) {
-      setReferal(document.getElementById('referal_textfield').value)
-      let pk = document.getElementById('connect_par_name').innerText
-      axios.put(API_OBJECTREFERAL_URL + pk, {referal: referal})
-      setContextRefMenu(null);
+      if (referal_tmp !== document.getElementById('referal_textfield').value) {
+        setContextRefMenu(null)
+        referal_tmp = document.getElementById('referal_textfield').value
+        setReferal(referal_tmp)
+        let pk = document.getElementById('connect_par_name').innerText
+        axios.put(API_OBJECTREFERAL_URL + pk, {referal: referal_tmp})
+      }
+      else {setContextRefMenu(null)}
     };
     const handleMenuClose = () => {
       setContextMenu(null);
@@ -562,10 +565,8 @@ export default function ObjectTree(props) {
             })
         })
     }
-    function handleNodeDelete(e, name, referal) {
+    function handleNodeDelete(e, name) {
         e.preventDefault();
-        // referalUrl = referal
-      setReferal(referal)
         setContextMenu(
           contextMenu === null
             ? {
@@ -574,6 +575,7 @@ export default function ObjectTree(props) {
               }
             : null,
         );
+    getAsanaReferal(name)
     document.getElementById('connect_par_name').innerText = name
 }
     function handleNodeChildDelete(ee, name) {
@@ -701,12 +703,14 @@ export default function ObjectTree(props) {
       handleSubMenuClose();
       window.open('myproto://\\\\SINAPS-INZH-01\\itoDB\\web\\'+document.getElementById('connect_par_name').innerText + '\\' + path);
     }
-    const getAsana = () => {
-      window.open(referalUrl)
+    async function getAsanaReferal(pk) {
+      axios.get(API_OBJECTREFERAL_URL + pk).then((response) => {
+        setReferal(response.data['referal'])
+        referal_tmp = response.data['referal']
+      })
     }
-
-    const changeReferalInputHandle = e => {
-        setReferal(e.target.value)
+    const getAsana = () => {
+      window.open(referal_tmp)
     }
 
     checkUpdate()
@@ -739,7 +743,6 @@ export default function ObjectTree(props) {
                 if (empty_check === false) {
                     let node_par_id = object.pk
                     let node_par_state = './'+object.state+'.png'
-                    let node_par_ref = object.referal
                     return  <Row style={{maxWidth:"264px"}}>
                               <Col
                               sx={{
@@ -782,7 +785,7 @@ export default function ObjectTree(props) {
                                           </Row>
                                         }
                                   onContextMenu={(e) => {
-                                    handleNodeDelete(e,node_par_id, node_par_ref)
+                                    handleNodeDelete(e,node_par_id)
                                   }}
                                   style={{cursor: 'context-menu', marginLeft:"0px"}}
                                 >
@@ -1294,13 +1297,16 @@ export default function ObjectTree(props) {
               <MenuItem
                 className={'custom_menu_item_referal'}
               >
-                <input
-                  id={'referal_textfield'}
-                  type="text"
-                  className="inp"
-                  style={{borderBottom:"0px solid", color:"#ECF0F5", fontSize:"14px", height:"24px"}}
-                  value={referal}
-                  onChange={(e)=>setReferal(e.target.value)}/>
+                <form ref={nameStuffForm}>
+                        <TextField
+                          sx={{marginX:"-16px"}}
+                          id="referal_textfield"
+                          name={"referal_textfield"}
+                          defaultValue={referal}
+                          variant="standard"
+                          type={"custom_textfield"}
+                        />
+                      </form>
               </MenuItem>
 
           </Menu>

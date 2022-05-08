@@ -365,13 +365,18 @@ def stuff_edit_group(request):
             object.save(update_fields=['comment'])
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['PUT'])
+@api_view(['GET', 'PUT'])
 def object_referal_edit(request, pk):
     data = request.data
-    print(data)
+    object = Object.objects.get(id=int(pk))
     if request.method == 'PUT':
-        object = Object.objects.get(id=int(pk))
         object.referal = data['referal']
         object.save(update_fields=['referal'])
         return Response(status=status.HTTP_204_NO_CONTENT)
+    if request.method == 'GET':
+        data = {"referal": ''}
+        data['referal'] = object.referal
+        json_data = json.dumps(data)
+        json_res = json.loads(json_data)
+        return JsonResponse(json_res, content_type='application/json')
 
