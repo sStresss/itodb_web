@@ -549,36 +549,44 @@ export default function ObjectTree(props) {
         handleMenuClose();
         let pk = document.getElementById('connect_par_name').innerText
         axios.delete(API_OBJECTS_URL + pk).then(res => {
+          console.log(res.data)
+          if (res.data['resp'] === 'denied') {alert('Ошибка! Объект нельзя удалить, т.к. в базе числится оборудование закрепленное да данным объектом.')}
+          else {
             axios.get(API_OBJECTS_URL).then((response) => {
-                setObject(response.data);
-                return {Tree}
+              setObject(response.data);
+              return {Tree}
             })
+          }
         })
     }
     const handleDeleteChildNodeBtnClick = (event) => {
         handleSubMenuClose();
         let pk = document.getElementById('connect_ch_name').innerText
         axios.delete(API_SUBOBJECTS_URL + pk).then(res => {
+          console.log(res.data)
+          if (res.data['resp'] === 'denied') {alert('Ошибка! Объект нельзя удалить, т.к. в базе числится оборудование закрепленное да данным объектом.')}
+          else {
             axios.get(API_SUBOBJECTS_URL).then((response) => {
-            setSubObject(response.data);
-            return {Tree}
+              setSubObject(response.data);
+              return {Tree}
             })
+          }
         })
     }
-    function handleNodeDelete(e, name) {
-        e.preventDefault();
-        setContextMenu(
-          contextMenu === null
-            ? {
-                mouseX: e.clientX - 2,
-                mouseY: e.clientY - 4,
-              }
-            : null,
-        );
-    getAsanaReferal(name)
-    document.getElementById('connect_par_name').innerText = name
-}
-    function handleNodeChildDelete(ee, name) {
+    function handleNodeContext(e, name) {
+      e.preventDefault();
+      setContextMenu(
+        contextMenu === null
+          ? {
+              mouseX: e.clientX - 2,
+              mouseY: e.clientY - 4,
+            }
+          : null,
+      );
+      getAsanaReferal(name)
+      document.getElementById('connect_par_name').innerText = name
+    }
+    function handleNodeChildContext(ee, name) {
         ee.preventDefault();
         setContextSubMenu(
           contextSubMenu === null
@@ -785,7 +793,7 @@ export default function ObjectTree(props) {
                                           </Row>
                                         }
                                   onContextMenu={(e) => {
-                                    handleNodeDelete(e,node_par_id)
+                                    handleNodeContext(e,node_par_id)
                                   }}
                                   style={{cursor: 'context-menu', marginLeft:"0px"}}
                                 >
@@ -793,7 +801,7 @@ export default function ObjectTree(props) {
                                     let node_ch_id = subobj.pk
                                     return parseInt(object.pk, 10) === parseInt(subobj.connect, 10) ?
                                         <TreeItem
-                                          onContextMenu={(ee) => {handleNodeChildDelete(ee,node_ch_id)}}
+                                          onContextMenu={(ee) => {handleNodeChildContext(ee,node_ch_id)}}
                                           key={node_ch_id}
                                           nodeId={node_par_id.toString()+'_'+node_ch_id.toString()}
                                           label={<a style={{fontSize:"11px", paddingLeft:"66px"}}>{subobj.name}</a>}
@@ -845,8 +853,8 @@ export default function ObjectTree(props) {
                                               <img src={node_par_state} style={{height:'7px'}} alt="sate"/>
                                             </Col>
                                           </Row>
-                                        }
-                                  onContextMenu={(e) => {handleNodeDelete(e,node_par_id);}}
+                                    }
+                                  onContextMenu={(e) => {handleNodeContext(e,node_par_id);}}
                                   style={{cursor: 'context-menu', marginLeft:"0px"}}
                                 />
                               </Col>
