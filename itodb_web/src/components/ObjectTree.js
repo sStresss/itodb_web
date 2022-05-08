@@ -538,6 +538,7 @@ export default function ObjectTree(props) {
       }
       else {setContextRefMenu(null)}
     };
+
     const handleMenuClose = () => {
       setContextMenu(null);
     };
@@ -600,7 +601,7 @@ export default function ObjectTree(props) {
 
   }
     const addTreeNode = event => {
-      handleMainMenuClose()
+      handleMenuClose()
       handleModalOpen()
     }
     const addTreeNodeSave = event => {
@@ -804,7 +805,7 @@ export default function ObjectTree(props) {
                                           onContextMenu={(ee) => {handleNodeChildContext(ee,node_ch_id)}}
                                           key={node_ch_id}
                                           nodeId={node_par_id.toString()+'_'+node_ch_id.toString()}
-                                          label={<a style={{fontSize:"11px", paddingLeft:"66px"}}>{subobj.name}</a>}
+                                          label={<a style={{fontSize:"13px", paddingLeft:"56px"}}>{subobj.name}</a>}
                                           style={{cursor: 'context-menu', color:'white', marginLeft:"-20px"}}
                                           onClick={(ee)=> {handleTreeSubObjClick(ee, node_par_id, node_ch_id, object.name, subobj.name)}}
                                         />
