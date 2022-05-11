@@ -613,8 +613,6 @@ export default function Table_Control(props)  {
                     sx={{
                       '& .MuiPaper-root': {
                         borderRadius: 0,
-                        // backgroundColor:"#3B4049",
-                        // color:"white"
                       },
                       '& .MuiMenu-list': {
                         padding: '0px',

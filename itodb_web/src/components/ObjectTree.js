@@ -216,7 +216,6 @@ export default function ObjectTree(props) {
       });
 
     }
-
     const statusTblCellEditSave = () => {
       const pk = statusRows[selectedStatusTblRow]['pk']
       const connect = document.getElementById('connect_par_name').textContent
@@ -250,7 +249,6 @@ export default function ObjectTree(props) {
         })
       })
     }
-
     const statusTblCellDelete = () => {
       handleStatusTblMenuClose();
 
@@ -428,6 +426,73 @@ export default function ObjectTree(props) {
         </div>
         );
     });
+    const CustomChildContent = React.forwardRef(function CustomContent(props, ref) {
+        const {
+            classes,
+            className,
+            label,
+            nodeId,
+            icon: iconProp,
+            expansionIcon,
+            displayIcon,
+            value,
+        } = props;
+
+        const {
+            disabled,
+            expanded,
+            selected,
+            focused,
+            handleExpansion,
+            handleSelection,
+            preventSelection,
+        } = useTreeItem(nodeId);
+
+        const icon = iconProp || expansionIcon || displayIcon;
+
+        const handleMouseDown = (event) => {
+            preventSelection(event);
+        };
+
+        const handleExpansionClick = (event) => {
+            handleExpansion(event);
+        };
+
+        const handleSelectionClick = (event) => {
+            handleSelection(event)
+            promise.then(()=>{updateTable('tree_child', props['nodeId'].toString().split('_')[0], props['nodeId'].toString().split('_')[1], props['label'].props.children[1].props.children, props['label'].props.children[0].props.children)});
+        };
+
+        const handleContextClick = (event) => {
+            handleSelection(event);
+        };
+        return (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        <div
+          className={clsx(className, classes.root, {
+            [classes.expanded]: expanded,
+            [classes.selected]: selected,
+            [classes.focused]: focused,
+            [classes.disabled]: disabled,
+          })}
+          onMouseDown={handleMouseDown}
+          ref={ref}
+        >
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+          <div onClick={handleExpansionClick} className={classes.iconContainer}>
+            {icon}
+          </div>
+          <Typography
+            onClick={handleSelectionClick}
+            component="div"
+            className={classes.label}
+            onContextMenu={handleContextClick}
+          >
+            {label}
+          </Typography>
+        </div>
+        );
+    });
     CustomContent.propTypes = {
         /**
         * Override or extend the styles applied to the component.
@@ -460,9 +525,40 @@ export default function ObjectTree(props) {
         nodeName: PropTypes.string.isRequired,
         value: PropTypes.node
     };
-    const CustomTreeItem = (props) => (
-        <TreeItem ContentComponent={CustomContent} {...props} />
-    );
+    CustomChildContent.propTypes = {
+        /**
+        * Override or extend the styles applied to the component.
+        */
+        classes: PropTypes.object.isRequired,
+        /**
+        * className applied to the root element.
+        */
+        className: PropTypes.string,
+        /**
+        * The icon to display next to the tree node's label. Either a parent or end icon.
+        */
+        displayIcon: PropTypes.node,
+        /**
+        * The icon to display next to the tree node's label. Either an expansion or collapse icon.
+        */
+        expansionIcon: PropTypes.node,
+        /**
+        * The icon to display next to the tree node's label.
+        */
+        icon: PropTypes.node,
+        /**
+        * The tree node label.
+        */
+        label: PropTypes.node,
+        /**
+        * The id of the node.
+        */
+        nodeId: PropTypes.string.isRequired,
+        nodeName: PropTypes.string.isRequired,
+        value: PropTypes.node
+    };
+    const CustomTreeItem = (props) => (<TreeItem ContentComponent={CustomContent} {...props} />);
+    const CustomChildTreeItem = (props) => (<TreeItem ContentComponent={CustomChildContent} {...props} />);
     const style = makeStyles({
      root: {
             background: 'red',
@@ -474,7 +570,6 @@ export default function ObjectTree(props) {
             padding: '0 30px',
         },
     });
-
     const classes = style()
     var [sortModel, setSortModel] = React.useState([
           {
@@ -538,7 +633,6 @@ export default function ObjectTree(props) {
       }
       else {setContextRefMenu(null)}
     };
-
     const handleMenuClose = () => {
       setContextMenu(null);
     };
@@ -723,8 +817,10 @@ export default function ObjectTree(props) {
     }
 
     checkUpdate()
+
     if (!objects) return null;
     if (!subobjects) return null;
+
     const Tree = <TreeView
             aria-label="icon expansion"
             defaultCollapseIcon={<ExpandMoreIcon style={{ color: 'white' }}/>}
@@ -801,11 +897,32 @@ export default function ObjectTree(props) {
                                   {subobjects.map(subobj => {
                                     let node_ch_id = subobj.pk
                                     return parseInt(object.pk, 10) === parseInt(subobj.connect, 10) ?
-                                        <TreeItem
-                                          onContextMenu={(ee) => {handleNodeChildContext(ee,node_ch_id)}}
+                                        <CustomChildTreeItem
+                                          sx={{
+                                            ".css-1g86id8-MuiTreeItem-content:hover": {
+                                              backgroundColor: "#202836"
+                                            },
+                                            ".css-1g86id8-MuiTreeItem-content.Mui-selected": {
+                                              backgroundColor: "#3B4049"
+                                            },
+                                            ".css-1g86id8-MuiTreeItem-content.Mui-selected:hover": {
+                                              backgroundColor: "#3B4049"
+                                            },
+                                            ".css-1g86id8-MuiTreeItem-content.Mui-selected.Mui-focused": {
+                                              backgroundColor: "#3B4049"
+                                            }
+                                          }}
+                                          onContextMenu={(ee) => {
+                                            handleNodeChildContext(ee,node_ch_id)}
+                                          }
                                           key={node_ch_id}
                                           nodeId={node_par_id.toString()+'_'+node_ch_id.toString()}
-                                          label={<a style={{fontSize:"13px", paddingLeft:"56px"}}>{subobj.name}</a>}
+                                          label={
+                                            <div>
+                                              <a style={{fontSize:"13px", paddingLeft:"56px"}}>{subobj.name}</a>
+                                              <a hidden={true}>{object.name}</a>
+                                            </div>
+                                          }
                                           style={{cursor: 'context-menu', color:'white', marginLeft:"-20px"}}
                                           onClick={(ee)=> {handleTreeSubObjClick(ee, node_par_id, node_ch_id, object.name, subobj.name)}}
                                         />
@@ -1415,7 +1532,6 @@ export default function ObjectTree(props) {
                   e.preventDefault();
                   handleMenuClose();
                 }
-
               },
             }}
             >

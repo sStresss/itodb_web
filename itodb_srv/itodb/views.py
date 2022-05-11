@@ -48,9 +48,9 @@ def object_list(request):
 
 @api_view(['PUT', 'DELETE'])
 def objects_detail(request, pk):
-    print('pk:', pk)
+    # print('pk:', pk)
     object = Object.objects.get(id=int(pk))
-    print('object:', object)
+    # print('object:', object)
 
     if request.method == 'PUT':
         serializer = itodbSerializer(object, data=request.data, context={'request': request})
@@ -60,22 +60,16 @@ def objects_detail(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        object.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-@api_view(['PUT', 'DELETE'])
-def subobjects_detail(request, pk):
-    object = SubObject.objects.get(id=int(pk))
-    if request.method == 'PUT':
-        serializer = itodbSerializer(object, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        object.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        data = {"resp": ""}
+        stuff = Stuff.objects.filter(Q(object_fact=object.name) | Q(object_target=object.name))
+        if len(stuff) != 0:
+            data['resp'] = 'denied'
+        else:
+            object.delete()
+            data['resp'] = 'success'
+        json_data = json.dumps(data)
+        json_res = json.loads(json_data)
+        return JsonResponse(json_res, content_type='application/json')
 
 @api_view(['GET', 'POST'])
 def subobject_list(request):
@@ -90,6 +84,30 @@ def subobject_list(request):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'DELETE'])
+def subobjects_detail(request, pk):
+    object = SubObject.objects.get(id=int(pk))
+    if request.method == 'PUT':
+        serializer = itodbSerializer(object, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        data = {"resp": ""}
+        print('DEL CHILD NODE')
+        parentObject = Object.objects.get(pk=int(object.connect_id))
+        stuff = Stuff.objects.filter(object_target=parentObject.name, subobject_fact=object.name)
+        if len(stuff) !=0:
+            data["resp"] = "denied"
+        else:
+            object.delete()
+            data["resp"] = "success"
+        json_data = json.dumps(data)
+        json_res = json.loads(json_data)
+        return JsonResponse(json_res, content_type='application/json')
 
 @api_view(['GET', 'POST'])
 def stuff_list(request):
