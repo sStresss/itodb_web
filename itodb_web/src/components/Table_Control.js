@@ -181,6 +181,7 @@ export default function Table_Control(props)  {
     const [stuffTransferDate, setStuffTransferDate] = React.useState(new Date('2000-01-01T21:11:54'));
     const [anchorEl, setAnchorEl] = React.useState(null);
     var [modalFilterOpen, setModalFilterOpen] = React.useState(false)
+    var [modalInfoOpen, setModalInfoOpen] = React.useState(false)
     var [modalMetricOpen, setModalMetricOpen] = React.useState(false)
     var [transferModalOpen, setTransferModalOpen] = React.useState(false);
 
@@ -260,57 +261,11 @@ export default function Table_Control(props)  {
         props.getMetric()
     }
     const handleTransferModalClose = () => setTransferModalOpen(false);
-    const deleteTableStuff = event => {
-        handleMainMenuClose()
-        for (let ind in props.selectedLst) {
-            let pk = props.selectedLst[ind]
-            axios.delete(API_STUFF_URL + pk).then(res=>{
-                if (parseInt(ind, 10)  === parseInt((((props.selectedLst).length)-1),10)) {updateTable()};
-            });
-        };
-    }
-    const transferTableStuff = event => {
 
-        handleMainMenuClose();
-        if (props.selectedLst.length === 0) {
-            alert('Оборудование не выбрано!')
-        }
-        else {
-            console.log(props.selectedLst)
-            setStuffTransferDate(new Date());
-            axios.get(API_OBJECTS_URL).then((response) => {
-                tr_objects = response.data
-                var p_lst = []
-                var pp_lst = []
-                for (let i = 0; i < tr_objects.length; i++) {
-                    p_lst[i] = [tr_objects[i].name, tr_objects[i].pk]
-                }
-                setTrObjectLst(p_lst);
-                setTrTargetObj(p_lst[0]);
-                axios.get(API_SUBOBJECTS_URL).then((response) => {
-                    tr_subObject = response.data
-                    p_lst = []
-                    pp_lst = []
-                    let ind = 0
-                    for (let j = 0; j < tr_subObject.length; j++) {
-                        pp_lst[j] = [tr_subObject[j].name, tr_subObject[j].connect]
-                        if (tr_objects[0].pk === tr_subObject[j].connect) {
-                            p_lst[ind] = [tr_subObject[j].name, tr_subObject[j].connect]
-                            ind++
-                        }
-                    }
-                    setTrSubObjectFullLst(pp_lst);
-                    if (pp_lst.length !== 0) {setTrTargetSubObj(pp_lst[0])}
-                    setTrSubObjectLst(p_lst);
-                }).then(() => {
-                        setTransferModalOpen(true);
-                    }
-                )
-            });
-        }
-    }
+    const handleInfoModalOpen = (event) => {setModalInfoOpen(true)}
+    const handleInfoModalClose = () => setModalInfoOpen(false);
+
     const transferTableStuffSave = () => {
-
         setTransferModalOpen(false);
         let object = document.getElementById('trTargetObj').textContent
         let subObject = document.getElementById('trTargetSubObj').textContent
@@ -382,7 +337,6 @@ export default function Table_Control(props)  {
                         }}
                         onSortModelChange={(model) => setSortModel(model)}
                       />
-
     const filterModal = <Modal
             open={modalFilterOpen || false}
             onClose={handleModalFilterClose}
@@ -514,6 +468,37 @@ export default function Table_Control(props)  {
                     </Row>
                 </Box>
             </Modal>
+    const infoModal =
+        <Modal
+            open={modalInfoOpen || false}
+            onClose={handleInfoModalClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            onBackdropClick = {handleInfoModalClose}
+            disableEscapeKeyDown={true}
+            >
+            <Box sx={metricmodalstyle}>
+                <Row style={{ borderBottom: "1px solid #fff", marginLeft: "-32px", marginTop: "-15px", width: "400px", }}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        <span style={{ paddingLeft: "40px"}}>Справка</span>
+                    </Typography>
+                </Row>
+                <Row style={{  marginLeft: "-10px", marginTop: "20px", width: "500px", textAlign:"left" }}>
+                    <div style={{bgColor:"red", textAlign:"left"}}>
+                        <a style={{ paddingLeft: "20px"}}>Для работы с файловой системой базы данных:</a>
+                    </div>
+                </Row>
+                <Row style={{  marginLeft: "-10px", marginTop: "20px", width: "500px", textAlign:"center" }}>
+                    <div style={{bgColor:"red", textAlign:"left"}}>
+                        <li style={{marginLeft:"20px"}}>Скачайте и запустите файл install.reg. Операционная система спросит подтверждение на внесение редактирования данных реестра, нужно нажать "да".</li>
+                        <li style={{marginTop:"10px", marginLeft:"20px"}}>Скачайте вспомогательный файл myproto.bat и разместите его по адресу "C:/" на вашем компьютере.  </li>
+                    </div>
+                </Row>
+            </Box>
+        </Modal>
+
+
+
     return (
         <div>
             <Row style={{marginTop:"0px", MarginLeft:"0px", width:"158%"}}>
@@ -640,17 +625,17 @@ export default function Table_Control(props)  {
                             e.preventDefault();
                             handleMainMenuClose();
                           }
-
                         },
                       }}
                 >
-                    <MenuItem onClick={deleteTableStuff}>Удалить</MenuItem>
-                    <MenuItem onClick={transferTableStuff}>Переместить</MenuItem>
+                    <MenuItem onClick={exit}>Настройки</MenuItem>
+                    <MenuItem onClick={(e)=>{handleInfoModalOpen(e)}}>Справка</MenuItem>
                     <MenuItem onClick={exit}>Выход</MenuItem>
                 </Menu>
                 {transferModal}
                 {filterModal}
                 {metricModal}
+                {infoModal}
                 <MessageBox message={mesBoxMessage} modalState={mesBoxState} close={closeMesBox}/>
             </Row>
         </div>

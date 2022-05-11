@@ -590,9 +590,7 @@ export default function ObjectTree(props) {
         return promise.then(()=>{updateTable('tree_child', pid.toString(), cid.toString(), pName.toString(), chName.toString())});
     }
     const globalTreeRefresh = () => {
-        handleMainMenuClose();
         promise.then(()=>{updateTable('none', '', '','Главная')})
-
     }
     const [objects, setObject] = React.useState(null);
     const [subobjects, setSubObject] = React.useState(null);
