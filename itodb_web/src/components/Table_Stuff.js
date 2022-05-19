@@ -145,7 +145,7 @@ export default function Table_Stuff(props)  {
             for (let ind = 0; ind < selectedLst.length; ind++) {
                 let pk = selectedLst[ind]
                 axios.delete(API_STUFF_URL + pk).then(res=>{
-                    if (parseInt(ind, 10)  === parseInt((((selectedLst).length)-1),10)) {tblUpdate()};
+                    if (parseInt(ind, 10)  === parseInt((((selectedLst).length)-1),10)) {props.setUpdateTree('true');tblUpdate()};
                 });
             };
         }
@@ -225,6 +225,7 @@ export default function Table_Stuff(props)  {
     };
 
     if (!stuff) return null;
+
     const Table = <DataGrid
             sx={{
                 // position: 'absolute',
@@ -265,6 +266,7 @@ export default function Table_Stuff(props)  {
               },
             }}
           />
+
     const TableContextMenu = <Menu
                                 sx={{
                                   '& .MuiPaper-root': {
@@ -307,6 +309,7 @@ export default function Table_Stuff(props)  {
     const stateModalAddNewStuffCallback = (event) => {
         setAddStuffModalShow('false')
     }
+
     async function stateModalAddNewStuffSaveCallback (event)  {
         setAddStuffModalShow('false')
         var p_rows = []
@@ -318,6 +321,7 @@ export default function Table_Stuff(props)  {
         setStuffTemp(p_rows);
         props.setUpdateTree('true');
     }
+
     const stateModalTransferStuffCallback = (event) => {
         setTransferStuffModalShow('false')
     }

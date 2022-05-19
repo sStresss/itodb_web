@@ -141,7 +141,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BEAT_SCHEDULE = {
       'add-every-30-seconds': {
         'task': 'itodb.tasks.check',
-        'schedule': 0.1,
+        'schedule': 0.5,
         'options': {
             'expires': 15.0,
         },
