@@ -18,12 +18,13 @@ from django.db.models import Q
 from .tasks import check
 import os
 
-
+import pymysql
 
 @api_view(['GET', 'POST'])
 def object_list(request):
+    # database_migrate()
     if request.method == 'GET':
-        print('GET OBJ LIST!!!!!!!')
+        # print('GET OBJ LIST!!!!!!!')
         data = Object.objects.all().order_by('code')
         # test = check()
         serializer = objectSerializer(data, context={'request': request}, many=True)
@@ -31,7 +32,6 @@ def object_list(request):
 
     if request.method == 'POST':
         serializer = objectSerializer(data=request.data)
-        print(request.data)
         if serializer.is_valid():
             serializer.save()
             curObject = Object.objects.filter(code=str(request.data['code']))
@@ -145,6 +145,7 @@ def modal_ns_stuff_data_list(request):
         return JsonResponse(json_res, content_type='application/json')
 
     elif request.method == 'POST':
+        print('NEW STUFF REC DATA: ', request.data)
         serializer = stuffSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -397,4 +398,76 @@ def object_referal_edit(request, pk):
         json_data = json.dumps(data)
         json_res = json.loads(json_data)
         return JsonResponse(json_res, content_type='application/json')
+
+
+def database_migrate():
+    objName = 'Рублевка 2.4'
+    object_pg = Object.objects.filter(name = objName)
+
+
+    passlog = open('C:\itoDB\sqlpasslog.txt', "r")
+    l = [line.strip() for line in passlog]
+
+    SqlHostname = str(l[0])
+    SqlPort = int(l[1])
+    SqlUserName = str(l[2])
+    SqlPwd = str(l[3])
+    SqlDBName = 'itodb'
+
+    con = pymysql.connect(host=str(SqlHostname),
+        port=int(SqlPort),
+        user=str(SqlUserName),
+        passwd=str(SqlPwd),
+        db=str(SqlDBName))
+
+    ores = []
+    kres = []
+
+    with con:
+        cur = con.cursor()
+
+        cur.execute("SELECT * FROM treeobjtbl WHERE ParentObjName LIKE '%"+objName+"%'")
+        object_sql = cur.fetchall()
+        cur_obj_name = str(object_sql[0][1])
+
+        cur.execute("SELECT * FROM ostuff")
+        orows = cur.fetchall()
+
+        for row in orows:
+            if (row[8] == cur_obj_name):
+                ores.append(row)
+
+        for elem in ores:
+            Stuff.objects.create(
+                type=elem[1],
+                model=elem[2],
+                serial=elem[3],
+                manufacturer=elem[4],
+                seller=elem[5],
+                date_purchase=elem[6],
+                object_target=str(elem[8])[4:],
+                object_fact=str(elem[8])[4:],
+                date_transfer=elem[9],
+                comment=elem[13], state='Оборудование')
+
+
+        cur.execute("SELECT * FROM kstuff")
+        krows = cur.fetchall()
+
+        for row in krows:
+            if (row[8] == cur_obj_name):
+                kres.append(row)
+
+        for elem in kres:
+            Stuff.objects.create(
+                type=elem[1],
+                model=elem[2],
+                serial=elem[3],
+                manufacturer=elem[4],
+                seller=elem[5],
+                date_purchase=elem[6],
+                object_target=str(elem[8])[4:],
+                object_fact=str(elem[8])[4:],
+                date_transfer=elem[9],
+                comment=elem[13], state='Комплектующее')
 

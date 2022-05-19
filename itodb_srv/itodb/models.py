@@ -38,7 +38,7 @@ class Stuff(models.Model):
     object_fact = models.CharField("object_fact", max_length=40)
     subobject_fact = models.CharField("object_fact", max_length=20, blank=True)
     date_transfer = models.CharField("date_transfer", max_length=40, blank=True)
-    comment = models.CharField("comment", max_length=40, blank=True)
+    comment = models.CharField("comment", max_length=100, blank=True)
     state = models.CharField('state', max_length=20, blank=True)
 
     def __str__(self):

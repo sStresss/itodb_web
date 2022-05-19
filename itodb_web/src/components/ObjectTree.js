@@ -208,9 +208,7 @@ export default function ObjectTree(props) {
       }
     }
     socket.onmessage = function(e){
-      console.log('mes!')
       let data = JSON.parse(e.data)
-      console.log('Data:', data)
       axios.get(API_OBJECTS_URL).then((response) => {
           setObject(response.data);
       });
@@ -380,6 +378,7 @@ export default function ObjectTree(props) {
             handleSelection,
             preventSelection,
         } = useTreeItem(nodeId);
+        var [status, setStatus] = React.useState(props['label'].props.children[1].props.children)
 
         const icon = iconProp || expansionIcon || displayIcon;
 
@@ -412,7 +411,10 @@ export default function ObjectTree(props) {
           ref={ref}
         >
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div onClick={handleExpansionClick} className={classes.iconContainer}>
+          <Col style={{maxWidth:"20px", marginLeft:"-7px", marginTop:"-4px"}}>
+            <img src={status} style={{height:'21px', width:""}} alt="sate"/>
+          </Col>
+          <div onClick={handleExpansionClick} className={classes.iconContainer} style={{marginLeft:"0px", minWidth:"30px"}}>
             {icon}
           </div>
           <Typography
@@ -874,17 +876,15 @@ export default function ObjectTree(props) {
                                   label={ <Row>
                                             <Col style={{color:"white"}}>
                                               <Row>
-                                                <Col style={{maxWidth:'45px'}}>
-                                                  {object.code}
+                                                <Col style={{maxWidth:'33px', fontSize:"14px"}}>
+                                                  <a style={{marginLeft:"-10px"}}>{object.code}</a>
                                                 </Col>
-                                                <Col style={{fontSize:"13px", paddingTop:"3px"}}>
+                                                <Col style={{fontSize:"12px", paddingTop:"3px", maxWidth:"242px"}}>
                                                   {object.name}
                                                 </Col>
                                               </Row>
                                             </Col>
-                                            <Col style={{maxWidth:"10px", marginRight:"16px"}}>
-                                              <img src={node_par_state} style={{height:'7px'}} alt="sate"/>
-                                            </Col>
+                                            <a hidden={true}>{node_par_state}</a>
                                           </Row>
                                         }
                                   onContextMenu={(e) => {
@@ -933,47 +933,48 @@ export default function ObjectTree(props) {
                 } else {
                     let node_par_id = object.pk
                     let node_par_state = './'+object.state+'.png'
-                    return  <Row style={{maxWidth:"264px"}}>
-                              <Col>
-                                <CustomTreeItem
-                                  sx={{
-                                      ".css-1g86id8-MuiTreeItem-content:hover": {
-                                        backgroundColor: "#202836"
-                                      },
-                                      ".css-1g86id8-MuiTreeItem-content.Mui-selected": {
-                                        backgroundColor: "#3B4049"
-                                      },
-                                      ".css-1g86id8-MuiTreeItem-content.Mui-selected:hover": {
-                                        backgroundColor: "#3B4049"
-                                      },
-                                      ".css-1g86id8-MuiTreeItem-content.Mui-selected.Mui-focused": {
-                                        backgroundColor: "#3B4049"
-                                      }
+                    return  <Row style={{maxWidth:"294px"}}>
+                                {/*<Col style={{maxWidth:"20px", marginRight:"-5px", marginTop:"-3px"}}>*/}
+                                  {/*<img src={node_par_state} style={{height:'21px', width:""}} alt="sate"/>*/}
+                                {/*</Col>*/}
+                                <Col style={{maxWidth:"264px"}}>
+                                  <CustomTreeItem
+                                    sx={{
+                                        ".css-1g86id8-MuiTreeItem-content:hover": {
+                                          backgroundColor: "#202836"
+                                        },
+                                        ".css-1g86id8-MuiTreeItem-content.Mui-selected": {
+                                          backgroundColor: "#3B4049"
+                                        },
+                                        ".css-1g86id8-MuiTreeItem-content.Mui-selected:hover": {
+                                          backgroundColor: "#3B4049"
+                                        },
+                                        ".css-1g86id8-MuiTreeItem-content.Mui-selected.Mui-focused": {
+                                          backgroundColor: "#3B4049"
+                                        }
 
-                                  }}
-                                  key={object.code}
-                                  nodeId={object.pk}
-                                  nodeName = {object.code + '  ' + object.name}
-                                  label={ <Row>
-                                            <Col style={{color:"white"}}>
-                                              <Row>
-                                                <Col style={{maxWidth:'45px'}}>
-                                                  {object.code}
-                                                </Col>
-                                                <Col style={{fontSize:"13px", paddingTop:"3px"}}>
-                                                  {object.name}
-                                                </Col>
-                                              </Row>
-                                            </Col>
-                                            <Col style={{maxWidth:"10px", marginRight:"16px"}}>
-                                              <img src={node_par_state} style={{height:'7px'}} alt="sate"/>
-                                            </Col>
-                                          </Row>
-                                    }
-                                  onContextMenu={(e) => {handleNodeContext(e,node_par_id);}}
-                                  style={{cursor: 'context-menu', marginLeft:"0px"}}
-                                />
-                              </Col>
+                                    }}
+                                    key={object.code}
+                                    nodeId={object.pk}
+                                    nodeName = {object.code + '  ' + object.name}
+                                    label={ <Row>
+                                              <Col style={{color:"white"}}>
+                                                <Row>
+                                                  <Col style={{maxWidth:'33px', fontSize:"14px"}}>
+                                                    <a style={{marginLeft:"-10px"}}>{object.code}</a>
+                                                  </Col>
+                                                  <Col style={{fontSize:"12px", paddingTop:"3px", maxWidth:"242px"}}>
+                                                    {object.name}
+                                                  </Col>
+                                                </Row>
+                                              </Col>
+                                              <a hidden={true}>{node_par_state}</a>
+                                            </Row>
+                                      }
+                                    onContextMenu={(e) => {handleNodeContext(e,node_par_id);}}
+                                    style={{cursor: 'context-menu', marginLeft:"0px"}}
+                                  />
+                                </Col>
                             </Row>
                 }
             })}

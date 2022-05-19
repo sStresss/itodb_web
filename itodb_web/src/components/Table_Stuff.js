@@ -7,7 +7,7 @@ import axios from "axios";
 import {
     API_STUFF_URL,
     API_SUBSTUFF_URL,
-    API_STUFFBYTREE_URL
+    API_STUFFBYTREE_URL, API_OBJECTS_URL
 } from "../constants";
 import DialogBoxDelStuff from './DialogBoxDelStuff'
 import IconButton from '@mui/material/IconButton';
@@ -164,7 +164,7 @@ export default function Table_Stuff(props)  {
       { field: 'object_target', headerName: 'Цел. объект', width:150},
       { field: 'object_fact', headerName: 'Факт. объект', width:150},
       { field: 'date_transfer', headerName: 'Дата пер.'},
-      { field: 'comment', headerName: 'Комментарий', width:282},
+      { field: 'comment', headerName: 'Комментарий', width:285},
       { field: 'state', headerName:'state', hide:true}
     ];
     const getFilter = (dataLst) => {
@@ -223,22 +223,27 @@ export default function Table_Stuff(props)  {
           : null,
       );
     };
-    const tblCellWasClicked = (event) => {
-
-    }
 
     if (!stuff) return null;
     const Table = <DataGrid
             sx={{
+                // position: 'absolute',
                 cursor: 'pointer',
                 marginTop: 0,
-                '& .MuiDataGrid-cell:hover': {
-                  color: 'primary.main',
+                height: '887px',
+                overflowX:'hidden',
+                border:0,
+                '*::-webkit-scrollbar': {
+                    backgroundColor: '#d2d8de',
+                    width: '0.4em'
                 },
-                '& .MuiDataGrid-columnHeaderTitle':{
-                    fontWeight: 'bold'
+                '*::-webkit-scrollbar-track': {
+                    // '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
                 },
-                border:0
+                '*::-webkit-scrollbar-thumb': {
+                      backgroundColor: 'rgba(21,27,38,1)'
+                }
+
               }}
             className={classes}
             rows={rows}
@@ -311,6 +316,7 @@ export default function Table_Stuff(props)  {
         });
         setStuff(p_rows);
         setStuffTemp(p_rows);
+        props.setUpdateTree('true');
     }
     const stateModalTransferStuffCallback = (event) => {
         setTransferStuffModalShow('false')
@@ -325,12 +331,14 @@ export default function Table_Stuff(props)  {
     }
 
     const stateModalTransferStuffSaveCallback = (event) => {
-        setTransferStuffModalShow('false')
+        props.setUpdateTree('true');
+        setTransferStuffModalShow('false');
         tblUpdate()
     }
 
     const stateModalEditStuffSingleSaveCallback = (event) => {
-        setEditSingleModalShow('false')
+        props.setUpdateTree('true');
+        setEditSingleModalShow('false');
         tblUpdate()
     }
 
@@ -555,7 +563,13 @@ export default function Table_Stuff(props)  {
     }
 
     return (
-    <Row style={{ height: 825, width: '159%', marginTop:"-11px", borderTop:"1px solid #B4B4B4"}} >
+    <Row style={{
+            height: 825,
+            width: '160%',
+            marginTop:"-11px",
+            borderTop:"1px solid #B4B4B4",
+        }}
+    >
         <span id={"connect_state"} hidden={true}>global</span>
         <span id={"connect_pid"} hidden={true}></span>
         <span id={"connect_cid"} hidden={true}></span>
