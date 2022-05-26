@@ -401,10 +401,19 @@ def object_referal_edit(request, pk):
 
 
 def database_migrate():
-    objName = 'Рублевка 2.4'
-    object_pg = Object.objects.filter(name = objName)
+    objLst = Object.objects.all().order_by('id')
+    i = 0
+    for elem in objLst:
+        if i>=0:
+            obj_migrate(str(elem.name))
+        i+=1
 
 
+
+
+
+def obj_migrate(objName):
+    object_pg = Object.objects.filter(name=objName)
     passlog = open('C:\itoDB\sqlpasslog.txt', "r")
     l = [line.strip() for line in passlog]
 
@@ -425,9 +434,20 @@ def database_migrate():
 
     with con:
         cur = con.cursor()
+        if objName != 'Фестивальная':
+            if objName != 'Рублевка 2.3':
+                cur.execute("SELECT * FROM treeobjtbl WHERE ParentObjName LIKE '%"+objName+"%'")
+                object_sql = cur.fetchall()
+            else:
+                cur.execute("SELECT * FROM treeobjtbl WHERE ParentObjName LIKE '" + '681 ' + objName + "'")
+                object_sql = cur.fetchall()
+        else:
+            cur.execute("SELECT * FROM treeobjtbl WHERE ParentObjName LIKE '" + '658 ' + objName + "'")
+            object_sql = cur.fetchall()
+        print('CUR OBJECT: ', object_sql)
+        print(object_sql)
+        child_lst = checkChild(con, object_sql[0][0])
 
-        cur.execute("SELECT * FROM treeobjtbl WHERE ParentObjName LIKE '%"+objName+"%'")
-        object_sql = cur.fetchall()
         cur_obj_name = str(object_sql[0][1])
 
         cur.execute("SELECT * FROM ostuff")
@@ -437,20 +457,6 @@ def database_migrate():
             if (row[8] == cur_obj_name):
                 ores.append(row)
 
-        for elem in ores:
-            Stuff.objects.create(
-                type=elem[1],
-                model=elem[2],
-                serial=elem[3],
-                manufacturer=elem[4],
-                seller=elem[5],
-                date_purchase=elem[6],
-                object_target=str(elem[8])[4:],
-                object_fact=str(elem[8])[4:],
-                date_transfer=elem[9],
-                comment=elem[13], state='Оборудование')
-
-
         cur.execute("SELECT * FROM kstuff")
         krows = cur.fetchall()
 
@@ -458,16 +464,148 @@ def database_migrate():
             if (row[8] == cur_obj_name):
                 kres.append(row)
 
-        for elem in kres:
-            Stuff.objects.create(
-                type=elem[1],
-                model=elem[2],
-                serial=elem[3],
-                manufacturer=elem[4],
-                seller=elem[5],
-                date_purchase=elem[6],
-                object_target=str(elem[8])[4:],
-                object_fact=str(elem[8])[4:],
-                date_transfer=elem[9],
-                comment=elem[13], state='Комплектующее')
+        if len(child_lst) == 0:
+            for elem in ores:
+                if elem[13]== None:
+                    elem[13] = ''
+                target = ''
+                if elem[7] == 'Резерв':
+                    target = 'Резерв'
+                else:
+                    target = str(elem[7])[4:]
+                fact = ''
+                if elem[8] == 'Склад Офис':
+                    fact = 'Склад Офис'
+                else:
+                    fact = str(elem[8])[4:]
+                d_trans = ''
+                if elem[9] == None:
+                    d_trans = ''
+                else:
+                    d_trans = elem[9]
+                Stuff.objects.create(
+                    type=elem[1],
+                    model=elem[2],
+                    serial=elem[3],
+                    manufacturer=elem[4],
+                    seller=elem[5],
+                    date_purchase=elem[6],
+                    object_target=target,
+                    object_fact=fact,
+                    date_transfer=d_trans,
+                    comment=elem[13],
+                    state='Оборудование'
+                )
 
+            for elem in kres:
+                if elem[13]== None:
+                    elem[13] = ''
+                target = ''
+                if elem[7] == 'Резерв':
+                    target = 'Резерв'
+                else:
+                    target = str(elem[7])[4:]
+                fact = ''
+                if elem[8] == 'Склад Офис':
+                    fact = 'Склад Офис'
+                else:
+                    fact = str(elem[8])[4:]
+                d_trans = ''
+                if elem[9] == None:
+                    d_trans = ''
+                else:
+                    d_trans = elem[9]
+                Stuff.objects.create(
+                    type=elem[1],
+                    model=elem[2],
+                    serial=elem[3],
+                    manufacturer=elem[4],
+                    seller=elem[5],
+                    date_purchase=elem[6],
+                    object_target=target,
+                    object_fact=fact,
+                    date_transfer=d_trans,
+                    comment=elem[13],
+                    state='Комплектующее'
+                )
+        else:
+            print('childs was found: ', child_lst)
+            print(ores)
+            p_ores = []
+            p_kres = []
+            for elem in ores:
+                elem = list(elem)
+                for p_elem in child_lst:
+
+                    if (str(elem[12])==str(p_elem[0])):
+                        elem[12]=p_elem[1]
+                        print('------------------------')
+                        print('STR: ',elem)
+                        print(elem[12])
+                        print(p_elem[1])
+                p_ores.append(elem)
+            for elem in kres:
+                elem = list(elem)
+                for p_elem in child_lst:
+
+                    if (str(elem[12])==str(p_elem[0])):
+                        elem[12]=p_elem[1]
+                        print('------------------------')
+                        print('STR: ', elem)
+                        print(elem[12])
+                        print(p_elem[1])
+                p_kres.append(elem)
+
+            for elem in p_ores:
+                if elem[13]== None:
+                    elem[13] = ''
+                target = ''
+                if elem[7] == 'Резерв':
+                    target = 'Резерв'
+                else:
+                    target = str(elem[7])[4:]
+                Stuff.objects.create(
+                    type=elem[1],
+                    model=elem[2],
+                    serial=elem[3],
+                    manufacturer=elem[4],
+                    seller=elem[5],
+                    date_purchase=elem[6],
+                    object_target=target,
+                    object_fact=str(elem[8])[4:],
+                    date_transfer=elem[9],
+                    comment=elem[13],
+                    state='Оборудование',
+                    subobject_fact=elem[12]
+                )
+
+            for elem in p_kres:
+                if elem[13]== None:
+                    elem[13] = ''
+                target = ''
+                if elem[7] == 'Резерв':
+                  target = 'Резерв'
+                else:
+                    target = str(elem[7])[4:]
+                Stuff.objects.create(
+                    type=elem[1],
+                    model=elem[2],
+                    serial=elem[3],
+                    manufacturer=elem[4],
+                    seller=elem[5],
+                    date_purchase=elem[6],
+                    object_target=target,
+                    object_fact=str(elem[8])[4:],
+                    date_transfer=elem[9],
+                    comment=elem[13],
+                    state='Комплектующее',
+                    subobject_fact=elem[12]
+                )
+
+
+def checkChild(con, pNameId):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM treechildobjtbl WHERE ConnectionID LIKE '" + str(pNameId) + "'")
+        child_id_sql = cur.fetchall()
+        return child_id_sql

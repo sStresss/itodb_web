@@ -34,6 +34,7 @@ def getObjStat(pk):
 
     i = 0
     check = 'circle_red'
+    res_count = 0
     if (len(p_data)==0 and len(stuffRows)==0):
         check = 'circle_red'
     else:
@@ -43,9 +44,12 @@ def getObjStat(pk):
             check = 'circle_green'
             for elem in p_data:
               cur_count = getElemStat(curRows=stuffRows, objName=object.name,curType=elem.type, curModel=elem.model)
+              res_count+=int(cur_count)
               if int(elem.count) != int(cur_count):
-                # print('check 1!!!')
                 check = 'circle_yellow'
+            if res_count!=len(stuffRows):
+              check = 'circle_yellow'
+
     object.state = str(check)
     object.save(update_fields=['state'])
 

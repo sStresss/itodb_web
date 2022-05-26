@@ -82,8 +82,7 @@ export default function Table_Stuff(props)  {
             setStuffTemp(resLst);
             setStuff(resLst);
             });
-        },
-    []);
+        },[]);
     if (stuff.length !==0) {
         for(i=0; i < stuff.length; i++) {
             rows[i] = {id: stuff[i].pk,type: stuff[i].type , model: stuff[i].model, serial: stuff[i].serial, manufacturer: stuff[i].manufacturer,
@@ -153,7 +152,6 @@ export default function Table_Stuff(props)  {
     const [transferStuffModalShow, setTransferStuffModalShow] = React.useState(['false',[]])
     const [editSingleModalShow, setEditSingleModalShow] = React.useState(['false',[]])
     const [editGroupModalShow, setEditGroupModalShow] = React.useState(['false',[]])
-
     const columns = [
       { field: 'type', headerName: 'Тип', width: 200},
       { field: 'model', headerName: 'Модель', width: 150 },
@@ -224,9 +222,11 @@ export default function Table_Stuff(props)  {
       );
     };
 
+
     if (!stuff) return null;
 
     const Table = <DataGrid
+            pagination
             sx={{
                 // position: 'absolute',
                 cursor: 'pointer',
@@ -251,8 +251,9 @@ export default function Table_Stuff(props)  {
             columns={columns}
             checkboxSelection
             // disableSelectionOnClick
-            hideFooter={true}
+            // hideFooter={true}
             rowHeight = {30}
+            defaultPageSize={1000}
             sortModel = {sortModel}
             // onRowSelected={(x) => {)}}
             onSelectionModelChange={(ids) => {
@@ -313,7 +314,6 @@ export default function Table_Stuff(props)  {
     async function stateModalAddNewStuffSaveCallback (event)  {
         setAddStuffModalShow('false')
         var p_rows = []
-
         await axios.get(API_STUFF_URL).then((response) => {
             p_rows = getFilter(response.data)
         });
@@ -471,7 +471,9 @@ export default function Table_Stuff(props)  {
             return Table
         }
     }
+
     loadTableData();
+
     const p_srchState = search(props.srch);
     if (p_srchState === true) {
         let p_rows = new Array(0);

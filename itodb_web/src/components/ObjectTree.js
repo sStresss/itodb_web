@@ -149,7 +149,7 @@ export default function ObjectTree(props) {
     };
     var [stEditCellTypeLst, setStEditCellTypeLst] = React.useState([])
     var [stEditCellModelLst, setStEditCellModelLst] = React.useState([])
-    const [stEditCellCountLst, setStEditCellCountLst] = React.useState([...Array(100).keys()])
+    const [stEditCellCountLst, setStEditCellCountLst] = React.useState([...Array(150).keys()])
     const [stEditCellType, setStEditCellType] = React.useState('');
     const [stEditCellModel, setStEditCellModel] = React.useState('');
     const [stEditCellCount, setStEditCellCount] = React.useState(null);
