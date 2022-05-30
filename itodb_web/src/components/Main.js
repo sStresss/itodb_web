@@ -13,12 +13,9 @@ const promise = new Promise((resolve) => {
 var test = []
 
 export default function Main() {
-    console.log()
-    console.log('MAIN')
     var [updateTable, setUpdateTable] = React.useState(['false', 'none', '', '','','']);
     const [selectedTableLst, setSelectedTableLst] = React.useState([])
     var [srchData, setSrchData] = React.useState('');
-    var [srchDataType, setSrchDataType] = React.useState('');
     var [getMetricData, setGetMetricData] = React.useState(false);
     var [metric, setMetric] = React.useState([])
     var [mesBoxState, setMesBoxState] = React.useState(false)
@@ -40,9 +37,7 @@ export default function Main() {
         setSelectedTableLst(ids)
     }
     const searchUpd = (data, srchType) => {
-        console.log(srchType)
-        setSrchData(data);
-        setSrchDataType(srchType);
+        setSrchData([data, srchType]);
     }
     const getMetric = () => {
         setGetMetricData(true);
@@ -86,7 +81,6 @@ export default function Main() {
                 update={updateTable}
                 selectedLst={updateTblLst}
                 srch={srchData}
-                srchType={srchDataType}
                 getMetricData={getMetricData}
                 setMetricData={setMetricData}
                 setUpdateTree={updateTree}

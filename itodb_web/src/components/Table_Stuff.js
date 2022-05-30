@@ -37,26 +37,27 @@ var selectedCells = []
 var selectedCellData = []
 
 console.log('REFRESH!')
-const search = (srch) => {
-
-    let res = null
-    if (srch === undefined) {
-        res = null
-    }
-    else {
-        if (srch.toString().length === 0) {
-            res = false
-        }
-        else {
-            res = true;
-        }
-    }
-    return res
-};
+// const search = (srch) => {
+//
+//     let res = null
+//     if (srch === undefined) {
+//         res = null
+//     }
+//     else {
+//         if (srch.toString().length === 0) {
+//             res = false
+//         }
+//         else {
+//             res = true;
+//         }
+//     }
+//     return res
+// };
 
 const promise = new Promise((resolve) => {
     resolve()
 });
+var search = ['','1']
 var update = []
 var connect_pid = ''
 var connect_cid = ''
@@ -82,10 +83,9 @@ export default function Table_Stuff(props)  {
     var i = 0;
     var j = 0;
     React.useEffect(() => {
-      console.log('table update')
         axios.get(API_STUFF_URL).then((response) => {
           let resLst = getFilter(response.data)
-          setStuffTemp(resLst);
+          stuffTmp = resLst
           setStuff(resLst);
         });
         },[]);
@@ -390,7 +390,6 @@ export default function Table_Stuff(props)  {
     }
 
     const loadTableData = () => {
-      console.log(props.update)
       if ((props.update[0] != 'false') && (props.update != update)) {
         // setUpdateState(props.update)
         update = props.update
@@ -440,9 +439,65 @@ export default function Table_Stuff(props)  {
       }
     }
 
-    // loadTableData();
+    const srchTableData = () => {
+      console.log('======')
+      if ((props.srch[0] != search[0]) || (props.srch[1] != search[1])) {
+        let p_rows = new Array(0);
+        search = props.srch
+        console.log('search: '+props.srch)
+        if (props.srch[0] === '') {
+          console.log('сброс')
+          return promise.then(()=>{setStuff(stuffTmp)})
+        }
+        else {
+          console.log(stuffTmp)
+          if (props.srch[1] === 'серийный номер') {
+            for(i=0; i < stuffTmp.length; i++) {
+              if (stuffTmp[i]['serial'].includes(props.srch[0])) {
+                p_rows[j] = {pk: i,type: stuffTmp[i]['type'],
+                  model: stuffTmp[i]['model'],
+                  serial: stuffTmp[i]['serial'],
+                  manufacturer: stuffTmp[i]['manufacturer'],
+                  seller: stuffTmp[i]['seller'],
+                  date_purchase: stuffTmp[i]['date_purchase'],
+                  object_target: stuffTmp[i]['object_target'],
+                  object_fact: stuffTmp[i]['object_fact'],
+                  date_transfer: stuffTmp[i]['date_transfer'],
+                  comment: stuffTmp[i]['comment'],
+                  state: stuffTmp[i]['state']};
+                j++;
+              }
+            };
+            }
+            else {
+              for(i=0; i < stuffTmp.length; i++) {
+                if (stuffTmp[i]['object_fact'].includes(props.srch[0])) {
+                  p_rows[j] = {
+                    pk: i,
+                    type: stuffTmp[i]['type'],
+                    model: stuffTmp[i]['model'],
+                    serial: stuffTmp[i]['serial'],
+                    manufacturer: stuffTmp[i]['manufacturer'],
+                    seller: stuffTmp[i]['seller'],
+                    date_purchase: stuffTmp[i]['date_purchase'],
+                    object_target: stuffTmp[i]['object_target'],
+                    object_fact: stuffTmp[i]['object_fact'],
+                    date_transfer: stuffTmp[i]['date_transfer'],
+                    comment: stuffTmp[i]['comment'],
+                    state: stuffTmp[i]['state']};
+                  j++;
+                };
+              };
+            }
+          return promise.then(()=>{setStuff(p_rows)})
+        }
+      }
 
-    const p_srchState = search(props.srch);
+
+
+    }
+
+    // const p_srchState = search(props.srch);
     // if (p_srchState === true) {
     //     let p_rows = new Array(0);
     //     let j = 0
@@ -557,7 +612,8 @@ export default function Table_Stuff(props)  {
         </IconButton>
         {Table}
         {TableContextMenu}
-        <span id={"connectTreeState"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true} onChange={loadTableData()}>{props.update || 'Главная'} </span>
+        <span id={"connectTreeState"}  hidden={true} onChange={loadTableData()}>{props.update || 'Главная'} </span>
+        <span id={"connectSearch"}  hidden={true} onChange={srchTableData()}>{props.srch || ['','']} </span>
         <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
         <TransferStuffModal show={transferStuffModalShow} stateCallback={stateModalTransferStuffCallback} stateSaveCallback={stateModalTransferStuffSaveCallback}/>
         <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>

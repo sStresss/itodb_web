@@ -104,37 +104,6 @@ export default function Table_Control(props)  {
         setMesBoxState(false)
     }
 
-    // if (props.updateData[0] !== 'false' ) {
-    //     document.getElementById('srchTextField').value = '';
-    //     document.getElementById('connectTblStateSrch').hidden = true;
-    //     document.getElementById('connectTblStateSpaceSrch').hidden = true;
-    //     if (props.updateData[1] !== 'none') {
-    //         if (stuffTblStateParent !== props.updateData[4]) {
-    //             setStuffTblStateParent(props.updateData[4]);
-    //         }
-    //         if (props.updateData[5] !== '') {
-    //             if (stuffTblStateChild !== props.updateData[5]) {
-    //                 setStuffTblStateChild(props.updateData[5]);
-    //                 document.getElementById('connectTblStateSpace').hidden = false;
-    //                 document.getElementById('connectTblStateChild').hidden = false;
-    //             }
-    //         } else {
-    //             if (stuffTblStateChild !== props.updateData[5]) {
-    //                 setStuffTblStateChild(props.updateData[5]);
-    //                 document.getElementById('connectTblStateSpace').hidden = true;
-    //                 document.getElementById('connectTblStateChild').hidden = true;
-    //             }
-    //         }
-    //     }
-    //     else {
-    //         if (stuffTblStateParent !== props.updateData[4]) {
-    //             setStuffTblStateParent('Главная');
-    //             document.getElementById('connectTblStateSpace').hidden = true;
-    //             document.getElementById('connectTblStateChild').hidden = true;
-    //         }
-    //     }
-    // }
-
     const handleModalFilterOpen = (event) => {
         console.log('123321123321')
         setModalFilterOpen(true)
@@ -142,7 +111,7 @@ export default function Table_Control(props)  {
     const handleSrchTypeChange = (event) => {
         setSrchTypeObj(event.target.value);
         promise.then(()=>{
-            props.srch('', document.getElementById('srchType').textContent);
+            // props.srch('', document.getElementById('srchType').textContent);
             props.srch(document.getElementById('srchTextField').value, document.getElementById('srchType').textContent);
         })
     }
@@ -290,7 +259,7 @@ export default function Table_Control(props)  {
                 document.getElementById('connectTblStateSpaceSrch').hidden = true;
                 document.getElementById('connectTblStateSrch').hidden = true;
             }
-                        props.srch('', document.getElementById('srchType').textContent);
+                        // props.srch('', document.getElementById('srchType').textContent);
             props.srch(srchData, document.getElementById('srchType').textContent);
         });
     }
