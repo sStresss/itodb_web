@@ -104,6 +104,7 @@ let url = `ws://127.0.0.1:8000/ws/socket-server/`
 
 const socket = new WebSocket(url)
 
+
 export default function ObjectTree(props) {
     React.useEffect(() => {
         axios.get(API_OBJECTS_URL).then((response) => {
@@ -116,7 +117,8 @@ export default function ObjectTree(props) {
             setSubObject(response.data);
         });
     }, []);
-
+    console.log('tree reloaded')
+    var [test, setTest] = React.useState(false)
     const useStyles = makeStyles({
       "@global": {
         ".MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label": {
@@ -357,6 +359,8 @@ export default function ObjectTree(props) {
 
 
     }
+    var [parentNodeColor, setParentNodeColor] = React.useState('#3B4049');
+
     const CustomContent = React.forwardRef(function CustomContent(props, ref) {
         const {
             classes,
@@ -391,8 +395,9 @@ export default function ObjectTree(props) {
         };
 
         const handleSelectionClick = (event) => {
-            handleSelection(event)
-            promise.then(()=>{updateTable('tree_parent', props['nodeId'],'',props['label'].props.children[0].props.children.props.children[1].props.children,'')})
+          handleSelection(event)
+          // return updateTable('tree_parent', props['nodeId'],'',props['label'].props.children[0].props.children.props.children[1].props.children,'')
+          // console.log(['tree_parent', props['nodeId'],'',props['label'].props.children[0].props.children.props.children[1].props.children,''])
         };
 
         const handleContextClick = (event) => {
@@ -462,7 +467,7 @@ export default function ObjectTree(props) {
 
         const handleSelectionClick = (event) => {
             handleSelection(event)
-            promise.then(()=>{updateTable('tree_child', props['nodeId'].toString().split('_')[0], props['nodeId'].toString().split('_')[1], props['label'].props.children[1].props.children, props['label'].props.children[0].props.children)});
+            // promise.then(()=>{updateTable('tree_child', props['nodeId'].toString().split('_')[0], props['nodeId'].toString().split('_')[1], props['label'].props.children[1].props.children, props['label'].props.children[0].props.children)});
         };
 
         const handleContextClick = (event) => {
@@ -585,14 +590,14 @@ export default function ObjectTree(props) {
                             { field: 'count_fact', headerName: 'факт', width: 70 },
                             { field: 'pk', headerName: 'pk', width: 10, hide:true }];
     var [statusRows, setStatusRows] = React.useState([])
-    const updateTable = (type, pId, cId,pName, chName) =>{
-        return props.update(type,pId,cId, pName, chName)
+    async function updateTable (event, type, pId, cId,pName, chName) {
+        props.update(event, type,pId,cId, pName, chName)
     }
     const handleTreeSubObjClick = (e,pid, cid, pName, chName) => {
         return promise.then(()=>{updateTable('tree_child', pid.toString(), cid.toString(), pName.toString(), chName.toString())});
     }
     const globalTreeRefresh = () => {
-        promise.then(()=>{updateTable('none', '', '','Главная')})
+        promise.then(()=>{updateTable('true','none', '', '','Главная')})
     }
     const [objects, setObject] = React.useState(null);
     const [subobjects, setSubObject] = React.useState(null);
@@ -862,6 +867,7 @@ export default function ObjectTree(props) {
                                       },
                                       ".css-1g86id8-MuiTreeItem-content.Mui-selected": {
                                         backgroundColor: "#3B4049"
+                                        // backgroundColor: {parentNodeColor}
                                       },
                                       ".css-1g86id8-MuiTreeItem-content.Mui-selected:hover": {
                                         backgroundColor: "#3B4049"
@@ -873,7 +879,7 @@ export default function ObjectTree(props) {
                                   key={object.pk}
                                   nodeId={object.pk}
                                   value = {object.code + '  ' + object.name}
-                                  label={ <Row>
+                                  label={ <Row onClick={(e)=>{updateTable('true','tree_parent', object.pk,'',object.name,'')}}>
                                             <Col style={{color:"white"}}>
                                               <Row>
                                                 <Col style={{maxWidth:'33px', fontSize:"14px"}}>
@@ -890,6 +896,7 @@ export default function ObjectTree(props) {
                                   onContextMenu={(e) => {
                                     handleNodeContext(e,node_par_id)
                                   }}
+
                                   style={{cursor: 'context-menu', marginLeft:"0px"}}
                                 >
                                   {subobjects.map(subobj => {
@@ -916,7 +923,7 @@ export default function ObjectTree(props) {
                                           key={node_ch_id}
                                           nodeId={node_par_id.toString()+'_'+node_ch_id.toString()}
                                           label={
-                                            <div>
+                                            <div onClick={(e)=>{updateTable('true','tree_parent', object.pk, subobj.pk,object.name+'_'+subobj.name,'')}}>
                                               <a style={{fontSize:"13px", paddingLeft:"56px"}}>{subobj.name}</a>
                                               <a hidden={true}>{object.name}</a>
                                             </div>
@@ -957,7 +964,7 @@ export default function ObjectTree(props) {
                                     key={object.code}
                                     nodeId={object.pk}
                                     nodeName = {object.code + '  ' + object.name}
-                                    label={ <Row>
+                                    label={ <Row onClick={(e)=>{updateTable('true','tree_parent', object.pk,'',object.name,'')}}>
                                               <Col style={{color:"white"}}>
                                                 <Row>
                                                   <Col style={{maxWidth:'33px', fontSize:"14px"}}>
@@ -1024,7 +1031,6 @@ export default function ObjectTree(props) {
           <Row sx={{
                   minWidth:'240px'
                 }}
-               style={{cursor:"pointer"}} onClick={globalTreeRefresh}
                style={{cursor:"pointer"}} onClick={globalTreeRefresh}
           >
             <Col style={{maxWidth:"180px"}}>

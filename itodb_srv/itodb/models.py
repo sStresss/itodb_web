@@ -13,7 +13,7 @@ class Student(models.Model):
 class Object(models.Model):
     code = models.CharField("Code", max_length=5)
     name = models.CharField("Name", max_length=40)
-    note = models.CharField("Notes", max_length=500, blank=True)
+    note = models.CharField("Notes", max_length=1000, blank=True)
     state = models.CharField("State", max_length=15, blank=True)
     referal = models.CharField("referal", max_length=200, blank=True)
 

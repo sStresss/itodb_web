@@ -24,6 +24,7 @@ import {API_NEWSTUFF_URL, API_NEWSUBSTUFF_URL, API_OBJECTS_URL, API_STUFF_URL, A
 import { DataGrid } from '@mui/x-data-grid';
 import {makeStyles} from "@mui/styles";
 import MessageBox from './MessageBox'
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 window.sessionStorage.setItem('filterViewStuff', 'true');
@@ -103,36 +104,36 @@ export default function Table_Control(props)  {
         setMesBoxState(false)
     }
 
-    if (props.updateData[0] !== 'false' ) {
-        document.getElementById('srchTextField').value = '';
-        document.getElementById('connectTblStateSrch').hidden = true;
-        document.getElementById('connectTblStateSpaceSrch').hidden = true;
-        if (props.updateData[1] !== 'none') {
-            if (stuffTblStateParent !== props.updateData[4]) {
-                setStuffTblStateParent(props.updateData[4]);
-            }
-            if (props.updateData[5] !== '') {
-                if (stuffTblStateChild !== props.updateData[5]) {
-                    setStuffTblStateChild(props.updateData[5]);
-                    document.getElementById('connectTblStateSpace').hidden = false;
-                    document.getElementById('connectTblStateChild').hidden = false;
-                }
-            } else {
-                if (stuffTblStateChild !== props.updateData[5]) {
-                    setStuffTblStateChild(props.updateData[5]);
-                    document.getElementById('connectTblStateSpace').hidden = true;
-                    document.getElementById('connectTblStateChild').hidden = true;
-                }
-            }
-        }
-        else {
-            if (stuffTblStateParent !== props.updateData[4]) {
-                setStuffTblStateParent('Главная');
-                document.getElementById('connectTblStateSpace').hidden = true;
-                document.getElementById('connectTblStateChild').hidden = true;
-            }
-        }
-    }
+    // if (props.updateData[0] !== 'false' ) {
+    //     document.getElementById('srchTextField').value = '';
+    //     document.getElementById('connectTblStateSrch').hidden = true;
+    //     document.getElementById('connectTblStateSpaceSrch').hidden = true;
+    //     if (props.updateData[1] !== 'none') {
+    //         if (stuffTblStateParent !== props.updateData[4]) {
+    //             setStuffTblStateParent(props.updateData[4]);
+    //         }
+    //         if (props.updateData[5] !== '') {
+    //             if (stuffTblStateChild !== props.updateData[5]) {
+    //                 setStuffTblStateChild(props.updateData[5]);
+    //                 document.getElementById('connectTblStateSpace').hidden = false;
+    //                 document.getElementById('connectTblStateChild').hidden = false;
+    //             }
+    //         } else {
+    //             if (stuffTblStateChild !== props.updateData[5]) {
+    //                 setStuffTblStateChild(props.updateData[5]);
+    //                 document.getElementById('connectTblStateSpace').hidden = true;
+    //                 document.getElementById('connectTblStateChild').hidden = true;
+    //             }
+    //         }
+    //     }
+    //     else {
+    //         if (stuffTblStateParent !== props.updateData[4]) {
+    //             setStuffTblStateParent('Главная');
+    //             document.getElementById('connectTblStateSpace').hidden = true;
+    //             document.getElementById('connectTblStateChild').hidden = true;
+    //         }
+    //     }
+    // }
 
     const handleModalFilterOpen = (event) => {
         console.log('123321123321')
@@ -510,7 +511,7 @@ export default function Table_Control(props)  {
                 >
                     <img src={"./metric.png"} style={{height:'27px'}}/>
                 </IconButton>
-                <a id={"connectTblStateParent"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}}>{stuffTblStateParent}</a>
+                <a id={"connectTblStateParent"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}}>{props.updateData[4] || 'Главная'} </a>
                 <a id={"connectTblStateSpace"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>»</a>
                 <a id={"connectTblStateChild"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>{stuffTblStateChild}</a>
                 <a id={"connectTblStateSpaceSrch"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>»</a>
@@ -638,6 +639,9 @@ export default function Table_Control(props)  {
                 {infoModal}
                 <MessageBox message={mesBoxMessage} modalState={mesBoxState} close={closeMesBox}/>
             </Row>
+            {/*<Row>*/}
+                {/*<LinearProgress/>*/}
+            {/*</Row>*/}
         </div>
     );
 }

@@ -10,10 +10,12 @@ const promise = new Promise((resolve) => {
     resolve()
 });
 
+var test = []
 
 export default function Main() {
-  console.log('MAIN')
-    const [updateTable, setUpdateTable] = React.useState(['false', 'none', '', '','','']);
+    console.log()
+    console.log('MAIN')
+    var [updateTable, setUpdateTable] = React.useState(['false', 'none', '', '','','']);
     const [selectedTableLst, setSelectedTableLst] = React.useState([])
     var [srchData, setSrchData] = React.useState('');
     var [srchDataType, setSrchDataType] = React.useState('');
@@ -29,9 +31,10 @@ export default function Main() {
     const closeMesBox = () => {
         setMesBoxState(false)
     }
-    const  updateData = (type, parId, chId,pName,chName) => {
-        setUpdateTable(['true', type, parId, chId, pName, chName]);
-        setUpdateTable(['false']);
+    const updateData = (event, type, parId, chId,pName,chName) =>  {
+        setUpdateTable([event, type, parId, chId, pName, chName])
+
+        // console.log(['true', type, parId, chId, pName, chName])
     }
     const updateTblLst = (ids) => {
         setSelectedTableLst(ids)
@@ -80,7 +83,7 @@ export default function Main() {
               />
               <Table_Stuff
                 reload = {updateData}
-                update={updateTable}
+                // update={updateTable}
                 selectedLst={updateTblLst}
                 srch={srchData}
                 srchType={srchDataType}

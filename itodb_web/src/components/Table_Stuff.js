@@ -19,6 +19,8 @@ import EditStuffSingleModal from './EditStuffSingle'
 import EditStuffGroupModal from './EditStuffGroup'
 
 
+
+
 var srchState = null;
 const modalstyle = {
   position: 'absolute',
@@ -253,7 +255,7 @@ export default function Table_Stuff(props)  {
             // disableSelectionOnClick
             // hideFooter={true}
             rowHeight = {30}
-            defaultPageSize={1000}
+            pageSize={25}
             sortModel = {sortModel}
             // onRowSelected={(x) => {)}}
             onSelectionModelChange={(ids) => {
@@ -383,7 +385,7 @@ export default function Table_Stuff(props)  {
         }
     }
 
-    const loadTableData = () => {
+    async function loadTableData () {
         if ((props.update)[0] === 'true') {
             if ((props.update)[1] === 'none') {
             axios.get(API_STUFF_URL).then((response) => {
@@ -429,144 +431,105 @@ export default function Table_Stuff(props)  {
                         setAddStuffBtnHide(true)
                     })
                 }
-                if ((props.update)[1] === 'control') {
-                    axios.get(API_STUFF_URL).then((response) => {
-                        console.log(document.getElementById('connect_state').textContent)
-                        if (document.getElementById('connect_state').textContent === 'global') {
-                            axios.get(API_STUFF_URL).then((response) => {
-                                let resLst = getFilter(response.data);
-                                setStuffTemp(resLst);
-                                setStuff(resLst);
-                                props.setUpdateTree('true')
-                                setAddStuffBtnHide(false)
-                            })
-                        }
-                        if (document.getElementById('connect_state').textContent === 'tree_parent') {
-                            const type = 'parent';
-                            const pid = document.getElementById('connect_pid').value;
-                            console.log('connect: '+document.getElementById('connect_pid').value)
-                            axios.post(API_STUFFBYTREE_URL, {type, pid}).then((response) => {
-                                let resLst = getFilter(response.data);
-                                setStuffTemp(resLst);
-                                setStuff(resLst);
-                                props.setUpdateTree('true')
-                                setAddStuffBtnHide(true)
-                            })
-                        }
-                        if (document.getElementById('connect_state').textContent === 'tree_child') {
-                            const type = 'child';
-                            const pid = document.getElementById('connect_pid').textContent;
-                            const cid = document.getElementById('connect_cid').textContent;
-                            axios.post(API_STUFFBYTREE_URL, {type, pid, cid}).then((response) => {
-                                let resLst = getFilter(response.data);
-                                setStuffTemp(resLst);
-                                setStuff(resLst);
-                                props.setUpdateTree('true')
-                                setAddStuffBtnHide(true)
-                            })
-                        }
-                    })
-                }
             }
             return Table
         }
     }
 
-    loadTableData();
+    // loadTableData();
 
     const p_srchState = search(props.srch);
-    if (p_srchState === true) {
-        let p_rows = new Array(0);
-        let j = 0
-        promise.then(()=> {
-            if (srchState === null) {
-                srchState = true;
-                if (props.srchType === 'серийный номер') {
-                    for(i=0; i < stuffTemp.length; i++) {
-                        if (stuffTemp[i]['serial'].startsWith(props.srch)) {
-                             p_rows[j] = {pk: i,type: stuffTemp[i]['type'],
-                                 model: stuffTemp[i]['model'],
-                                 serial: stuffTemp[i]['serial'],
-                                 manufacturer: stuffTemp[i]['manufacturer'],
-                                 seller: stuffTemp[i]['seller'],
-                                 date_purchase: stuffTemp[i]['date_purchase'],
-                                 object_target: stuffTemp[i]['object_target'],
-                                 object_fact: stuffTemp[i]['object_fact'],
-                                 date_transfer: stuffTemp[i]['date_transfer'],
-                                 comment: stuffTemp[i]['comment'],
-                                 state: stuffTemp[i]['state']};
-                             j++;
-                        }
-
-                    };
-                }
-                else {
-                     for(i=0; i < stuffTemp.length; i++) {
-                         if (stuffTemp[i]['object_fact'].startsWith(props.srch)) {
-                             p_rows[j] = {
-                                 pk: i,
-                                 type: stuffTemp[i]['type'],
-                                 model: stuffTemp[i]['model'],
-                                 serial: stuffTemp[i]['serial'],
-                                 manufacturer: stuffTemp[i]['manufacturer'],
-                                 seller: stuffTemp[i]['seller'],
-                                 date_purchase: stuffTemp[i]['date_purchase'],
-                                 object_target: stuffTemp[i]['object_target'],
-                                 object_fact: stuffTemp[i]['object_fact'],
-                                 date_transfer: stuffTemp[i]['date_transfer'],
-                                 comment: stuffTemp[i]['comment'],
-                                 state: stuffTemp[i]['state']
-                             };
-                             j++;
-                         };
-                    };
-                }
-                setAddStuffBtnHide(true)
-                setStuff(p_rows);
-                // setAddStuffBtnHide(true)
-                console.log()
-            }
-        })
-    }
-    else {
-        if (p_srchState === false) {
-            promise.then(()=> {
-                srchState = null;
-                console.log('go back!')
-                setStuff(stuffTemp);
-                if ((props.update)[1] === 'none') {
-                    setAddStuffBtnHide(false)
-                }
-
-
-            })
-        }
-    }
-    if (props.getMetricData === true) {
-        let p_rows = []
-        var rows = []
-        let j = 0
-        if (stuffTemp.length !== 0) {
-            p_rows[0] = [stuff[0]['type'], stuff[0]['model'], 0]
-            for (let i = 0; i < stuffTemp.length; i++) {
-                let check = false
-                for (j = 0; j < p_rows.length; j++) {
-                    if (p_rows[j][0] === stuff[i]['type'] && p_rows[j][1] === stuff[i]['model']) {
-                        p_rows[j][2]++
-                        check = true
-                    }
-                }
-                if (check === false) {
-                    p_rows[p_rows.length] = [stuff[i]['type'], stuff[i]['model'], 1]
-                }
-            }
-            for (i = 0; i < p_rows.length; i++) {
-                rows[i] = {id: i, type: p_rows[i][0], model: p_rows[i][1], count: p_rows[i][2].toString()}
-            }
-        }
-
-        props.setMetricData(rows);
-    }
+    // if (p_srchState === true) {
+    //     let p_rows = new Array(0);
+    //     let j = 0
+    //     promise.then(()=> {
+    //         if (srchState === null) {
+    //             srchState = true;
+    //             if (props.srchType === 'серийный номер') {
+    //                 for(i=0; i < stuffTemp.length; i++) {
+    //                     if (stuffTemp[i]['serial'].startsWith(props.srch)) {
+    //                          p_rows[j] = {pk: i,type: stuffTemp[i]['type'],
+    //                              model: stuffTemp[i]['model'],
+    //                              serial: stuffTemp[i]['serial'],
+    //                              manufacturer: stuffTemp[i]['manufacturer'],
+    //                              seller: stuffTemp[i]['seller'],
+    //                              date_purchase: stuffTemp[i]['date_purchase'],
+    //                              object_target: stuffTemp[i]['object_target'],
+    //                              object_fact: stuffTemp[i]['object_fact'],
+    //                              date_transfer: stuffTemp[i]['date_transfer'],
+    //                              comment: stuffTemp[i]['comment'],
+    //                              state: stuffTemp[i]['state']};
+    //                          j++;
+    //                     }
+    //
+    //                 };
+    //             }
+    //             else {
+    //                  for(i=0; i < stuffTemp.length; i++) {
+    //                      if (stuffTemp[i]['object_fact'].startsWith(props.srch)) {
+    //                          p_rows[j] = {
+    //                              pk: i,
+    //                              type: stuffTemp[i]['type'],
+    //                              model: stuffTemp[i]['model'],
+    //                              serial: stuffTemp[i]['serial'],
+    //                              manufacturer: stuffTemp[i]['manufacturer'],
+    //                              seller: stuffTemp[i]['seller'],
+    //                              date_purchase: stuffTemp[i]['date_purchase'],
+    //                              object_target: stuffTemp[i]['object_target'],
+    //                              object_fact: stuffTemp[i]['object_fact'],
+    //                              date_transfer: stuffTemp[i]['date_transfer'],
+    //                              comment: stuffTemp[i]['comment'],
+    //                              state: stuffTemp[i]['state']
+    //                          };
+    //                          j++;
+    //                      };
+    //                 };
+    //             }
+    //             setAddStuffBtnHide(true)
+    //             setStuff(p_rows);
+    //             // setAddStuffBtnHide(true)
+    //         }
+    //     })
+    // }
+    // else {
+    //     if (p_srchState === false) {
+    //         promise.then(()=> {
+    //             srchState = null;
+    //             console.log('go back!')
+    //             setStuff(stuffTemp);
+    //             if ((props.update)[1] === 'none') {
+    //                 setAddStuffBtnHide(false)
+    //             }
+    //
+    //
+    //         })
+    //     }
+    // }
+    // if (props.getMetricData === true) {
+    //     let p_rows = []
+    //     var rows = []
+    //     let j = 0
+    //     if (stuffTemp.length !== 0) {
+    //         p_rows[0] = [stuff[0]['type'], stuff[0]['model'], 0]
+    //         for (let i = 0; i < stuffTemp.length; i++) {
+    //             let check = false
+    //             for (j = 0; j < p_rows.length; j++) {
+    //                 if (p_rows[j][0] === stuff[i]['type'] && p_rows[j][1] === stuff[i]['model']) {
+    //                     p_rows[j][2]++
+    //                     check = true
+    //                 }
+    //             }
+    //             if (check === false) {
+    //                 p_rows[p_rows.length] = [stuff[i]['type'], stuff[i]['model'], 1]
+    //             }
+    //         }
+    //         for (i = 0; i < p_rows.length; i++) {
+    //             rows[i] = {id: i, type: p_rows[i][0], model: p_rows[i][1], count: p_rows[i][2].toString()}
+    //         }
+    //     }
+    //
+    //     props.setMetricData(rows);
+    // }
 
     return (
     <Row style={{
