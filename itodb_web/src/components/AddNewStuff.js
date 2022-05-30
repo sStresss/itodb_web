@@ -135,6 +135,7 @@ export default function AddSTuffModal(props) {
   }
 
   const handleModalOpen = () => {
+
     axios.get(API_NEWSTUFF_URL).then((response) => {
       console.log(response.data)
       ns_types = (response.data)['types'];
@@ -181,7 +182,7 @@ export default function AddSTuffModal(props) {
       setNsWarehouseLst(ns_ppp_rows);
       setNsSellerLst(ns_pppp_rows);
       setNsObjectLst(ns_ppppp_rows);
-      setStuffDatePurchase(new Date('2000-01-01T21:11:54'));
+      setStuffDatePurchase(new Date());
       setNsToggle('stuff');
       setModalOpen(true);
 

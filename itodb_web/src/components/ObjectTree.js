@@ -878,7 +878,7 @@ export default function ObjectTree(props) {
                                   key={object.pk}
                                   nodeId={object.pk}
                                   value = {object.code + '  ' + object.name}
-                                  label={ <Row onClick={(e)=>{updateTable('true','tree_parent', object.pk,'',object.name,'')}}>
+                                  label={ <Row onClick={(e)=>{updateTable('true','tree_parent', object.pk,'',object.name,'')}} >
                                             <Col style={{color:"white"}}>
                                               <Row>
                                                 <Col style={{maxWidth:'33px', fontSize:"14px"}}>
@@ -963,7 +963,7 @@ export default function ObjectTree(props) {
                                     key={object.code}
                                     nodeId={object.pk}
                                     nodeName = {object.code + '  ' + object.name}
-                                    label={ <Row onClick={(e)=>{updateTable('true','tree_parent', object.pk,'',object.name,'')}}>
+                                    label={ <Row onAnimationEnd={(e)=>{updateTable('true','tree_parent', object.pk,'',object.name,'')}}>
                                               <Col style={{color:"white"}}>
                                                 <Row>
                                                   <Col style={{maxWidth:'33px', fontSize:"14px"}}>

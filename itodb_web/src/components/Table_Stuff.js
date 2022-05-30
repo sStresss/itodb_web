@@ -150,7 +150,7 @@ export default function Table_Stuff(props)  {
             for (let ind = 0; ind < selectedLst.length; ind++) {
                 let pk = selectedLst[ind]
                 axios.delete(API_STUFF_URL + pk).then(res=>{
-                    if (parseInt(ind, 10)  === parseInt((((selectedLst).length)-1),10)) {props.setUpdateTree('true');tblUpdate()};
+                    if (parseInt(ind, 10)  === parseInt((((selectedLst).length)-1),10)) {props.setUpdateTree('true'); tblUpdate()};
                 });
             };
         }
@@ -364,7 +364,7 @@ export default function Table_Stuff(props)  {
                 p_rows = getFilter(response.data)
             });
             setStuff(p_rows);
-            setStuffTemp(p_rows);
+            stuffTmp = p_rows
         }
         else {
             if (connect_state === 'tree_parent') {
@@ -374,7 +374,7 @@ export default function Table_Stuff(props)  {
                     p_rows = getFilter(response.data)
                 });
                 setStuff(p_rows);
-                setStuffTemp(p_rows);
+                stuffTmp = p_rows
             }
             else {
                 let type = 'child'
@@ -384,12 +384,10 @@ export default function Table_Stuff(props)  {
                     p_rows = getFilter(response.data)
                 })
                 setStuff(p_rows);
-                setStuffTemp(p_rows);
+                stuffTmp = p_rows
             }
         }
     }
-
-
 
     const loadTableData = () => {
       console.log(props.update)
