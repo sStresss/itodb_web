@@ -61,6 +61,7 @@ var update = []
 var connect_pid = ''
 var connect_cid = ''
 var connect_state = 'global'
+var stuffTmp = []
 
 export default function Table_Stuff(props)  {
     var [updateState, setUpdateState] = React.useState([])
@@ -392,33 +393,31 @@ export default function Table_Stuff(props)  {
 
     const loadTableData = () => {
       console.log(props.update)
-      if ((props.update[0] != 'false') && (props.update != updateState)) {
-        setUpdateState(props.update)
+      if ((props.update[0] != 'false') && (props.update != update)) {
+        // setUpdateState(props.update)
+        update = props.update
         if ((props.update)[1] === 'none') {
           axios.get(API_STUFF_URL).then((response) => {
             connect_state = 'global'
             document.getElementById('connect_state').innerText = 'global';
             // setStuffTemp(response.data);
+            stuffTmp = response.data
             setStuff(response.data);
-            // setAddStuffBtnHide(false);
           })
         } else {
           if ((props.update)[1] === 'tree_parent') {
             const type = 'parent';
             const pid = (props.update)[2];
-            console.log('pid: ' + pid.toString())
-            console.log('connect: ' + document.getElementById('connect_pid').value)
             axios.post(API_STUFFBYTREE_URL, {type, pid}).then((response) => {
               connect_state = 'tree_parent'
               connect_pid = props.update[2]
-              connect_cid = props.update[3]
               document.getElementById('connect_state').innerText = 'tree_parent';
               document.getElementById('connect_pid').value = (props.update)[2];
               document.getElementById('connect_pid').innerText = (props.update)[2];
               let resLst = getFilter(response.data);
               // setStuffTemp(resLst);
+              stuffTmp = response.data
               setStuff(resLst);
-              // setAddStuffBtnHide(true)
             })
           }
           if ((props.update)[1] === 'tree_child') {
@@ -434,8 +433,8 @@ export default function Table_Stuff(props)  {
               document.getElementById('connect_pid').innerText = (props.update)[2];
               document.getElementById('connect_cid').innerText = (props.update)[3];
               // setStuffTemp(response.data);
+              stuffTmp = response.data
               setStuff(response.data);
-              // setAddStuffBtnHide(true)
             })
           }
         }

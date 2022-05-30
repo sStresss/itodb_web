@@ -922,7 +922,7 @@ export default function ObjectTree(props) {
                                           key={node_ch_id}
                                           nodeId={node_par_id.toString()+'_'+node_ch_id.toString()}
                                           label={
-                                            <div onClick={(e)=>{updateTable('true','tree_parent', object.pk, subobj.pk,object.name+' » '+subobj.name,'')}}>
+                                            <div onClick={(e)=>{updateTable('true','tree_child', object.pk, subobj.pk,object.name+' » '+subobj.name,'')}}>
                                               <a style={{fontSize:"13px", paddingLeft:"56px"}}>{subobj.name}</a>
                                               <a hidden={true}>{object.name}</a>
                                             </div>
