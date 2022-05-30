@@ -83,7 +83,7 @@ export default function Main() {
               />
               <Table_Stuff
                 reload = {updateData}
-                // update={updateTable}
+                update={updateTable}
                 selectedLst={updateTblLst}
                 srch={srchData}
                 srchType={srchDataType}

@@ -57,11 +57,13 @@ const search = (srch) => {
 const promise = new Promise((resolve) => {
     resolve()
 });
+var update = []
 var connect_pid = ''
 var connect_cid = ''
 var connect_state = 'global'
 
 export default function Table_Stuff(props)  {
+    var [updateState, setUpdateState] = React.useState([])
     const [dialogBoxDelStuffState, setDialogBoxDelStuffState] = React.useState(false)
     const [selectedLst, setSelectedLst] = React.useState()
     var [srchDataTemp, setSrchDataTemp] = React.useState('');
@@ -79,11 +81,12 @@ export default function Table_Stuff(props)  {
     var i = 0;
     var j = 0;
     React.useEffect(() => {
+      console.log('table update')
         axios.get(API_STUFF_URL).then((response) => {
-            let resLst = getFilter(response.data)
-            setStuffTemp(resLst);
-            setStuff(resLst);
-            });
+          let resLst = getFilter(response.data)
+          setStuffTemp(resLst);
+          setStuff(resLst);
+        });
         },[]);
     if (stuff.length !==0) {
         for(i=0; i < stuff.length; i++) {
@@ -385,55 +388,59 @@ export default function Table_Stuff(props)  {
         }
     }
 
-    async function loadTableData () {
-        if ((props.update)[0] === 'true') {
-            if ((props.update)[1] === 'none') {
-            axios.get(API_STUFF_URL).then((response) => {
-                connect_state = 'global'
-                document.getElementById('connect_state').innerText = 'global';
-                setStuffTemp(response.data);
-                setStuff(response.data);
-                setAddStuffBtnHide(false);
-            })}
-            else {
-                if ((props.update)[1] === 'tree_parent') {
-                    const type = 'parent';
-                    const pid = (props.update)[2];
-                    console.log('pid: '+pid.toString())
-                    console.log('connect: '+document.getElementById('connect_pid').value)
-                    axios.post(API_STUFFBYTREE_URL, {type, pid}).then((response) => {
-                        connect_state = 'tree_parent'
-                        connect_pid = props.update[2]
-                        connect_cid = props.update[3]
-                        document.getElementById('connect_state').innerText = 'tree_parent';
-                        document.getElementById('connect_pid').value = (props.update)[2];
-                        document.getElementById('connect_pid').innerText = (props.update)[2];
-                        let resLst = getFilter(response.data);
-                        setStuffTemp(resLst);
-                        setStuff(resLst);
-                        setAddStuffBtnHide(true)
-                    })
-                }
-                if ((props.update)[1] === 'tree_child') {
-                    console.log('CHILD CLICK PID: '+props.update[2])
-                    const type = 'child';
-                    const pid = (props.update)[2];
-                    const cid = (props.update)[3];
-                    axios.post(API_STUFFBYTREE_URL, {type, pid, cid}).then((response) => {
-                        connect_state = 'tree_child'
-                        connect_pid = props.update[2]
-                        connect_cid = props.update[3]
-                        document.getElementById('connect_state').innerText = 'tree_child';
-                        document.getElementById('connect_pid').innerText = (props.update)[2];
-                        document.getElementById('connect_cid').innerText = (props.update)[3];
-                        setStuffTemp(response.data);
-                        setStuff(response.data);
-                        setAddStuffBtnHide(true)
-                    })
-                }
-            }
-            return Table
+
+
+    const loadTableData = () => {
+      console.log(props.update)
+      if ((props.update[0] != 'false') && (props.update != updateState)) {
+        setUpdateState(props.update)
+        if ((props.update)[1] === 'none') {
+          axios.get(API_STUFF_URL).then((response) => {
+            connect_state = 'global'
+            document.getElementById('connect_state').innerText = 'global';
+            // setStuffTemp(response.data);
+            setStuff(response.data);
+            // setAddStuffBtnHide(false);
+          })
+        } else {
+          if ((props.update)[1] === 'tree_parent') {
+            const type = 'parent';
+            const pid = (props.update)[2];
+            console.log('pid: ' + pid.toString())
+            console.log('connect: ' + document.getElementById('connect_pid').value)
+            axios.post(API_STUFFBYTREE_URL, {type, pid}).then((response) => {
+              connect_state = 'tree_parent'
+              connect_pid = props.update[2]
+              connect_cid = props.update[3]
+              document.getElementById('connect_state').innerText = 'tree_parent';
+              document.getElementById('connect_pid').value = (props.update)[2];
+              document.getElementById('connect_pid').innerText = (props.update)[2];
+              let resLst = getFilter(response.data);
+              // setStuffTemp(resLst);
+              setStuff(resLst);
+              // setAddStuffBtnHide(true)
+            })
+          }
+          if ((props.update)[1] === 'tree_child') {
+            console.log('CHILD CLICK PID: ' + props.update[2])
+            const type = 'child';
+            const pid = (props.update)[2];
+            const cid = (props.update)[3];
+            axios.post(API_STUFFBYTREE_URL, {type, pid, cid}).then((response) => {
+              connect_state = 'tree_child'
+              connect_pid = props.update[2]
+              connect_cid = props.update[3]
+              document.getElementById('connect_state').innerText = 'tree_child';
+              document.getElementById('connect_pid').innerText = (props.update)[2];
+              document.getElementById('connect_cid').innerText = (props.update)[3];
+              // setStuffTemp(response.data);
+              setStuff(response.data);
+              // setAddStuffBtnHide(true)
+            })
+          }
         }
+        return Table
+      }
     }
 
     // loadTableData();
@@ -553,6 +560,7 @@ export default function Table_Stuff(props)  {
         </IconButton>
         {Table}
         {TableContextMenu}
+        <span id={"connectTreeState"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true} onChange={loadTableData()}>{props.update || 'Главная'} </span>
         <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
         <TransferStuffModal show={transferStuffModalShow} stateCallback={stateModalTransferStuffCallback} stateSaveCallback={stateModalTransferStuffSaveCallback}/>
         <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>
