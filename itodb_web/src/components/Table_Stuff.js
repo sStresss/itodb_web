@@ -440,17 +440,13 @@ export default function Table_Stuff(props)  {
     }
 
     const srchTableData = () => {
-      console.log('======')
       if ((props.srch[0] != search[0]) || (props.srch[1] != search[1])) {
         let p_rows = new Array(0);
         search = props.srch
-        console.log('search: '+props.srch)
         if (props.srch[0] === '') {
-          console.log('сброс')
           return promise.then(()=>{setStuff(stuffTmp)})
         }
         else {
-          console.log(stuffTmp)
           if (props.srch[1] === 'серийный номер') {
             for(i=0; i < stuffTmp.length; i++) {
               if (stuffTmp[i]['serial'].includes(props.srch[0])) {

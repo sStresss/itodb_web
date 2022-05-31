@@ -70,6 +70,8 @@ const promise = new Promise((resolve) => {
     resolve()
 });
 
+var path_tmp = ''
+
 export default function Table_Control(props)  {
 
     const style = makeStyles({
@@ -195,8 +197,6 @@ export default function Table_Control(props)  {
 
 
     const updateTable = () =>{
-        console.log('parent: '+ stuffTblStateParent)
-        console.log('child: '+ stuffTblStateChild)
         promise.then(()=>{
             props.update('control','','')
             document.getElementById('connectTblStateSpace').hidden = true;
@@ -248,18 +248,17 @@ export default function Table_Control(props)  {
         }
     }
     const srchCallBack = (e) => {
+
         let srchData = document.getElementById('srchTextField').value
         promise.then(()=>{
             if (srchData.length !== 0) {
-                setStuffTblStateSrch(srchData);
-                document.getElementById('connectTblStateSpaceSrch').hidden = false;
                 document.getElementById('connectTblStateSrch').hidden = false;
+                setStuffTblStateSrch(' » ' + srchData);
+
             }
             else {
-                document.getElementById('connectTblStateSpaceSrch').hidden = true;
                 document.getElementById('connectTblStateSrch').hidden = true;
             }
-                        // props.srch('', document.getElementById('srchType').textContent);
             props.srch(srchData, document.getElementById('srchType').textContent);
         });
     }
@@ -276,6 +275,18 @@ export default function Table_Control(props)  {
     const exit = () => {
         localStorage.removeItem('token')
         window.location.reload()
+    }
+
+    const getHidden = () => {
+        console.log('refreshing by tree click')
+        promise.then(()=> {
+            if ((document.getElementById('connectTblStateSrch') != undefined) && (props.updateData[4]!==path_tmp)) {
+                path_tmp=props.updateData[4]
+                document.getElementById('connectTblStateSrch').hidden = true;
+            }
+
+        })
+
     }
 
     const metricColumns = [
@@ -480,10 +491,7 @@ export default function Table_Control(props)  {
                 >
                     <img src={"./metric.png"} style={{height:'27px'}}/>
                 </IconButton>
-                <a id={"connectTblStateParent"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}}>{props.updateData[4] || 'Главная'} </a>
-                <a id={"connectTblStateSpace"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>»</a>
-                <a id={"connectTblStateChild"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>{stuffTblStateChild}</a>
-                <a id={"connectTblStateSpaceSrch"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>»</a>
+                <a id={"connectTblStateParent"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} onChange={getHidden()}>{props.updateData[4] || 'Главная'} </a>
                 <a id={"connectTblStateSrch"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>{stuffTblStateSrch}</a>
                 <IconButton
                         sx={{width:"45px",height:"45px", marginLeft:"auto", marginRight:"0px", marginTop:"7px", color:"#5f5f5f"}}
