@@ -254,7 +254,6 @@ export default function Table_Control(props)  {
             if (srchData.length !== 0) {
                 document.getElementById('connectTblStateSrch').hidden = false;
                 setStuffTblStateSrch(' » ' + srchData);
-
             }
             else {
                 document.getElementById('connectTblStateSrch').hidden = true;
@@ -283,6 +282,7 @@ export default function Table_Control(props)  {
             if ((document.getElementById('connectTblStateSrch') != undefined) && (props.updateData[4]!==path_tmp)) {
                 path_tmp=props.updateData[4]
                 document.getElementById('connectTblStateSrch').hidden = true;
+                document.getElementById('srchTextField').value = ''
             }
 
         })
