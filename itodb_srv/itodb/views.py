@@ -35,7 +35,7 @@ def object_list(request):
         if serializer.is_valid():
             serializer.save()
             curObject = Object.objects.filter(code=str(request.data['code']))
-            path = '//SINAPS-INZH-01/itoDB/web/'+str(curObject[0].pk)
+            path = '//SINAPS-WORKSPACE/itoDB/web/'+str(curObject[0].pk)
             checkpath = os.path.exists(path)
             if checkpath==False:
                 os.makedirs(path)

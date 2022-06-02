@@ -9,22 +9,15 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Col, Row, Button as ButtonDefault } from "reactstrap";
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import FormControl, { useFormControl}  from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-import axios from "axios";
-import {API_NEWSTUFF_URL, API_NEWSUBSTUFF_URL, API_OBJECTS_URL, API_STUFF_URL, API_SUBOBJECTS_URL, API_TRANSFERSTUFF_URL} from "../constants";
 import { DataGrid } from '@mui/x-data-grid';
 import {makeStyles} from "@mui/styles";
-import MessageBox from './MessageBox'
-import LinearProgress from '@mui/material/LinearProgress';
+import MessageBox from './MessageBox';
 
 
 window.sessionStorage.setItem('filterViewStuff', 'true');
@@ -89,8 +82,6 @@ export default function Table_Control(props)  {
     var [metricRows, setMetricRows] = React.useState([])
     var [metricTblHeight, setMetricTblHeight] = React.useState(0)
     const [filterViewToggle, setFilterViewToggle] = React.useState(() => ['view_stuff', 'view_subStuff']);
-    const [trTargetObj, setTrTargetObj] = React.useState('');
-    const [trTargetSubObj, setTrTargetSubObj] = React.useState('');
     var [stuffTblStateParent, setStuffTblStateParent] = React.useState('Главная');
     var [stuffTblStateChild, setStuffTblStateChild] = React.useState('');
     var [stuffTblStateSrch, setStuffTblStateSrch] = React.useState('');
@@ -107,7 +98,6 @@ export default function Table_Control(props)  {
     }
 
     const handleModalFilterOpen = (event) => {
-        console.log('123321123321')
         setModalFilterOpen(true)
     }
     const handleSrchTypeChange = (event) => {
@@ -118,54 +108,13 @@ export default function Table_Control(props)  {
         })
     }
 
-    const handleTrTargetObj = (event) => {
-        console.log('GET TRANSFER DATA LSTS')
-        setTrTargetObj(event.target.value);
-        var p_lst = []
-        var curParInd = 9999;
-        p_lst = []
-        let ind = 0
-        console.log(trObjectLst)
-        let curParName = event.target.value[0]
-        for (let i=0; i<trObjectLst.length;i++) {
-            if (curParName === trObjectLst[i][0]) {
-                curParInd=trObjectLst[i][1];
-                break
-            }
-        }
-        for (let j=0; j<trSubObjectFullLst.length;j++) {
-            console.log(curParInd)
-            console.log(trSubObjectFullLst[j][1])
-            if (curParInd === trSubObjectFullLst[j][1]) {
-                console.log('CATCH!!!')
-                p_lst[ind]=trSubObjectFullLst[j][0]
-                ind++
-            }
-            console.log('==================')
-        }
-        console.log(trSubObjectLst)
-        setTrSubObjectLst(p_lst);
-        setTrTargetSubObj(p_lst[0]);
-    };
-    const handleTrTargetSubObj = (event) => {
-        setTrTargetSubObj(event.target.value);
-    };
-    const [stuffTransferDate, setStuffTransferDate] = React.useState(new Date('2000-01-01T21:11:54'));
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     var [modalFilterOpen, setModalFilterOpen] = React.useState(false)
     var [modalInfoOpen, setModalInfoOpen] = React.useState(false)
     var [modalMetricOpen, setModalMetricOpen] = React.useState(false)
-    var [transferModalOpen, setTransferModalOpen] = React.useState(false);
 
     const menuopen = Boolean(anchorEl);
-    const handleTransferDateChange = (newValue) => {
-        setStuffTransferDate(newValue);
-    };
-    var [trObjectLst, setTrObjectLst] = React.useState([])
-    var [trSubObjectLst, setTrSubObjectLst] = React.useState([])
-    var [trSubObjectFullLst, setTrSubObjectFullLst] = React.useState([])
-    var tr_objects = []
-    var tr_subObject = []
 
     const handleFilterViewModalToggleChange = (event, newTgState) => {
         // setFilterViewToggle(newTgState);
@@ -197,12 +146,11 @@ export default function Table_Control(props)  {
 
 
     const updateTable = () =>{
+        props.update('true','filter_update','','','','')
         promise.then(()=>{
-            props.update('control','','')
-            document.getElementById('connectTblStateSpace').hidden = true;
+            // props.update('true','filter_update','','','','')
             setStuffTblStateParent(stuffTblStateParent)
             if (stuffTblStateChild !== '' && stuffTblStateChild !== undefined) {
-                document.getElementById('connectTblStateSpace').hidden = false;
                 setStuffTblStateChild(stuffTblStateChild)
         }
         })
@@ -230,23 +178,13 @@ export default function Table_Control(props)  {
     const handleModalMetricOpen = (event) => {
         props.getMetric()
     }
-    const handleTransferModalClose = () => setTransferModalOpen(false);
 
-    const handleInfoModalOpen = (event) => {setModalInfoOpen(true)}
+    const handleInfoModalOpen = (event) => {
+        setAnchorEl(null);
+        setModalInfoOpen(true)
+    }
     const handleInfoModalClose = () => setModalInfoOpen(false);
 
-    const transferTableStuffSave = () => {
-        setTransferModalOpen(false);
-        let object = document.getElementById('trTargetObj').textContent
-        let subObject = document.getElementById('trTargetSubObj').textContent
-        let date = document.getElementById('transDate').value
-        for (let ind in props.selectedLst) {
-            let pk = (props.selectedLst)[ind]
-            axios.put(API_TRANSFERSTUFF_URL + pk, {object, subObject, date}).then(res=> {
-                if (parseInt(ind, 10)  === parseInt((((props.selectedLst).length))-1,10)) {updateTable()};
-            })
-        }
-    }
     const srchCallBack = (e) => {
 
         let srchData = document.getElementById('srchTextField').value
@@ -288,6 +226,56 @@ export default function Table_Control(props)  {
         })
 
     }
+
+    function downloadMyProtoReg(filename) {
+        var text = "Windows Registry Editor Version 5.00\n" +
+          "\n" +
+          "[HKEY_CLASSES_ROOT\\myproto]\n" +
+          "\"URL Protocol\"=\"\"\n" +
+          "@=\"URL:Myproto Protocol\"\n" +
+          "\n" +
+          "[HKEY_CLASSES_ROOT\\myproto\\shell]\n" +
+          "\n" +
+          "[HKEY_CLASSES_ROOT\\myproto\\shell\\open]\n" +
+          "\n" +
+          "[HKEY_CLASSES_ROOT\\myproto\\shell\\open\\command]\n" +
+          "@=\"\\\"C:\\\\myproto.bat\\\" \\\"%1\\\"\""
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+
+    function downloadMyProtoBat(filename) {
+        var text = "@echo off\n" +
+          "set \"path=%~1\"\n" +
+          "setlocal enabledelayedexpansion\n" +
+          "set path=%path:myproto://=%\n" +
+          "set path=%path:\"=%\n" +
+          "set path=%path:/=\\%\n" +
+          "set path=!path:%%20= !\n" +
+          "set path=!path:%%5C=\\!\n" +
+          "C:\\Windows\\explorer.exe \"%path%\""
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+
+
+
 
     const metricColumns = [
         { field: 'type', headerName: 'Тип объекта', width: 190 },
@@ -370,87 +358,7 @@ export default function Table_Control(props)  {
                 </Row>
             </Box>
         </Modal>
-    const transferModal = <Modal
-                open={transferModalOpen || false}
-                onClose={handleTransferModalClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                disableEscapeKeyDown={true}
-
-                >
-                <Box sx={modalstyle}>
-                    <Row style={{borderBottom: "1px solid #aaaaaa", marginLeft: "-32px", marginTop: "-15px", width: "500px",  }}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2" >
-                            <span style={{ paddingLeft: "20px", paddingBottom: "-10px"}}>Перемещение</span>
-                        </Typography>
-                    </Row>
-                        <Row>
-                            <Col>
-                                <Row style={{marginTop:"23px"}}><span>Куда переместить</span></Row>
-                                <Row style={{marginTop:"28px"}}><span>Имя подобъекта</span></Row>
-                                <Row style={{marginTop:"28px"}}><span>Дата перемещения</span></Row>
-                            </Col>
-                            <Col>
-                                <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                    <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                        <Select
-                                          labelId="trTargetObj"
-                                          id="trTargetObj"
-                                          value={trTargetObj || trObjectLst[0]}
-                                          onChange={handleTrTargetObj}
-                                          label="Age"
-                                        >
-                                          {trObjectLst.map(type=> {
-                                            return <MenuItem key={type} value={type}>{type[0]}</MenuItem>
-                                          })}
-                                        </Select>
-                                    </FormControl>
-                                </Row>
-                                <Row style={{marginTop:"20px", width:"288px", paddingLeft:"12px"}}>
-                                    <FormControl variant="standard" sx={{ m: 0, minWidth: 120 }}>
-                                        <Select
-                                          labelId="transTargetSubObj"
-                                          id="trTargetSubObj"
-                                          value={trTargetSubObj || trSubObjectLst[0] || ''}
-                                          onChange={handleTrTargetSubObj}
-                                          label="Age"
-                                        >
-                                          {trSubObjectLst.map(type=> {
-                                            return <MenuItem key={type} value={type}>{type}</MenuItem>
-                                          })}
-                                        </Select>
-                                    </FormControl>
-                                </Row>
-                                <Row style={{marginTop:"30px"}}>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                      <Stack spacing={3}  >
-                                        <DesktopDatePicker
-                                          label="дд/мм/гг"
-                                          inputFormat="dd/MM/yyyy"
-                                          value={stuffTransferDate}
-                                          onChange={handleTransferDateChange}
-                                          renderInput={(params) => <TextField id="transDate" {...params} />}
-                                        />
-                                      </Stack>
-                                    </LocalizationProvider>
-                                </Row>
-                            </Col>
-                        </Row>
-                        <br/>
-                    <Row>
-                        <ButtonDefault
-                            color="primary"
-                            className="float-right"
-                            onClick={transferTableStuffSave}
-                            style={{ marginTop: "20px", marginLeft: "auto", marginRight: "10px", width: "100px", minWidth: "120px", height: "30px", padding: "0rem"}}
-                        >
-                            <a  style={{ paddingBottom: "10px" }}>Переместить</a>
-                        </ButtonDefault>
-                    </Row>
-                </Box>
-            </Modal>
-    const infoModal =
-        <Modal
+    const infoModal = <Modal
             open={modalInfoOpen || false}
             onClose={handleInfoModalClose}
             aria-labelledby="modal-modal-title"
@@ -471,14 +379,16 @@ export default function Table_Control(props)  {
                 </Row>
                 <Row style={{  marginLeft: "-10px", marginTop: "20px", width: "500px", textAlign:"center" }}>
                     <div style={{bgColor:"red", textAlign:"left"}}>
-                        <li style={{marginLeft:"20px"}}>Скачайте и запустите файл install.reg. Операционная система спросит подтверждение на внесение редактирования данных реестра, нужно нажать "да".</li>
-                        <li style={{marginTop:"10px", marginLeft:"20px"}}>Скачайте вспомогательный файл myproto.bat и разместите его по адресу "C:/" на вашем компьютере.  </li>
+                        <li style={{marginLeft:"20px"}}>Скачайте и запустите файл
+                            <a onClick={()=>{downloadMyProtoReg("install.reg")}} style={{color:"blue", cursor:"pointer", borderBottom:"1px solid blue"}}> install.reg </a>
+                            . Операционная система спросит подтверждение на редактирования данных реестра, нужно нажать "да".</li>
+                        <li style={{marginTop:"10px", marginLeft:"20px"}}>Скачайте вспомогательный файл
+                            <a onClick={()=>{downloadMyProtoBat("myproto.bat")}} style={{color:"blue", cursor:"pointer", borderBottom:"1px solid blue"}}> myproto.bat </a>
+                            и разместите его по адресу "C:/" на вашем компьютере.  </li>
                     </div>
                 </Row>
             </Box>
         </Modal>
-
-
 
     return (
         <div>
@@ -610,7 +520,6 @@ export default function Table_Control(props)  {
                     <MenuItem onClick={(e)=>{handleInfoModalOpen(e)}}>Справка</MenuItem>
                     <MenuItem onClick={exit}>Выход</MenuItem>
                 </Menu>
-                {transferModal}
                 {filterModal}
                 {metricModal}
                 {infoModal}

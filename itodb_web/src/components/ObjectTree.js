@@ -64,7 +64,7 @@ const notemodalstyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: 800,
   bgcolor: 'background.paper',
   border: '0px solid #000',
   boxShadow: 24,
@@ -808,7 +808,7 @@ export default function ObjectTree(props) {
     }
     const openFolder = (path) => {
       handleSubMenuClose();
-      window.open('myproto://\\\\SINAPS-INZH-01\\itoDB\\web\\'+document.getElementById('connect_par_name').innerText + '\\' + path);
+      window.open('myproto://\\\\SINAPS-WORKSPACE\\itoDB\\web\\'+document.getElementById('connect_par_name').innerText + '\\' + path);
     }
     async function getAsanaReferal(pk) {
       axios.get(API_OBJECTREFERAL_URL + pk).then((response) => {

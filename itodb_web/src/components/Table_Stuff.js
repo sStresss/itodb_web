@@ -37,22 +37,6 @@ var selectedCells = []
 var selectedCellData = []
 
 console.log('REFRESH!')
-// const search = (srch) => {
-//
-//     let res = null
-//     if (srch === undefined) {
-//         res = null
-//     }
-//     else {
-//         if (srch.toString().length === 0) {
-//             res = false
-//         }
-//         else {
-//             res = true;
-//         }
-//     }
-//     return res
-// };
 
 const promise = new Promise((resolve) => {
     resolve()
@@ -65,14 +49,10 @@ var connect_state = 'global'
 var stuffTmp = []
 
 export default function Table_Stuff(props)  {
-    var [updateState, setUpdateState] = React.useState([])
     const [dialogBoxDelStuffState, setDialogBoxDelStuffState] = React.useState(false)
     const [selectedLst, setSelectedLst] = React.useState()
-    var [srchDataTemp, setSrchDataTemp] = React.useState('');
     var [addStuffBtnHide, setAddStuffBtnHide] = React.useState(false)
     const [stuff, setStuff] = React.useState(new Array(0));
-    const [stuffTemp, setStuffTemp] = React.useState(new Array(0));
-    var [srchData, setSrchData] = React.useState('');
     var [sortModel, setSortModel] = React.useState([
         {
           field: 'state',
@@ -175,22 +155,15 @@ export default function Table_Stuff(props)  {
         let res = []
         let filterViewStuff = window.sessionStorage.getItem('filterViewStuff');
         let filterViewSubStuff = window.sessionStorage.getItem('filterViewSubStuff');
-        console.log('=====================')
-        console.log(filterViewStuff)
-        console.log(filterViewSubStuff)
-        console.log('=====================')
 
         if (filterViewStuff === 'true' && filterViewSubStuff === 'true') {
-            console.log('FILTER ALL')
             return dataLst
         }
         else {
             let j = 0;
             let i =0;
             if (filterViewSubStuff === 'false') {
-                console.log('FILTER STUFF')
                 for (i=0;i<dataLst.length;i++) {
-                    console.log(dataLst[i]['state'])
                     if (dataLst[i]['state'] === 'Оборудование') {
                         res[j] = dataLst[i];
                         j++
@@ -199,7 +172,6 @@ export default function Table_Stuff(props)  {
                 return res
             }
             else {
-                console.log('FILTER SUBSTUFF')
                 for (i=0;i<dataLst.length;i++) {
                     if (dataLst[i]['state'] === 'Комплектующее') {
                         res[j] = dataLst[i];
@@ -324,7 +296,7 @@ export default function Table_Stuff(props)  {
             p_rows = getFilter(response.data)
         });
         setStuff(p_rows);
-        setStuffTemp(p_rows);
+        stuffTmp = p_rows;
         props.setUpdateTree('true');
     }
 
@@ -391,9 +363,9 @@ export default function Table_Stuff(props)  {
 
     const loadTableData = () => {
       if ((props.update[0] != 'false') && (props.update != update)) {
-        // setUpdateState(props.update)
-        update = props.update
+
         if ((props.update)[1] === 'none') {
+          update = props.update
           axios.get(API_STUFF_URL).then((response) => {
             connect_state = 'global'
             document.getElementById('connect_state').innerText = 'global';
@@ -402,6 +374,7 @@ export default function Table_Stuff(props)  {
             setStuff(response.data);
           })
         } else {
+          update = props.update
           if ((props.update)[1] === 'tree_parent') {
             const type = 'parent';
             const pid = (props.update)[2];
@@ -433,6 +406,13 @@ export default function Table_Stuff(props)  {
               stuffTmp = response.data
               setStuff(response.data);
             })
+          }
+          if (props.update[1] === 'filter_update') {
+            promise.then(()=>{
+              let resLst = getFilter(stuffTmp);
+              setStuff(resLst)
+            })
+
           }
         }
         return Table
@@ -493,73 +473,7 @@ export default function Table_Stuff(props)  {
 
     }
 
-    // const p_srchState = search(props.srch);
-    // if (p_srchState === true) {
-    //     let p_rows = new Array(0);
-    //     let j = 0
-    //     promise.then(()=> {
-    //         if (srchState === null) {
-    //             srchState = true;
-    //             if (props.srchType === 'серийный номер') {
-    //                 for(i=0; i < stuffTemp.length; i++) {
-    //                     if (stuffTemp[i]['serial'].startsWith(props.srch)) {
-    //                          p_rows[j] = {pk: i,type: stuffTemp[i]['type'],
-    //                              model: stuffTemp[i]['model'],
-    //                              serial: stuffTemp[i]['serial'],
-    //                              manufacturer: stuffTemp[i]['manufacturer'],
-    //                              seller: stuffTemp[i]['seller'],
-    //                              date_purchase: stuffTemp[i]['date_purchase'],
-    //                              object_target: stuffTemp[i]['object_target'],
-    //                              object_fact: stuffTemp[i]['object_fact'],
-    //                              date_transfer: stuffTemp[i]['date_transfer'],
-    //                              comment: stuffTemp[i]['comment'],
-    //                              state: stuffTemp[i]['state']};
-    //                          j++;
-    //                     }
-    //
-    //                 };
-    //             }
-    //             else {
-    //                  for(i=0; i < stuffTemp.length; i++) {
-    //                      if (stuffTemp[i]['object_fact'].startsWith(props.srch)) {
-    //                          p_rows[j] = {
-    //                              pk: i,
-    //                              type: stuffTemp[i]['type'],
-    //                              model: stuffTemp[i]['model'],
-    //                              serial: stuffTemp[i]['serial'],
-    //                              manufacturer: stuffTemp[i]['manufacturer'],
-    //                              seller: stuffTemp[i]['seller'],
-    //                              date_purchase: stuffTemp[i]['date_purchase'],
-    //                              object_target: stuffTemp[i]['object_target'],
-    //                              object_fact: stuffTemp[i]['object_fact'],
-    //                              date_transfer: stuffTemp[i]['date_transfer'],
-    //                              comment: stuffTemp[i]['comment'],
-    //                              state: stuffTemp[i]['state']
-    //                          };
-    //                          j++;
-    //                      };
-    //                 };
-    //             }
-    //             setAddStuffBtnHide(true)
-    //             setStuff(p_rows);
-    //             // setAddStuffBtnHide(true)
-    //         }
-    //     })
-    // }
-    // else {
-    //     if (p_srchState === false) {
-    //         promise.then(()=> {
-    //             srchState = null;
-    //             console.log('go back!')
-    //             setStuff(stuffTemp);
-    //             if ((props.update)[1] === 'none') {
-    //                 setAddStuffBtnHide(false)
-    //             }
-    //
-    //
-    //         })
-    //     }
-    // }
+
     // if (props.getMetricData === true) {
     //     let p_rows = []
     //     var rows = []
