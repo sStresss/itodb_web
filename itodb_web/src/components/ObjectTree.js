@@ -590,7 +590,10 @@ export default function ObjectTree(props) {
                             { field: 'pk', headerName: 'pk', width: 10, hide:true }];
     var [statusRows, setStatusRows] = React.useState([])
     async function updateTable (event, type, pId, cId,pName, chName) {
+      setTimeout(function () {
         props.update(event, type,pId,cId, pName, chName)
+      }, 50)
+      // props.update(event, type,pId,cId, pName, chName)
     }
     const handleTreeSubObjClick = (e,pid, cid, pName, chName) => {
         return promise.then(()=>{updateTable('tree_child', pid.toString(), cid.toString(), pName.toString(), chName.toString())});
