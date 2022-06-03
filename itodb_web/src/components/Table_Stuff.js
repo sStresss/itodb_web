@@ -403,8 +403,9 @@ export default function Table_Stuff(props)  {
               document.getElementById('connect_pid').innerText = (props.update)[2];
               document.getElementById('connect_cid').innerText = (props.update)[3];
               // setStuffTemp(response.data);
-              stuffTmp = response.data
-              setStuff(response.data);
+              let resLst = getFilter(response.data);
+              stuffTmp = resLst
+              setStuff(resLst);
             })
           }
           if (props.update[1] === 'filter_update') {
