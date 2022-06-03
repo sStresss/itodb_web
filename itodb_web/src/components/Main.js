@@ -21,42 +21,48 @@ export default function Main() {
     var [mesBoxState, setMesBoxState] = React.useState(false)
     var [mesBoxMessage, setMesBoxMessage] = React.useState('')
     var [updTree, setUpdTree] = React.useState(undefined)
+    var [metricDataLoadConfirm, setMetricDataLoadConfirm] = React.useState(false)
     const openMesBox = (message) => {
-        setMesBoxMessage(message)
-        setMesBoxState(true);
+      setMesBoxMessage(message)
+      setMesBoxState(true);
     }
     const closeMesBox = () => {
-        setMesBoxState(false)
+      setMesBoxState(false)
     }
     const updateData = (event, type, parId, chId,pName,chName) =>  {
-        setUpdateTable([event, type, parId, chId, pName, chName])
-
-        // console.log(['true', type, parId, chId, pName, chName])
+      setUpdateTable([event, type, parId, chId, pName, chName])
     }
     const updateTblLst = (ids) => {
-        setSelectedTableLst(ids)
+      setSelectedTableLst(ids)
     }
     const searchUpd = (data, srchType) => {
-        setSrchData([data, srchType]);
+      setSrchData([data, srchType]);
     }
     const getMetric = () => {
-        setGetMetricData(true);
+      if (getMetricData == false) {
+       setGetMetricData(true);
+      }
+      else {setGetMetricData(false)}
     }
     const setMetricData = (dataArr) => {
-      setMetric(dataArr);
-      setGetMetricData(false)
-      if (dataArr.length === 0) {openMesBox('Список оборудования пуст')}
+      console.log(dataArr.length)
+      if (dataArr.length === 0) {
+        console.log('CGBCJR GECR')
+        openMesBox('Список оборудования пуст')}
+      else {
+        setMetric(dataArr)
+        metricConfirm()
+      }
     }
     const metricConfirm = () => {
-      setMetric([])
+      if (metricDataLoadConfirm == false) {setMetricDataLoadConfirm(true)}
+      else {setMetricDataLoadConfirm(false)}
     }
     const updateTree = (state) => {
       setUpdTree(true);
       setUpdTree(false);
     }
-    const updateTableCallback = () => {
-      return <Table_Stuff/>
-    }
+
 
     return (
       <Container style={{ marginTop: "0px", marginLeft: "0px", position:"fixed"}}>
@@ -74,7 +80,7 @@ export default function Main() {
                 srch={searchUpd}
                 getMetric={getMetric}
                 metricData = {metric}
-                metricConfirm = {metricConfirm}
+                metricConfirm = {metricDataLoadConfirm}
               />
               <Table_Stuff
                 reload = {updateData}
@@ -85,7 +91,6 @@ export default function Main() {
                 setMetricData={setMetricData}
                 setUpdateTree={updateTree}
               />
-              {/*<CustomFileManager/>*/}
           </Col>
           <MessageBox message={mesBoxMessage} modalState={mesBoxState} close={closeMesBox}/>
         </Row>

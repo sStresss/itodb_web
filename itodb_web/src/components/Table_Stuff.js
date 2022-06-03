@@ -18,25 +18,8 @@ import TransferStuffModal from './TransferStuff'
 import EditStuffSingleModal from './EditStuffSingle'
 import EditStuffGroupModal from './EditStuffGroup'
 
-
-
-
-var srchState = null;
-const modalstyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 500,
-  bgcolor: 'background.paper',
-  border: '0px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 var selectedCells = []
 var selectedCellData = []
-
-console.log('REFRESH!')
 
 const promise = new Promise((resolve) => {
     resolve()
@@ -47,6 +30,8 @@ var connect_pid = ''
 var connect_cid = ''
 var connect_state = 'global'
 var stuffTmp = []
+
+var getmetric = false
 
 export default function Table_Stuff(props)  {
     const [dialogBoxDelStuffState, setDialogBoxDelStuffState] = React.useState(false)
@@ -469,37 +454,37 @@ export default function Table_Stuff(props)  {
           return promise.then(()=>{setStuff(p_rows)})
         }
       }
-
-
-
     }
 
+    const getMetric = () => {
 
-    // if (props.getMetricData === true) {
-    //     let p_rows = []
-    //     var rows = []
-    //     let j = 0
-    //     if (stuffTemp.length !== 0) {
-    //         p_rows[0] = [stuff[0]['type'], stuff[0]['model'], 0]
-    //         for (let i = 0; i < stuffTemp.length; i++) {
-    //             let check = false
-    //             for (j = 0; j < p_rows.length; j++) {
-    //                 if (p_rows[j][0] === stuff[i]['type'] && p_rows[j][1] === stuff[i]['model']) {
-    //                     p_rows[j][2]++
-    //                     check = true
-    //                 }
-    //             }
-    //             if (check === false) {
-    //                 p_rows[p_rows.length] = [stuff[i]['type'], stuff[i]['model'], 1]
-    //             }
-    //         }
-    //         for (i = 0; i < p_rows.length; i++) {
-    //             rows[i] = {id: i, type: p_rows[i][0], model: p_rows[i][1], count: p_rows[i][2].toString()}
-    //         }
-    //     }
-    //
-    //     props.setMetricData(rows);
-    // }
+      if ((props.getMetricData != getmetric) && (props.getMetricData != undefined)) {
+        getmetric = props.getMetricData
+        let p_rows = []
+        var rows = []
+        let j = 0
+        if (stuffTmp.length !== 0) {
+            p_rows[0] = [stuff[0]['type'], stuff[0]['model'], 0]
+            for (let i = 0; i < stuffTmp.length; i++) {
+                let check = false
+                for (j = 0; j < p_rows.length; j++) {
+                    if (p_rows[j][0] === stuff[i]['type'] && p_rows[j][1] === stuff[i]['model']) {
+                        p_rows[j][2]++
+                        check = true
+                    }
+                }
+                if (check === false) {
+                    p_rows[p_rows.length] = [stuff[i]['type'], stuff[i]['model'], 1]
+                }
+            }
+            for (i = 0; i < p_rows.length; i++) {
+                rows[i] = {id: i, type: p_rows[i][0], model: p_rows[i][1], count: p_rows[i][2].toString()}
+            }
+        }
+
+        props.setMetricData(rows);
+      }
+    }
 
     return (
     <Row style={{
@@ -530,6 +515,7 @@ export default function Table_Stuff(props)  {
         <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>
         <EditStuffSingleModal show={editSingleModalShow} stateCallback={stateModalEditStuffSingleCallback} stateSaveCallback={stateModalEditStuffSingleSaveCallback}/>
         <EditStuffGroupModal show={editGroupModalShow} stateCallback={stateModalEditStuffGroupCallback} stateSaveCallback={stateModalEditStuffGroupSaveCallback}/>
+        <a id={"connectGetTblMetric"} onChange={getMetric()} hidden={true}>{props.getMetricData || ''} </a>
     </Row>
     );
 }

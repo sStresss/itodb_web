@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="96d1acbd-1b23-4d8d-a3ab-68ac53b55f7e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/MessageBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/MessageBox.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Table_Control.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/Table_Control.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <ignored path="$PROJECT_DIR$/itodb_web/node_modules/" />
@@ -32,7 +35,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
+            <state relative-caret-position="-215">
               <caret line="810" column="63" selection-start-line="810" selection-start-column="29" selection-end-line="810" selection-end-column="63" />
               <folding>
                 <element signature="e#1469#1661#0" />
@@ -60,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="924">
-              <caret line="407" column="14" lean-forward="true" selection-start-line="407" selection-start-column="14" selection-end-line="407" selection-end-column="14" />
+            <state relative-caret-position="494">
+              <caret line="517" column="107" selection-start-line="517" selection-start-column="107" selection-end-line="517" selection-end-column="107" />
             </state>
           </provider>
         </entry>
@@ -69,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/constants/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state>
+              <caret column="68" lean-forward="true" selection-start-column="68" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -78,7 +81,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/AddNewStuff.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2312">
+            <state relative-caret-position="678">
               <caret line="164" column="31" selection-start-line="164" selection-start-column="31" selection-end-line="164" selection-end-column="31" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -87,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="985">
-              <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="36" />
+            <state relative-caret-position="1327">
+              <caret line="84" column="26" lean-forward="true" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -100,12 +103,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/itodb_web/src/index.js">
+        <entry file="file://$PROJECT_DIR$/itodb_web/src/components/MessageBox.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="330">
+              <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#45#85#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -135,20 +138,33 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Control.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="157" column="33" lean-forward="true" selection-start-line="157" selection-start-column="33" selection-end-line="157" selection-end-column="33" />
+            <state relative-caret-position="227">
+              <caret line="158" selection-start-line="158" selection-end-line="158" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#8577#8610#0" />
+                <element signature="e#8642#8675#0" />
+                <element signature="e#9460#10211#0" />
+                <element signature="e#10263#10341#0" />
+                <element signature="e#10373#10461#0" />
+                <element signature="e#10485#10566#0" />
+                <element signature="e#10261#10540#0" />
+                <element signature="e#10723#11042#0" />
+                <element signature="e#11167#11563#0" />
                 <element signature="e#10594#10793#0" />
                 <element signature="e#10817#11740#0" />
+                <element signature="e#11765#13701#0" />
                 <element signature="e#13726#14356#0" />
                 <element signature="e#20861#22884#0" />
-                <element signature="e#20860#21234#0" />
                 <element signature="e#21614#22029#0" />
+                <element signature="e#24244#25811#0" />
+                <element signature="e#22722#23472#0" />
+                <element signature="e#25828#26706#0" />
                 <element signature="e#24525#25033#0" />
+                <element signature="e#25050#26715#0" />
               </folding>
             </state>
           </provider>
@@ -178,8 +194,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>anchorEl</find>
-      <find>connect_par_name</find>
       <find>MainMenu</find>
       <find>referal</find>
       <find>nameStuffForm</find>
@@ -208,6 +222,8 @@
       <find>stuffTblStateParent</find>
       <find>stuffTblStateChild</find>
       <find>path_tmp</find>
+      <find>modalState:</find>
+      <find>modalState</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -231,11 +247,12 @@
         <option value="$PROJECT_DIR$/itodb_web/src/index.js" />
         <option value="$PROJECT_DIR$/itodb_web/src/components/AddNewStuff.js" />
         <option value="$PROJECT_DIR$/itodb_srv/itodb/urls.py" />
-        <option value="$PROJECT_DIR$/itodb_web/src/components/Main.js" />
         <option value="$PROJECT_DIR$/itodb_srv/itodb/views.py" />
         <option value="$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js" />
         <option value="$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js" />
         <option value="$PROJECT_DIR$/itodb_web/src/components/Table_Control.js" />
+        <option value="$PROJECT_DIR$/itodb_web/src/components/Main.js" />
+        <option value="$PROJECT_DIR$/itodb_web/src/components/MessageBox.js" />
       </list>
     </option>
   </component>
@@ -327,18 +344,18 @@
       <workItem from="1651746582964" duration="36137000" />
       <workItem from="1652252987818" duration="43620000" />
       <workItem from="1652769655603" duration="96873000" />
-      <workItem from="1653993831291" duration="22296000" />
+      <workItem from="1653993831291" duration="28091000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="231524000" />
+    <option name="totallyTimeSpent" value="237319000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16311301" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16311301" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -353,7 +370,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.17659806" />
+      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.17659806" />
       <window_info anchor="bottom" id="Python Console" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -372,16 +389,6 @@
           <caret line="47" column="35" lean-forward="true" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/MessageBox.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
-          <folding>
-            <element signature="e#45#85#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -542,23 +549,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/constants/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/AddNewStuff.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2312">
-          <caret line="164" column="31" selection-start-line="164" selection-start-column="31" selection-end-line="164" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -599,9 +589,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/AddNewStuff.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="678">
+          <caret line="164" column="31" selection-start-line="164" selection-start-column="31" selection-end-line="164" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/constants/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="68" lean-forward="true" selection-start-column="68" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
+        <state relative-caret-position="-215">
           <caret line="810" column="63" selection-start-line="810" selection-start-column="29" selection-end-line="810" selection-end-column="63" />
           <folding>
             <element signature="e#1469#1661#0" />
@@ -625,36 +632,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Main.js">
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Control.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="985">
-          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="36" />
+        <state relative-caret-position="227">
+          <caret line="158" selection-start-line="158" selection-end-line="158" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#8577#8610#0" />
+            <element signature="e#8642#8675#0" />
+            <element signature="e#9460#10211#0" />
+            <element signature="e#10263#10341#0" />
+            <element signature="e#10373#10461#0" />
+            <element signature="e#10485#10566#0" />
+            <element signature="e#10261#10540#0" />
+            <element signature="e#10723#11042#0" />
+            <element signature="e#11167#11563#0" />
+            <element signature="e#10594#10793#0" />
+            <element signature="e#10817#11740#0" />
+            <element signature="e#11765#13701#0" />
+            <element signature="e#13726#14356#0" />
+            <element signature="e#20861#22884#0" />
+            <element signature="e#21614#22029#0" />
+            <element signature="e#24244#25811#0" />
+            <element signature="e#22722#23472#0" />
+            <element signature="e#25828#26706#0" />
+            <element signature="e#24525#25033#0" />
+            <element signature="e#25050#26715#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="407" column="14" lean-forward="true" selection-start-line="407" selection-start-column="14" selection-end-line="407" selection-end-column="14" />
+        <state relative-caret-position="494">
+          <caret line="517" column="107" selection-start-line="517" selection-start-column="107" selection-end-line="517" selection-end-column="107" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Control.js">
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/MessageBox.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="157" column="33" lean-forward="true" selection-start-line="157" selection-start-column="33" selection-end-line="157" selection-end-column="33" />
+        <state relative-caret-position="330">
+          <caret line="29" column="22" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#10594#10793#0" />
-            <element signature="e#10817#11740#0" />
-            <element signature="e#13726#14356#0" />
-            <element signature="e#20861#22884#0" />
-            <element signature="e#20860#21234#0" />
-            <element signature="e#21614#22029#0" />
-            <element signature="e#24525#25033#0" />
+            <element signature="e#45#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1327">
+          <caret line="84" column="26" lean-forward="true" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>

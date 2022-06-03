@@ -64,6 +64,7 @@ const promise = new Promise((resolve) => {
 });
 
 var path_tmp = ''
+var metricDataLoadConfirm = false
 
 export default function Table_Control(props)  {
 
@@ -118,7 +119,6 @@ export default function Table_Control(props)  {
     const menuopen = Boolean(anchorEl);
 
     const handleFilterViewModalToggleChange = (event, newTgState) => {
-        // setFilterViewToggle(newTgState);
         if (newTgState.length) {
           setFilterViewToggle(newTgState);
         }
@@ -155,22 +155,7 @@ export default function Table_Control(props)  {
 
     const handleModalFilterClose = (event) => {setModalFilterOpen(false)}
     const handleModalMetricClose = (event) => {
-        setModalMetricOpen(false)
-        props.metricConfirm();
-        metricConfirm = false}
-    const [metric, setMetric] = React.useState([])
-
-    if (props.metricData.length !== 0) {
-        if (metricConfirm === false) {
-            promise.then(()=>{
-                setMetricRows(props.metricData);
-                let tblHeight = (props.metricData.length*30) + 70;
-                setMetricTblHeight(tblHeight);
-                metricConfirm = true;
-                setModalMetricOpen(true)
-            })
-        }
-    }
+        setModalMetricOpen(false)}
 
     const handleModalMetricOpen = (event) => {
         props.getMetric()
@@ -271,8 +256,19 @@ export default function Table_Control(props)  {
         document.body.removeChild(element);
     }
 
-
-
+    const loadMetricData = () => {
+        if (metricDataLoadConfirm != props.metricConfirm) {
+            metricDataLoadConfirm = props.metricConfirm
+            console.log('METRIC DATA RECIEVE')
+            promise.then(()=>{
+                setMetricRows(props.metricData);
+                let tblHeight = (props.metricData.length*30) + 70;
+                setMetricTblHeight(tblHeight);
+                metricConfirm = true;
+                setModalMetricOpen(true)
+            })
+        }
+    }
 
     const metricColumns = [
         { field: 'type', headerName: 'Тип объекта', width: 190 },
@@ -400,6 +396,7 @@ export default function Table_Control(props)  {
                 </IconButton>
                 <a id={"connectTblStateParent"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} onChange={getHidden()}>{props.updateData[4] || pathText} </a>
                 <a id={"connectTblStateSrch"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>{stuffTblStateSrch}</a>
+                <a id={"connectMetricDataLoad"} onChange={loadMetricData()} hidden={true}>{props.metricConfirm && ''} </a>
                 <IconButton
                         sx={{width:"45px",height:"45px", marginLeft:"auto", marginRight:"0px", marginTop:"7px", color:"#5f5f5f"}}
                         aria-label="filter"
@@ -525,6 +522,7 @@ export default function Table_Control(props)  {
             {/*<Row>*/}
                 {/*<LinearProgress/>*/}
             {/*</Row>*/}
+
         </div>
     );
 }

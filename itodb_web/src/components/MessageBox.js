@@ -26,8 +26,9 @@ export default function MessageBox(props) {
   var [modalOpen, setModalOpen] = React.useState(false);
   const handleModalOpen = (event) => {setModalOpen(true)};
   const handleModalClose = (event) => {console.log('dialogbox close event');props.close(); setModalOpen(false)};
-  console.log('modalState: '+props.modalState);
-  if (props.show === true) {
+
+  if (props.modalState === true) {
+    console.log('NEED MODAL OPEN')
     promise.then((e) => handleModalOpen(e))}
   const modal = <Modal
             open={modalOpen || false}
