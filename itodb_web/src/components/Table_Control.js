@@ -89,6 +89,7 @@ export default function Table_Control(props)  {
     var [srchTypeObj, setSrchTypeObj] = React.useState('')
     var [mesBoxState, setMesBoxState] = React.useState(false)
     var [mesBoxMessage, setMesBoxMessage] = React.useState('')
+    var [pathText, setPathText] = React.useState('Главная')
     const openMesBox = () => {
         setMesBoxMessage('Список оборудования пуст!')
         setMesBoxState(true);
@@ -147,13 +148,9 @@ export default function Table_Control(props)  {
 
     const updateTable = () =>{
         props.update('true','filter_update','','','','')
-        promise.then(()=>{
-            // props.update('true','filter_update','','','','')
-            setStuffTblStateParent(stuffTblStateParent)
-            if (stuffTblStateChild !== '' && stuffTblStateChild !== undefined) {
-                setStuffTblStateChild(stuffTblStateChild)
-        }
-        })
+        setPathText(document.getElementById('connectTblStateParent').textContent)
+
+
     }
 
     const handleModalFilterClose = (event) => {setModalFilterOpen(false)}
@@ -401,7 +398,7 @@ export default function Table_Control(props)  {
                 >
                     <img src={"./metric.png"} style={{height:'27px'}}/>
                 </IconButton>
-                <a id={"connectTblStateParent"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} onChange={getHidden()}>{props.updateData[4] || 'Главная'} </a>
+                <a id={"connectTblStateParent"} style={{marginLeft:"-9px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} onChange={getHidden()}>{props.updateData[4] || pathText} </a>
                 <a id={"connectTblStateSrch"} style={{marginLeft:"-17px", marginTop:"10px", fontFamily: 'Aeroport', fontSize: '24px', width:"max-content"}} hidden={true}>{stuffTblStateSrch}</a>
                 <IconButton
                         sx={{width:"45px",height:"45px", marginLeft:"auto", marginRight:"0px", marginTop:"7px", color:"#5f5f5f"}}
