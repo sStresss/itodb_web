@@ -14,6 +14,7 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import {Col, Row, Button, Button as ButtonDefault} from "reactstrap";
 import { styled, alpha } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
+import ReactExport from "react-export-excel";
 
 import {
   API_OBJECTS_URL,
@@ -23,7 +24,8 @@ import {
   API_NEWSTAT_URL,
   API_STATNEWREC_URL,
   API_STATEDITREC_URL,
-  API_OBJECTREFERAL_URL
+  API_OBJECTREFERAL_URL,
+  API_EXPORTTOEXEL_URL
 } from "../constants";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -103,6 +105,12 @@ var connect = false;
 let url = `ws://127.0.0.1:8000/ws/socket-server/`
 
 const socket = new WebSocket(url)
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+var dataSet1 = [];
+var exportFileName = ''
+
 
 
 export default function ObjectTree(props) {
@@ -675,6 +683,7 @@ export default function ObjectTree(props) {
         })
     }
     function handleNodeContext(e, name) {
+      exportFileName = e.target.firstChild.data + '_' + new Date()
       e.preventDefault();
       setContextMenu(
         contextMenu === null
@@ -686,6 +695,7 @@ export default function ObjectTree(props) {
       );
       getAsanaReferal(name)
       document.getElementById('connect_par_name').innerText = name
+
     }
     function handleNodeChildContext(ee, name) {
         ee.preventDefault();
@@ -821,7 +831,25 @@ export default function ObjectTree(props) {
     const getAsana = () => {
       window.open(referal_tmp)
     }
+    const getExportData = () => {
 
+      handleSubMenuClose();
+
+      const pk = document.getElementById('connect_par_name').textContent
+      axios.get(API_EXPORTTOEXEL_URL + pk).then((response)=>{
+        for (let i=0;i<(response.data['type']).length;i++) {
+          dataSet1[i] = {
+            type : response.data['type'][i],
+            model : response.data['model'][i],
+            unittype: response.data['unittype'][i],
+            count : response.data['count'][i],
+            serial : response.data['serial'][i],
+            location : response.data['location'][i]
+          }
+        }
+        document.getElementById('exportToExel').firstChild.firstChild.click()
+      })
+    }
     checkUpdate()
 
     if (!objects) return null;
@@ -1493,7 +1521,9 @@ export default function ObjectTree(props) {
               },
             }}
           >
+            <a id={'exportToExel'} hidden={true}><ExDownload/></a>
               <MenuItem onClick={getStatus} className={'custom_menu_item'}>Статус</MenuItem>
+              <MenuItem onClick={getExportData} className={'custom_menu_item'}>Скачать</MenuItem>
               <Divider style={{ height:"1px", marginTop:"2px", marginBottom:"2px"}} />
               <MenuItem onClick={()=>{openFolder('documentation')}} className={'custom_menu_item'}>Документы</MenuItem>
               <MenuItem onClick={()=>{openFolder('photo')}} className={'custom_menu_item'}>Фотографии</MenuItem>
@@ -1545,4 +1575,21 @@ export default function ObjectTree(props) {
         </Menu>
     </div>
   );
+}
+
+class ExDownload extends React.Component {
+    render() {
+        return (
+            <ExcelFile filename={exportFileName} element={<MenuItem  className={'custom_menu_item'}>Выгрузить</MenuItem>}>
+                <ExcelSheet name={'123'} data={dataSet1} name="Employees">
+                    <ExcelColumn label="Модель" value="model"/>
+                    <ExcelColumn label="Тип" value="type"/>
+                    <ExcelColumn label="Ед.Изм." value="unittype"/>
+                    <ExcelColumn label="Шт." value="count"/>
+                    <ExcelColumn label="Серийный номер" value="serial"/>
+                    <ExcelColumn label="Расположение" value="location"/>
+                </ExcelSheet>
+            </ExcelFile>
+        );
+    }
 }
