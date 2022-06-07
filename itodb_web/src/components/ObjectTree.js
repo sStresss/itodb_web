@@ -1523,7 +1523,7 @@ export default function ObjectTree(props) {
           >
             <a id={'exportToExel'} hidden={true}><ExDownload/></a>
               <MenuItem onClick={getStatus} className={'custom_menu_item'}>Статус</MenuItem>
-              <MenuItem onClick={getExportData} className={'custom_menu_item'}>Скачать</MenuItem>
+              <MenuItem onClick={getExportData} className={'custom_menu_item'}>Выгрузить</MenuItem>
               <Divider style={{ height:"1px", marginTop:"2px", marginBottom:"2px"}} />
               <MenuItem onClick={()=>{openFolder('documentation')}} className={'custom_menu_item'}>Документы</MenuItem>
               <MenuItem onClick={()=>{openFolder('photo')}} className={'custom_menu_item'}>Фотографии</MenuItem>
