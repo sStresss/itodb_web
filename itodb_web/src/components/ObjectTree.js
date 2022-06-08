@@ -693,7 +693,7 @@ export default function ObjectTree(props) {
             }
           : null,
       );
-      getAsanaReferal(name)
+      // getAsanaReferal(name)
       document.getElementById('connect_par_name').innerText = name
 
     }
@@ -1007,7 +1007,7 @@ export default function ObjectTree(props) {
                                               <a hidden={true}>{node_par_state}</a>
                                             </Row>
                                       }
-                                    onContextMenu={(e) => {handleNodeContext(e,node_par_id);}}
+                                    onContextMenu={(e) => {handleNodeContext(e,node_par_id)}}
                                     style={{cursor: 'context-menu', marginLeft:"0px"}}
                                   />
                                 </Col>
