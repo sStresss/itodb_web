@@ -104,6 +104,7 @@ var connect = false;
 
 let url = `ws://127.0.0.1:8000/ws/socket-server/`
 
+
 const socket = new WebSocket(url)
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -693,7 +694,7 @@ export default function ObjectTree(props) {
             }
           : null,
       );
-      // getAsanaReferal(name)
+      getAsanaReferal(name)
       document.getElementById('connect_par_name').innerText = name
 
     }
@@ -1063,7 +1064,7 @@ export default function ObjectTree(props) {
                style={{cursor:"pointer"}} onClick={globalTreeRefresh}
           >
             <Col style={{maxWidth:"180px"}}>
-              <h1 style={{ marginLeft: "17px", textAlign: 'left', color: 'white', fontFamily: 'Aeroport', fontSize: '30px', paddingTop:'10px'}}>
+              <h1 style={{ marginLeft: "17px", textAlign: 'left', color: 'white', fontFamily: 'arial', fontSize: '30px', paddingTop:'10px'}}>
                 DATABASE
               </h1>
             </Col>

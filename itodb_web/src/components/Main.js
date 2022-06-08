@@ -66,8 +66,8 @@ export default function Main() {
 
     return (
       <Container style={{ marginTop: "0px", marginLeft: "0px", position:"fixed"}}>
-        <Row >
-          <Col xs={2} style={{ height: "937px", backgroundColor: "#151B26", width: "240px"}}>
+        <Row style={{minWidth:"100vw"}}>
+          <Col xs={2} style={{ minHeight: "100vh", backgroundColor: "#151B26", minWidth: "240px", maxWidth:"240px"}}>
               <ObjectTree
                 update={updateData}
                 isUpdate={updTree}/>

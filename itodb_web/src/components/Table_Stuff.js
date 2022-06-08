@@ -34,6 +34,9 @@ var stuffTmp = []
 var getmetric = false
 
 export default function Table_Stuff(props)  {
+
+    const [pageSize, setDataGridPageSize] = React.useState(25);
+    var [commentWidth, setCommentWidth] = React.useState(195 + (document.body.offsetWidth/100))
     const [dialogBoxDelStuffState, setDialogBoxDelStuffState] = React.useState(false)
     const [selectedLst, setSelectedLst] = React.useState()
     var [addStuffBtnHide, setAddStuffBtnHide] = React.useState(false)
@@ -61,6 +64,7 @@ export default function Table_Stuff(props)  {
                 object_fact: stuff[i].object_fact, date_transfer: stuff[i].date_transfer, comment: stuff[i].comment, state:stuff[i].state};
         }
     }
+    console.log('width: '+document.body.offsetWidth)
     const style = makeStyles({
          root: {
             background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -124,16 +128,16 @@ export default function Table_Stuff(props)  {
     const [editSingleModalShow, setEditSingleModalShow] = React.useState(['false',[]])
     const [editGroupModalShow, setEditGroupModalShow] = React.useState(['false',[]])
     const columns = [
-      { field: 'type', headerName: 'Тип', width: 200},
-      { field: 'model', headerName: 'Модель', width: 150 },
-      { field: 'serial', headerName: 'Серийный номер', width: 170 },
-      { field: 'manufacturer', headerName: 'Производитель', width: 140},
-      { field: 'seller', headerName: 'Поставщик', width: 150},
-      { field: 'date_purchase', headerName: 'Дата пост.'},
-      { field: 'object_target', headerName: 'Цел. объект', width:150},
-      { field: 'object_fact', headerName: 'Факт. объект', width:150},
-      { field: 'date_transfer', headerName: 'Дата пер.'},
-      { field: 'comment', headerName: 'Комментарий', width:285},
+      { field: 'type', headerName: 'Тип', flex: 1},
+      { field: 'model', headerName: 'Модель', flex: 1 },
+      { field: 'serial', headerName: 'Серийный номер', flex: 1 },
+      { field: 'manufacturer', headerName: 'Производитель', flex: 1},
+      { field: 'seller', headerName: 'Поставщик', flex: 1},
+      { field: 'date_purchase', headerName: 'Дата пост.', flex: 1},
+      { field: 'object_target', headerName: 'Цел. объект', flex: 1},
+      { field: 'object_fact', headerName: 'Факт. объект', flex: 1},
+      { field: 'date_transfer', headerName: 'Дата пер.', flex: 1},
+      { field: 'comment', headerName: 'Комментарий', flex: 1},
       { field: 'state', headerName:'state', hide:true}
     ];
     const getFilter = (dataLst) => {
@@ -194,7 +198,7 @@ export default function Table_Stuff(props)  {
                 // position: 'absolute',
                 cursor: 'pointer',
                 marginTop: 0,
-                height: '887px',
+                height: '95vh',
                 overflowX:'hidden',
                 border:0,
                 '*::-webkit-scrollbar': {
@@ -216,12 +220,13 @@ export default function Table_Stuff(props)  {
             // disableSelectionOnClick
             // hideFooter={true}
             rowHeight = {30}
-            pageSize={25}
+            pageSize={pageSize}
             sortModel = {sortModel}
             // onRowSelected={(x) => {)}}
             onSelectionModelChange={(ids) => {
                 selectedCells = ids
             }}
+            onPageSizeChange={(newPageSize) => setDataGridPageSize(newPageSize)}
             onSortModelChange={(model) => setSortModel(model)}
             componentsProps={{
               row: {
@@ -488,8 +493,7 @@ export default function Table_Stuff(props)  {
 
     return (
     <Row style={{
-            height: 825,
-            width: '160%',
+            height: "100vh",
             marginTop:"-11px",
             borderTop:"1px solid #B4B4B4",
         }}

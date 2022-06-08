@@ -19,7 +19,7 @@ export default function App() {
     return (
         <BrowserRouter>
           <Routes>
-            <Route path={"/dashboard"} element={<Fragment><Main/></Fragment>}/>
+            <Route path={"/database"} element={<Fragment><Main/></Fragment>}/>
           </Routes>
         </BrowserRouter>
     );

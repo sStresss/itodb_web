@@ -385,7 +385,7 @@ export default function Table_Control(props)  {
 
     return (
         <div>
-            <Row style={{marginTop:"0px", MarginLeft:"0px", width:"158%"}}>
+            <Row style={{marginTop:"0px", MarginLeft:"0px"}}>
                 <IconButton
                     sx={{width:"45px",height:"45px", marginLeft:"16px", marginRight:"0px", marginTop:"8px"}}
                     aria-label="filter"

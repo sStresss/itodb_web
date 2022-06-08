@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="96d1acbd-1b23-4d8d-a3ab-68ac53b55f7e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itodb_web/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Table_Control.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/Table_Control.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <ignored path="$PROJECT_DIR$/itodb_web/node_modules/" />
@@ -29,13 +33,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="912" column="51" lean-forward="true" selection-start-line="912" selection-start-column="51" selection-end-line="912" selection-end-column="51" />
+            <state relative-caret-position="153">
+              <caret line="24" column="21" lean-forward="true" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
               <folding>
-                <element signature="e#0#31#0" expanded="true" />
                 <element signature="e#1469#1661#0" />
                 <element signature="e#1685#1877#0" />
                 <element signature="e#1902#2094#0" />
@@ -122,6 +125,7 @@
                 <element signature="e#20239#20327#0" />
                 <element signature="e#20251#20318#0" />
                 <element signature="e#20356#20751#0" />
+                <element signature="e#20879#20943#0" />
                 <element signature="e#21009#21147#0" />
                 <element signature="e#21184#21264#0" />
                 <element signature="e#22642#23052#0" />
@@ -188,10 +192,6 @@
                 <element signature="e#40050#40128#0" />
                 <element signature="e#40588#40881#0" />
                 <element signature="e#40621#40854#0" />
-                <element signature="e#40940#41868#0" />
-                <element signature="e#40949#41003#0" />
-                <element signature="e#41099#41340#0" />
-                <element signature="e#41146#41321#0" />
                 <element signature="e#41353#41851#0" />
                 <element signature="e#41399#41832#0" />
                 <element signature="e#41494#41547#0" />
@@ -319,11 +319,72 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="134" column="51" selection-start-line="134" selection-start-column="51" selection-end-line="134" selection-end-column="51" />
+              <folding>
+                <element signature="e#8391#10555#0" />
+                <element signature="e#10610#10655#0" />
+                <element signature="e#10719#10996#0" />
+                <element signature="e#11053#11103#0" />
+                <element signature="e#11374#11482#0" />
+                <element signature="e#11545#11650#0" />
+                <element signature="e#11712#11778#0" />
+                <element signature="e#11811#12856#0" />
+                <element signature="e#12890#15243#0" />
+                <element signature="e#15277#17355#0" />
+                <element signature="e#17385#18425#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/itodb_web/src/index.css">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/itodb_web/src/myApp.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="833">
+              <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/constants/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
               <caret line="17" column="75" selection-start-line="17" selection-start-column="75" selection-end-line="17" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="68" column="18" lean-forward="true" selection-start-line="67" selection-end-line="69" selection-end-column="117" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/itodb_web/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="56" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+                <element signature="e#327#366#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -343,10 +404,104 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Control.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="224" column="8" selection-start-line="224" selection-start-column="8" selection-end-line="224" selection-end-column="50" />
+            <state relative-caret-position="352">
+              <caret line="397" column="78" selection-start-line="397" selection-start-column="78" selection-end-line="397" selection-end-column="78" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#1148#1340#0" />
+                <element signature="e#1367#1559#0" />
+                <element signature="e#1586#1821#0" />
+                <element signature="e#1864#1881#0" />
+                <element signature="e#2016#2326#0" />
+                <element signature="e#2033#2319#0" />
+                <element signature="e#3185#3276#0" />
+                <element signature="e#3307#3344#0" />
+                <element signature="e#3391#3431#0" />
+                <element signature="e#3476#3766#0" />
+                <element signature="e#3547#3759#0" />
+                <element signature="e#4144#4237#0" />
+                <element signature="e#4177#4231#0" />
+                <element signature="e#4267#4952#0" />
+                <element signature="e#4386#4551#0" />
+                <element signature="e#4996#5045#0" />
+                <element signature="e#5090#5124#0" />
+                <element signature="e#5158#5306#0" />
+                <element signature="e#5428#5464#0" />
+                <element signature="e#5511#5544#0" />
+                <element signature="e#5589#5654#0" />
+                <element signature="e#5752#6253#0" />
+                <element signature="e#5850#6245#0" />
+                <element signature="e#5891#6041#0" />
+                <element signature="e#6059#6152#0" />
+                <element signature="e#6305#6383#0" />
+                <element signature="e#6315#6376#0" />
+                <element signature="e#6415#6503#0" />
+                <element signature="e#6527#6608#0" />
+                <element signature="e#6638#7056#0" />
+                <element signature="e#6714#7048#0" />
+                <element signature="e#6831#7037#0" />
+                <element signature="e#7100#7953#0" />
+                <element signature="e#7997#8723#0" />
+                <element signature="e#8758#9226#0" />
+                <element signature="e#8818#9220#0" />
+                <element signature="e#8952#9209#0" />
+                <element signature="e#9254#9453#0" />
+                <element signature="e#9477#10400#0" />
+                <element signature="e#9515#9848#0" />
+                <element signature="e#9661#9721#0" />
+                <element signature="e#9774#9832#0" />
+                <element signature="e#10220#10299#0" />
+                <element signature="e#10425#12361#0" />
+                <element signature="e#10745#12344#0" />
+                <element signature="e#10789#11147#0" />
+                <element signature="e#10916#11124#0" />
+                <element signature="e#11164#12325#0" />
+                <element signature="e#11279#11837#0" />
+                <element signature="e#11368#11803#0" />
+                <element signature="e#11858#12302#0" />
+                <element signature="e#12386#13016#0" />
+                <element signature="e#12706#12999#0" />
+                <element signature="e#12750#12980#0" />
+                <element signature="e#12865#12957#0" />
+                <element signature="e#13039#15064#0" />
+                <element signature="e#13353#15047#0" />
+                <element signature="e#13397#13720#0" />
+                <element signature="e#13524#13697#0" />
+                <element signature="e#13737#14052#0" />
+                <element signature="e#13849#14029#0" />
+                <element signature="e#14069#15028#0" />
+                <element signature="e#14183#15005#0" />
+                <element signature="e#14255#14614#0" />
+                <element signature="e#14639#14978#0" />
+                <element signature="e#15185#15559#0" />
+                <element signature="e#16112#16527#0" />
+                <element signature="e#16544#18111#0" />
+                <element signature="e#16581#17110#0" />
+                <element signature="e#16869#16939#0" />
+                <element signature="e#17019#17088#0" />
+                <element signature="e#17144#17894#0" />
+                <element signature="e#17210#17847#0" />
+                <element signature="e#17391#17805#0" />
+                <element signature="e#18128#19006#0" />
+                <element signature="e#18193#18511#0" />
+                <element signature="e#18394#18480#0" />
+                <element signature="e#18534#18975#0" />
+                <element signature="e#18835#18943#0" />
+                <element signature="e#19023#19531#0" />
+                <element signature="e#19548#21213#0" />
+                <element signature="e#19624#19703#0" />
+                <element signature="e#19729#20321#0" />
+                <element signature="e#19773#19839#0" />
+                <element signature="e#19882#19947#0" />
+                <element signature="e#20024#20091#0" />
+                <element signature="e#20174#20298#0" />
+                <element signature="e#20481#20653#0" />
+                <element signature="e#20512#20630#0" />
+                <element signature="e#20692#20953#0" />
+                <element signature="e#20724#20928#0" />
+                <element signature="e#20774#20902#0" />
+                <element signature="e#21433#21442#0" />
+                <element signature="e#21461#21482#0" />
+                <element signature="e#21497#21507#0" />
               </folding>
             </state>
           </provider>
@@ -363,15 +518,6 @@
                 <element signature="e#16077#22491#0" />
                 <element signature="e#22526#22728#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/running.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -439,14 +585,15 @@
         <option value="$PROJECT_DIR$/itodb_srv/itodb/models.py" />
         <option value="$PROJECT_DIR$/itodb_web/src/index.js" />
         <option value="$PROJECT_DIR$/itodb_web/src/components/AddNewStuff.js" />
-        <option value="$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js" />
-        <option value="$PROJECT_DIR$/itodb_web/src/components/Table_Control.js" />
-        <option value="$PROJECT_DIR$/itodb_web/src/components/Main.js" />
         <option value="$PROJECT_DIR$/itodb_web/src/components/MessageBox.js" />
         <option value="$PROJECT_DIR$/itodb_web/src/constants/index.js" />
         <option value="$PROJECT_DIR$/itodb_srv/itodb/urls.py" />
         <option value="$PROJECT_DIR$/itodb_srv/itodb/views.py" />
+        <option value="$PROJECT_DIR$/itodb_web/src/App.js" />
         <option value="$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js" />
+        <option value="$PROJECT_DIR$/itodb_web/src/components/Table_Control.js" />
+        <option value="$PROJECT_DIR$/itodb_web/src/components/Main.js" />
+        <option value="$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js" />
       </list>
     </option>
   </component>
@@ -477,12 +624,6 @@
               <item name="ReactApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="ReactApp" type="462c0819:PsiDirectoryNode" />
               <item name="itodb_srv" type="462c0819:PsiDirectoryNode" />
-              <item name="itodb" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ReactApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ReactApp" type="462c0819:PsiDirectoryNode" />
-              <item name="itodb_srv" type="462c0819:PsiDirectoryNode" />
               <item name="itodb_srv_app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -495,6 +636,13 @@
               <item name="ReactApp" type="462c0819:PsiDirectoryNode" />
               <item name="itodb_web" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ReactApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ReactApp" type="462c0819:PsiDirectoryNode" />
+              <item name="itodb_web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ReactApp" type="b2602c69:ProjectViewProjectNode" />
@@ -547,18 +695,18 @@
       <workItem from="1652769655603" duration="96873000" />
       <workItem from="1653993831291" duration="28785000" />
       <workItem from="1654261905245" duration="240000" />
-      <workItem from="1654289537910" duration="24776000" />
+      <workItem from="1654289537910" duration="35545000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263029000" />
+    <option name="totallyTimeSpent" value="273798000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1663113" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1663113" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -573,7 +721,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="12" visible="true" weight="0.13434453" />
+      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.21668473" />
       <window_info anchor="bottom" id="Python Console" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -609,9 +757,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/index.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-421" />
@@ -634,13 +779,6 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/myApp.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -682,17 +820,6 @@
           <folding>
             <element signature="e#0#40#0" expanded="true" />
             <element signature="e#116#151#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-            <element signature="e#327#366#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -761,16 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="82" column="55" selection-start-line="82" selection-start-column="55" selection-end-line="82" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/components/MessageBox.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -812,13 +929,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="678">
-          <caret line="517" column="107" selection-start-line="517" selection-start-column="107" selection-end-line="517" selection-end-column="107" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/constants/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -832,16 +942,6 @@
           <caret lean-forward="true" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Control.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="224" column="8" selection-start-line="224" selection-start-column="8" selection-end-line="224" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -869,12 +969,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/index.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/myApp.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="56" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#327#366#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="68" column="18" lean-forward="true" selection-start-line="67" selection-end-line="69" selection-end-column="117" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="912" column="51" lean-forward="true" selection-start-line="912" selection-start-column="51" selection-end-line="912" selection-end-column="51" />
+        <state relative-caret-position="153">
+          <caret line="24" column="21" lean-forward="true" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
             <element signature="e#1469#1661#0" />
             <element signature="e#1685#1877#0" />
             <element signature="e#1902#2094#0" />
@@ -961,6 +1091,7 @@
             <element signature="e#20239#20327#0" />
             <element signature="e#20251#20318#0" />
             <element signature="e#20356#20751#0" />
+            <element signature="e#20879#20943#0" />
             <element signature="e#21009#21147#0" />
             <element signature="e#21184#21264#0" />
             <element signature="e#22642#23052#0" />
@@ -1027,10 +1158,6 @@
             <element signature="e#40050#40128#0" />
             <element signature="e#40588#40881#0" />
             <element signature="e#40621#40854#0" />
-            <element signature="e#40940#41868#0" />
-            <element signature="e#40949#41003#0" />
-            <element signature="e#41099#41340#0" />
-            <element signature="e#41146#41321#0" />
             <element signature="e#41353#41851#0" />
             <element signature="e#41399#41832#0" />
             <element signature="e#41494#41547#0" />
@@ -1153,6 +1280,130 @@
             <element signature="e#63971#64158#0" />
             <element signature="e#63993#64143#0" />
             <element signature="e#64033#64127#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Control.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="397" column="78" selection-start-line="397" selection-start-column="78" selection-end-line="397" selection-end-column="78" />
+          <folding>
+            <element signature="e#1148#1340#0" />
+            <element signature="e#1367#1559#0" />
+            <element signature="e#1586#1821#0" />
+            <element signature="e#1864#1881#0" />
+            <element signature="e#2016#2326#0" />
+            <element signature="e#2033#2319#0" />
+            <element signature="e#3185#3276#0" />
+            <element signature="e#3307#3344#0" />
+            <element signature="e#3391#3431#0" />
+            <element signature="e#3476#3766#0" />
+            <element signature="e#3547#3759#0" />
+            <element signature="e#4144#4237#0" />
+            <element signature="e#4177#4231#0" />
+            <element signature="e#4267#4952#0" />
+            <element signature="e#4386#4551#0" />
+            <element signature="e#4996#5045#0" />
+            <element signature="e#5090#5124#0" />
+            <element signature="e#5158#5306#0" />
+            <element signature="e#5428#5464#0" />
+            <element signature="e#5511#5544#0" />
+            <element signature="e#5589#5654#0" />
+            <element signature="e#5752#6253#0" />
+            <element signature="e#5850#6245#0" />
+            <element signature="e#5891#6041#0" />
+            <element signature="e#6059#6152#0" />
+            <element signature="e#6305#6383#0" />
+            <element signature="e#6315#6376#0" />
+            <element signature="e#6415#6503#0" />
+            <element signature="e#6527#6608#0" />
+            <element signature="e#6638#7056#0" />
+            <element signature="e#6714#7048#0" />
+            <element signature="e#6831#7037#0" />
+            <element signature="e#7100#7953#0" />
+            <element signature="e#7997#8723#0" />
+            <element signature="e#8758#9226#0" />
+            <element signature="e#8818#9220#0" />
+            <element signature="e#8952#9209#0" />
+            <element signature="e#9254#9453#0" />
+            <element signature="e#9477#10400#0" />
+            <element signature="e#9515#9848#0" />
+            <element signature="e#9661#9721#0" />
+            <element signature="e#9774#9832#0" />
+            <element signature="e#10220#10299#0" />
+            <element signature="e#10425#12361#0" />
+            <element signature="e#10745#12344#0" />
+            <element signature="e#10789#11147#0" />
+            <element signature="e#10916#11124#0" />
+            <element signature="e#11164#12325#0" />
+            <element signature="e#11279#11837#0" />
+            <element signature="e#11368#11803#0" />
+            <element signature="e#11858#12302#0" />
+            <element signature="e#12386#13016#0" />
+            <element signature="e#12706#12999#0" />
+            <element signature="e#12750#12980#0" />
+            <element signature="e#12865#12957#0" />
+            <element signature="e#13039#15064#0" />
+            <element signature="e#13353#15047#0" />
+            <element signature="e#13397#13720#0" />
+            <element signature="e#13524#13697#0" />
+            <element signature="e#13737#14052#0" />
+            <element signature="e#13849#14029#0" />
+            <element signature="e#14069#15028#0" />
+            <element signature="e#14183#15005#0" />
+            <element signature="e#14255#14614#0" />
+            <element signature="e#14639#14978#0" />
+            <element signature="e#15185#15559#0" />
+            <element signature="e#16112#16527#0" />
+            <element signature="e#16544#18111#0" />
+            <element signature="e#16581#17110#0" />
+            <element signature="e#16869#16939#0" />
+            <element signature="e#17019#17088#0" />
+            <element signature="e#17144#17894#0" />
+            <element signature="e#17210#17847#0" />
+            <element signature="e#17391#17805#0" />
+            <element signature="e#18128#19006#0" />
+            <element signature="e#18193#18511#0" />
+            <element signature="e#18394#18480#0" />
+            <element signature="e#18534#18975#0" />
+            <element signature="e#18835#18943#0" />
+            <element signature="e#19023#19531#0" />
+            <element signature="e#19548#21213#0" />
+            <element signature="e#19624#19703#0" />
+            <element signature="e#19729#20321#0" />
+            <element signature="e#19773#19839#0" />
+            <element signature="e#19882#19947#0" />
+            <element signature="e#20024#20091#0" />
+            <element signature="e#20174#20298#0" />
+            <element signature="e#20481#20653#0" />
+            <element signature="e#20512#20630#0" />
+            <element signature="e#20692#20953#0" />
+            <element signature="e#20724#20928#0" />
+            <element signature="e#20774#20902#0" />
+            <element signature="e#21433#21442#0" />
+            <element signature="e#21461#21482#0" />
+            <element signature="e#21497#21507#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="134" column="51" selection-start-line="134" selection-start-column="51" selection-end-line="134" selection-end-column="51" />
+          <folding>
+            <element signature="e#8391#10555#0" />
+            <element signature="e#10610#10655#0" />
+            <element signature="e#10719#10996#0" />
+            <element signature="e#11053#11103#0" />
+            <element signature="e#11374#11482#0" />
+            <element signature="e#11545#11650#0" />
+            <element signature="e#11712#11778#0" />
+            <element signature="e#11811#12856#0" />
+            <element signature="e#12890#15243#0" />
+            <element signature="e#15277#17355#0" />
+            <element signature="e#17385#18425#0" />
           </folding>
         </state>
       </provider>
