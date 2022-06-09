@@ -87,7 +87,7 @@ export default function Table_Stuff(props)  {
         }
         else {await setTransferStuffModalShow(['true',selectedLst])}
     }
-    async function editTableStuff (event)  {
+    function editTableStuff (event)  {
         if (selectedLst.length === 0) {
             alert('Оборудование не выбрано!')
         }
@@ -98,7 +98,7 @@ export default function Table_Stuff(props)  {
                         selectedCellData = stuff[i]
                     }
                 }
-                await setEditSingleModalShow(['true',selectedLst, selectedCellData])
+                setEditSingleModalShow(['true',selectedLst, selectedCellData])
             }
             else {setEditGroupModalShow(['true', selectedLst])}
 

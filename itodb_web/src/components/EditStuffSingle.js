@@ -114,7 +114,7 @@ const handleNsTypeChange = (event) => {
   }
 
   async function handleModalOpen() {
-    console.log(props.show[2])
+    // console.log('MAN: '+props.show[2]['manufacturer'])
     var ns_types_rows = [];
     var ns_models_rows = [];
     var ns_manufacturer_rows = [];
@@ -161,6 +161,7 @@ const handleNsTypeChange = (event) => {
           };
       });
     }
+
 
     setNsTypeLst(ns_types_rows);
     setNsSeType(props.show[2]['type']);

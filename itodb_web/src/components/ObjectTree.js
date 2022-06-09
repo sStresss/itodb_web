@@ -799,12 +799,12 @@ export default function ObjectTree(props) {
     }
     const objectNoteSave = () => {
       setNoteModalOpen(false)
-      console.log(document.getElementById('objectNoteField').value)
       let pk = document.getElementById('connect_par_name').innerText;
+      console.log(document.getElementById('connect_par_name').innerText)
       let code = ((objectNoteLabel.split(' '))[1].split('_'))[0]
       let name = ((objectNoteLabel.split(' '))[1].split('_'))[1]
       let note = document.getElementById('objectNoteField').value
-      axios.put(API_OBJECT_NODE + pk, {code, name, note})
+      // axios.put(API_OBJECT_NODE + pk, {code, name, note})
     }
     const updateTree = () => {
       axios.get(API_OBJECTS_URL).then((response) => {
@@ -833,7 +833,7 @@ export default function ObjectTree(props) {
       window.open(referal_tmp)
     }
     const getExportData = () => {
-
+      dataSet1 =  [];
       handleSubMenuClose();
 
       const pk = document.getElementById('connect_par_name').textContent
@@ -968,12 +968,10 @@ export default function ObjectTree(props) {
                               </Col>
                             </Row>
                 } else {
+                      if (object.pk == '999') {console.log('РЕЗЕРВ!!!')}
                     let node_par_id = object.pk
                     let node_par_state = './'+object.state+'.png'
                     return  <Row style={{maxWidth:"294px"}}>
-                                {/*<Col style={{maxWidth:"20px", marginRight:"-5px", marginTop:"-3px"}}>*/}
-                                  {/*<img src={node_par_state} style={{height:'21px', width:""}} alt="sate"/>*/}
-                                {/*</Col>*/}
                                 <Col style={{maxWidth:"264px"}}>
                                   <CustomTreeItem
                                     sx={{
