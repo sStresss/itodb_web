@@ -38,7 +38,7 @@ export default function Table_Stuff(props)  {
     const [pageSize, setDataGridPageSize] = React.useState(25);
     var [commentWidth, setCommentWidth] = React.useState(195 + (document.body.offsetWidth/100))
     const [dialogBoxDelStuffState, setDialogBoxDelStuffState] = React.useState(false)
-    const [selectedLst, setSelectedLst] = React.useState()
+    const [selectedLst, setSelectedLst] = React.useState([])
     var [addStuffBtnHide, setAddStuffBtnHide] = React.useState(false)
     const [stuff, setStuff] = React.useState(new Array(0));
     var [sortModel, setSortModel] = React.useState([
@@ -188,11 +188,17 @@ export default function Table_Stuff(props)  {
           : null,
       );
     };
+    function test() {
+      setContextStatusTblMenu(null);
+      setSelectedLst([])
+
+    }
 
 
     if (!stuff) return null;
 
     const Table = <DataGrid
+
             pagination
             sx={{
                 // position: 'absolute',
@@ -224,7 +230,8 @@ export default function Table_Stuff(props)  {
             sortModel = {sortModel}
             // onRowSelected={(x) => {)}}
             onSelectionModelChange={(ids) => {
-                selectedCells = ids
+                selectedCells = ids;
+              // (setSelectedLst(ids));
             }}
             onPageSizeChange={(newPageSize) => setDataGridPageSize(newPageSize)}
             onSortModelChange={(model) => setSortModel(model)}
@@ -273,6 +280,7 @@ export default function Table_Stuff(props)  {
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);editTableStuff(e)}}>Редактировать</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);transTableStuff(e)}}>Переместить</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);openDeleteStuffDialog(e)}}>Удалить</MenuItem>
+                                <MenuItem onClick={(e)=> {test(e)}}>Тест</MenuItem>
                             </Menu>
 
     const stateModalAddNewStuffCallback = (event) => {
@@ -295,7 +303,9 @@ export default function Table_Stuff(props)  {
     }
 
     const stateModalEditStuffSingleCallback = (event) => {
+
         setEditSingleModalShow('false')
+
     }
 
     const stateModalEditStuffGroupCallback = (event) => {
@@ -309,6 +319,7 @@ export default function Table_Stuff(props)  {
     }
 
     const stateModalEditStuffSingleSaveCallback = (event) => {
+        document.getElementsByClassName('PrivateSwitchBase-input css-1m9pwf3')[0].click()
         props.setUpdateTree('true');
         setEditSingleModalShow('false');
         tblUpdate()
