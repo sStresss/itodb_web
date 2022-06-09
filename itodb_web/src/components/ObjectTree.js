@@ -800,11 +800,10 @@ export default function ObjectTree(props) {
     const objectNoteSave = () => {
       setNoteModalOpen(false)
       let pk = document.getElementById('connect_par_name').innerText;
-      console.log(document.getElementById('connect_par_name').innerText)
       let code = ((objectNoteLabel.split(' '))[1].split('_'))[0]
-      let name = ((objectNoteLabel.split(' '))[1].split('_'))[1]
+      let name = ((objectNoteLabel).split('_'))[1]
       let note = document.getElementById('objectNoteField').value
-      // axios.put(API_OBJECT_NODE + pk, {code, name, note})
+      axios.put(API_OBJECT_NODE + pk, {code, name, note})
     }
     const updateTree = () => {
       axios.get(API_OBJECTS_URL).then((response) => {
