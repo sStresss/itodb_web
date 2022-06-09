@@ -968,49 +968,54 @@ export default function ObjectTree(props) {
                               </Col>
                             </Row>
                 } else {
-                      if (object.pk == '999') {console.log('РЕЗЕРВ!!!')}
-                    let node_par_id = object.pk
-                    let node_par_state = './'+object.state+'.png'
-                    return  <Row style={{maxWidth:"294px"}}>
-                                <Col style={{maxWidth:"264px"}}>
-                                  <CustomTreeItem
-                                    sx={{
-                                        ".css-1g86id8-MuiTreeItem-content:hover": {
-                                          backgroundColor: "#202836"
-                                        },
-                                        ".css-1g86id8-MuiTreeItem-content.Mui-selected": {
-                                          backgroundColor: "#3B4049"
-                                        },
-                                        ".css-1g86id8-MuiTreeItem-content.Mui-selected:hover": {
-                                          backgroundColor: "#3B4049"
-                                        },
-                                        ".css-1g86id8-MuiTreeItem-content.Mui-selected.Mui-focused": {
-                                          backgroundColor: "#3B4049"
-                                        }
+                    if (object.code != 999) {
+                      let node_par_id = object.pk
+                      let node_par_state = './' + object.state + '.png'
+                      return <Row style={{maxWidth: "294px"}}>
+                        <Col style={{maxWidth: "264px"}}>
+                          <CustomTreeItem
+                            sx={{
+                              ".css-1g86id8-MuiTreeItem-content:hover": {
+                                backgroundColor: "#202836"
+                              },
+                              ".css-1g86id8-MuiTreeItem-content.Mui-selected": {
+                                backgroundColor: "#3B4049"
+                              },
+                              ".css-1g86id8-MuiTreeItem-content.Mui-selected:hover": {
+                                backgroundColor: "#3B4049"
+                              },
+                              ".css-1g86id8-MuiTreeItem-content.Mui-selected.Mui-focused": {
+                                backgroundColor: "#3B4049"
+                              }
 
-                                    }}
-                                    key={object.code}
-                                    nodeId={object.pk}
-                                    nodeName = {object.code + '  ' + object.name}
-                                    label={ <Row onClick={(e)=>{updateTable('true','tree_parent', object.pk,'',object.name,'')}}>
-                                              <Col style={{color:"white"}}>
-                                                <Row>
-                                                  <Col style={{maxWidth:'33px', fontSize:"14px"}}>
-                                                    <a style={{marginLeft:"-10px"}}>{object.code}</a>
-                                                  </Col>
-                                                  <Col style={{fontSize:"12px", paddingTop:"3px", maxWidth:"242px"}}>
-                                                    {object.name}
-                                                  </Col>
-                                                </Row>
-                                              </Col>
-                                              <a hidden={true}>{node_par_state}</a>
-                                            </Row>
-                                      }
-                                    onContextMenu={(e) => {handleNodeContext(e,node_par_id)}}
-                                    style={{cursor: 'context-menu', marginLeft:"0px"}}
-                                  />
-                                </Col>
+                            }}
+                            key={object.code}
+                            nodeId={object.pk}
+                            nodeName={object.code + '  ' + object.name}
+                            label={<Row onClick={(e) => {
+                              updateTable('true', 'tree_parent', object.pk, '', object.name, '')
+                            }}>
+                              <Col style={{color: "white"}}>
+                                <Row>
+                                  <Col style={{maxWidth: '33px', fontSize: "14px"}}>
+                                    <a style={{marginLeft: "-10px"}}>{object.code}</a>
+                                  </Col>
+                                  <Col style={{fontSize: "12px", paddingTop: "3px", maxWidth: "242px"}}>
+                                    {object.name}
+                                  </Col>
+                                </Row>
+                              </Col>
+                              <a hidden={true}>{node_par_state}</a>
                             </Row>
+                            }
+                            onContextMenu={(e) => {
+                              handleNodeContext(e, node_par_id)
+                            }}
+                            style={{cursor: 'context-menu', marginLeft: "0px"}}
+                          />
+                        </Col>
+                      </Row>
+                    }
                 }
             })}
             <Row
