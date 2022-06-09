@@ -422,7 +422,9 @@ export default function Table_Stuff(props)  {
     }
 
     const srchTableData = () => {
+
       if ((props.srch[0] != search[0]) || (props.srch[1] != search[1])) {
+
         let p_rows = new Array(0);
         search = props.srch
         if (props.srch[0] === '') {
@@ -448,8 +450,9 @@ export default function Table_Stuff(props)  {
             };
             }
             else {
+              console.log(props.srch)
               for(i=0; i < stuffTmp.length; i++) {
-                if (stuffTmp[i]['object_fact'].includes(props.srch[0])) {
+                if (stuffTmp[i]['object_target'].includes(props.srch[0])) {
                   p_rows[j] = {
                     pk: i,
                     type: stuffTmp[i]['type'],
