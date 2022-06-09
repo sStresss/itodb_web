@@ -1073,7 +1073,7 @@ export default function ObjectTree(props) {
                 // aria-controls={menuopen ? 'long-menu' : undefined}
                 // aria-expanded={menuopen ? 'true' : undefined}
                 // aria-haspopup="true"
-                onClick={handleMainMenuClick}
+                // onClick={handleMainMenuClick}
                 style={{color:"white", marginTop:"10px"}}
               >
                 <WidgetsIcon />
