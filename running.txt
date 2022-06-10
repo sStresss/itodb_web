@@ -5,4 +5,4 @@ itodb_web> npm start
 itodb_web> node server js
 
 
-2. не работает поиск
+2. не работает метрика при поиске

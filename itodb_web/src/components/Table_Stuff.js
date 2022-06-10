@@ -482,9 +482,10 @@ export default function Table_Stuff(props)  {
         let p_rows = []
         var rows = []
         let j = 0
-        if (stuffTmp.length !== 0) {
+        if (stuff.length !== 0) {
+          // console.log(stuff[0]['type'])
             p_rows[0] = [stuff[0]['type'], stuff[0]['model'], 0]
-            for (let i = 0; i < stuffTmp.length; i++) {
+            for (let i = 0; i < stuff.length; i++) {
                 let check = false
                 for (j = 0; j < p_rows.length; j++) {
                     if (p_rows[j][0] === stuff[i]['type'] && p_rows[j][1] === stuff[i]['model']) {
