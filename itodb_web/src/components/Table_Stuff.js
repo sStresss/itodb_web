@@ -453,8 +453,9 @@ export default function Table_Stuff(props)  {
               console.log(props.srch)
               for(i=0; i < stuffTmp.length; i++) {
                 if (stuffTmp[i]['object_target'].includes(props.srch[0])) {
+
                   p_rows[j] = {
-                    pk: i,
+                    pk: stuffTmp[i]['pk'],
                     type: stuffTmp[i]['type'],
                     model: stuffTmp[i]['model'],
                     serial: stuffTmp[i]['serial'],
@@ -483,7 +484,6 @@ export default function Table_Stuff(props)  {
         var rows = []
         let j = 0
         if (stuff.length !== 0) {
-          // console.log(stuff[0]['type'])
             p_rows[0] = [stuff[0]['type'], stuff[0]['model'], 0]
             for (let i = 0; i < stuff.length; i++) {
                 let check = false

@@ -359,7 +359,10 @@ def login(request):
 
 @api_view(['PUT'])
 def stuff_edit_single(request, pk):
+    print('EDIT SINGLE STUFF')
+    print(pk)
     object = Stuff.objects.get(id=int(pk))
+
     if request.method == 'PUT':
         data = request.data
         object.type = data['type']
