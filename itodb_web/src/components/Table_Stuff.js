@@ -434,7 +434,9 @@ export default function Table_Stuff(props)  {
           if (props.srch[1] === 'серийный номер') {
             for(i=0; i < stuffTmp.length; i++) {
               if (stuffTmp[i]['serial'].includes(props.srch[0])) {
-                p_rows[j] = {pk: i,type: stuffTmp[i]['type'],
+                p_rows[j] = {
+                  pk: stuffTmp[i]['pk'],
+                  type: stuffTmp[i]['type'],
                   model: stuffTmp[i]['model'],
                   serial: stuffTmp[i]['serial'],
                   manufacturer: stuffTmp[i]['manufacturer'],
