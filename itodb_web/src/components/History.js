@@ -72,6 +72,13 @@ export default function HistoryModal(props) {
     setModalOpen(false);
   }
 
+  var [sortModel, setSortModel] = React.useState([
+    {
+      field: 'date',
+      sort: 'desc',
+    },
+  ]);
+
   return <Modal
     open={modalopen || false}
     onClose={handleModalClose}
@@ -111,8 +118,8 @@ export default function HistoryModal(props) {
             // hideFooter={true}
             rowHeight = {25}
             pageSize={20}
-            // sortModel = {sortModel}
-            // onSortModelChange={(model) => setSortModel(model)}
+            sortModel = {sortModel}
+            onSortModelChange={(model) => setSortModel(model)}
           />
       </Row>
       <Row>

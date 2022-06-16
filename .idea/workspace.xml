@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96d1acbd-1b23-4d8d-a3ab-68ac53b55f7e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/itodb_web/src/components/History.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/Redis/dump.rdb" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/Redis/dump.rdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/celerybeat-schedule.bak" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/celerybeat-schedule.bak" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/itodb_srv/celerybeat-schedule.dat" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/celerybeat-schedule.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/celerybeat-schedule.dir" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/celerybeat-schedule.dir" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/itodb/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/itodb/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/itodb/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/itodb/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/itodb/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/itodb/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/itodb/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/itodb/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/itodb/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/itodb/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_srv/itodb/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_srv/itodb/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_web/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/AddNewStuff.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/AddNewStuff.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/ObjectTree.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Preferences.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Table_Control.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/TableControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/Table_Stuff.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/TableStuff.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/itodb_web/src/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/constants/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/running.txt" beforeDir="false" afterPath="$PROJECT_DIR$/running.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itodb_web/src/components/History.js" beforeDir="false" afterPath="$PROJECT_DIR$/itodb_web/src/components/History.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <ignored path="$PROJECT_DIR$/itodb_web/node_modules/" />
@@ -370,13 +351,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/TableStuff.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="842">
-              <caret line="545" column="43" selection-start-line="545" selection-start-column="43" selection-end-line="545" selection-end-column="43" />
+            <state relative-caret-position="213">
+              <caret line="46" selection-start-line="46" selection-end-line="51" selection-end-column="7" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
                 <element signature="e#829#846#0" />
-                <element signature="e#1372#1450#0" />
-                <element signature="e#1382#1443#0" />
                 <element signature="e#2784#2956#0" />
                 <element signature="e#2824#2881#0" />
                 <element signature="e#3587#3758#0" />
@@ -487,8 +466,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/itodb_web/src/components/History.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="112" column="25" selection-start-line="112" selection-start-column="25" selection-end-line="112" selection-end-column="25" />
+            <state relative-caret-position="314">
+              <caret line="121" column="62" lean-forward="true" selection-start-line="121" selection-start-column="62" selection-end-line="121" selection-end-column="62" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -662,7 +641,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>globalTree</find>
       <find>isUp</find>
       <find>save</find>
       <find>100</find>
@@ -692,6 +670,7 @@
       <find>.post</find>
       <find>event.tar</find>
       <find>.child</find>
+      <find>sort</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -828,12 +807,12 @@
       <workItem from="1652769655603" duration="96873000" />
       <workItem from="1653993831291" duration="28785000" />
       <workItem from="1654261905245" duration="240000" />
-      <workItem from="1654289537910" duration="87458000" />
+      <workItem from="1654289537910" duration="87934000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="325711000" />
+    <option name="totallyTimeSpent" value="326187000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1240,13 +1219,6 @@
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itodb_web/src/constants/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="68" selection-start-line="18" selection-start-column="68" selection-end-line="18" selection-end-column="68" />
         </state>
       </provider>
     </entry>
@@ -1703,13 +1675,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/components/TableStuff.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="842">
-          <caret line="545" column="43" selection-start-line="545" selection-start-column="43" selection-end-line="545" selection-end-column="43" />
+        <state relative-caret-position="213">
+          <caret line="46" selection-start-line="46" selection-end-line="51" selection-end-column="7" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <element signature="e#829#846#0" />
-            <element signature="e#1372#1450#0" />
-            <element signature="e#1382#1443#0" />
             <element signature="e#2784#2956#0" />
             <element signature="e#2824#2881#0" />
             <element signature="e#3587#3758#0" />
@@ -1795,10 +1765,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/itodb_web/src/constants/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="68" selection-start-line="18" selection-start-column="68" selection-end-line="18" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/itodb_web/src/components/History.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="112" column="25" selection-start-line="112" selection-start-column="25" selection-end-line="112" selection-end-column="25" />
+        <state relative-caret-position="314">
+          <caret line="121" column="62" lean-forward="true" selection-start-line="121" selection-start-column="62" selection-end-line="121" selection-end-column="62" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
