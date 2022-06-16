@@ -66,7 +66,7 @@ const promise = new Promise((resolve) => {
 var path_tmp = ''
 var metricDataLoadConfirm = false
 
-export default function Table_Control(props)  {
+export default function TableControl(props)  {
 
     const style = makeStyles({
          root: {

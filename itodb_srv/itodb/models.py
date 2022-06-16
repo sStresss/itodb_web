@@ -94,3 +94,12 @@ class Status(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+class History(models.Model):
+    date = models.DateTimeField("date")
+    user = models.CharField("user", max_length=40, blank=True)
+    serial = models.CharField("serial", max_length=50)
+    event = models.CharField("event", max_length=200)
+
+    def __str__(self):
+        return f'{self.id}'

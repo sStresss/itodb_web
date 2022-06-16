@@ -57,4 +57,6 @@ urlpatterns = [
     re_path(r'^api/exporttoexel/([0-9]{2})$', export_to_exel),
     re_path(r'^api/exporttoexel/([0-9]{3})$', export_to_exel),
     re_path(r'^api/exporttoexel/([0-9]{4})$', export_to_exel),
+    re_path(r'^api/history/$', history),
+
 ]

@@ -16,3 +16,4 @@ export const API_EDITSTUFFSINGLE_URL = "http://localhost:8000/api/stuffsingleedi
 export const API_EDITSTUFFGROUP_URL = "http://localhost:8000/api/stuffgroupedit/";
 export const API_OBJECTREFERAL_URL = "http://localhost:8000/api/objectreferal/";
 export const API_EXPORTTOEXEL_URL = "http://localhost:8000/api/exporttoexel/";
+export const API_HISTORY_URL = "http://localhost:8000/api/history/";

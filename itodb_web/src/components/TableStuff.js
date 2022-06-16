@@ -7,7 +7,8 @@ import axios from "axios";
 import {
     API_STUFF_URL,
     API_SUBSTUFF_URL,
-    API_STUFFBYTREE_URL, API_OBJECTS_URL
+    API_STUFFBYTREE_URL,
+    API_HYSTORY_URL
 } from "../constants";
 import DialogBoxDelStuff from './DialogBoxDelStuff'
 import IconButton from '@mui/material/IconButton';
@@ -17,6 +18,7 @@ import AddStuffModal from './AddNewStuff'
 import TransferStuffModal from './TransferStuff'
 import EditStuffSingleModal from './EditStuffSingle'
 import EditStuffGroupModal from './EditStuffGroup'
+import HistoryModal from './History'
 
 var selectedCells = []
 var selectedCellData = []
@@ -32,8 +34,9 @@ var connect_state = 'global'
 var stuffTmp = []
 
 var getmetric = false
+var target_serial = ''
 
-export default function Table_Stuff(props)  {
+export default function TableStuff(props)  {
 
     const [pageSize, setDataGridPageSize] = React.useState(25);
     var [commentWidth, setCommentWidth] = React.useState(195 + (document.body.offsetWidth/100))
@@ -75,6 +78,7 @@ export default function Table_Stuff(props)  {
             padding: '0 30px',
         },
     });
+
     const [addStuffModalShow, setAddStuffModalShow] = React.useState('false')
     const addTableStuff = (event) => {
         promise.then(()=>{setAddStuffModalShow('true')})
@@ -127,6 +131,7 @@ export default function Table_Stuff(props)  {
     const [transferStuffModalShow, setTransferStuffModalShow] = React.useState(['false',[]])
     const [editSingleModalShow, setEditSingleModalShow] = React.useState(['false',[]])
     const [editGroupModalShow, setEditGroupModalShow] = React.useState(['false',[]])
+    const [historyModalShow, setHistoryModalShow] = React.useState(['false',[]])
     const columns = [
       { field: 'type', headerName: 'Тип', flex: 1},
       { field: 'model', headerName: 'Модель', flex: 1 },
@@ -178,9 +183,9 @@ export default function Table_Stuff(props)  {
       setContextStatusTblMenu(null);
     };
     async function handleContextStatusTblMenu (event)  {
-        console.log(selectedCells)
-        setSelectedLst(selectedCells)
+      setSelectedLst(selectedCells)
       event.preventDefault();
+      target_serial = event.currentTarget.children[3].textContent
       setSelectedStatusTblRow(Number(event.currentTarget.getAttribute('data-id')));
       setContextStatusTblMenu(
         contextStatusTblMenu === null
@@ -192,6 +197,14 @@ export default function Table_Stuff(props)  {
       setContextStatusTblMenu(null);
       setSelectedLst([])
 
+    }
+    const openHistory = (event) => {
+        console.log(selectedStatusTblRow)
+        setHistoryModalShow(['true', target_serial])
+    }
+
+    const stateModalHystoryCallback = (event) => {
+        setHistoryModalShow(['false',[]])
     }
 
 
@@ -277,6 +290,7 @@ export default function Table_Stuff(props)  {
                                   },
                                 }}
                               >
+                                <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);openHistory(e)}}>История</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);editTableStuff(e)}}>Редактировать</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);transTableStuff(e)}}>Переместить</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);openDeleteStuffDialog(e)}}>Удалить</MenuItem>
@@ -536,6 +550,7 @@ export default function Table_Stuff(props)  {
         <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>
         <EditStuffSingleModal show={editSingleModalShow} stateCallback={stateModalEditStuffSingleCallback} stateSaveCallback={stateModalEditStuffSingleSaveCallback}/>
         <EditStuffGroupModal show={editGroupModalShow} stateCallback={stateModalEditStuffGroupCallback} stateSaveCallback={stateModalEditStuffGroupSaveCallback}/>
+        <HistoryModal show={historyModalShow} stateCallback={stateModalHystoryCallback} />
         <a id={"connectGetTblMetric"} onChange={getMetric()} hidden={true}>{props.getMetricData || ''} </a>
     </Row>
     );

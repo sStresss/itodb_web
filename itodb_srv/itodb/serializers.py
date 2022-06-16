@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Stuff, Student, Object, SubObject, Type, Status
+from .models import Stuff, Student, Object, SubObject, Type, Status, History
 
 class itodbSerializer(serializers.ModelSerializer):
 
@@ -37,3 +37,9 @@ class statusDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
         fields = ('pk', 'type', 'model', 'count', 'connect')
+
+class hystorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = History
+        fields = ('pk', 'date', 'user', 'serial', 'event')

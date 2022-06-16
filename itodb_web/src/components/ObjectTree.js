@@ -103,9 +103,8 @@ var referal_tmp = ''
 var connect = false;
 
 let url = `ws://127.0.0.1:8000/ws/socket-server/`
-
-
 const socket = new WebSocket(url)
+
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;

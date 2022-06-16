@@ -1,16 +1,9 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
-import Table_Stuff from "./Table_Stuff";
+import TableStuff from "./TableStuff";
 import ObjectTree from "./ObjectTree"
-import Table_Control from "./Table_Control"
+import TableControl from "./TableControl"
 import MessageBox from './MessageBox'
-
-
-const promise = new Promise((resolve) => {
-    resolve()
-});
-
-var test = []
 
 export default function Main() {
     var [updateTable, setUpdateTable] = React.useState(['false', 'none', '', '','','']);
@@ -47,7 +40,6 @@ export default function Main() {
     const setMetricData = (dataArr) => {
       console.log(dataArr.length)
       if (dataArr.length === 0) {
-        console.log('CGBCJR GECR')
         openMesBox('Список оборудования пуст')}
       else {
         setMetric(dataArr)
@@ -73,7 +65,7 @@ export default function Main() {
                 isUpdate={updTree}/>
           </Col>
           <Col style={{marginTop:"0px"}}>
-              <Table_Control
+              <TableControl
                 update={updateData}
                 selectedLst={selectedTableLst}
                 updateData={updateTable}
@@ -82,7 +74,7 @@ export default function Main() {
                 metricData = {metric}
                 metricConfirm = {metricDataLoadConfirm}
               />
-              <Table_Stuff
+              <TableStuff
                 reload = {updateData}
                 update={updateTable}
                 selectedLst={updateTblLst}

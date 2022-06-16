@@ -204,6 +204,8 @@ export default function AddSTuffModal(props) {
       const date_transfer = ""
       const object_fact = document.getElementById("seWarehouse").textContent
       const comment = document.getElementById("new_stuff_comment").value
+      const user = "ksv"
+      const event = "Добавлен в базу"
       var state = ''
       if (nsToggle === 'stuff') {
         state = 'Оборудование'
@@ -212,7 +214,7 @@ export default function AddSTuffModal(props) {
       }
       axios.post(API_NEWSTUFF_URL, {
         type, model, serial, manufacturer, seller, date_purchase, object_target,
-        object_fact, date_transfer, comment, state
+        object_fact, date_transfer, comment, state, user, event
       })
         .then(res => {
           if (res.statusText !== 'Created') {

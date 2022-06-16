@@ -7,8 +7,7 @@ import json
 import django
 from django.http import JsonResponse
 # from .scripts.states import getObjStat
-
-from .models import Student, Object, SubObject, Stuff, Type, Model, Manufacturer, Warehouse, Seller, SubType, SubModel, Status
+from .models import Student, Object, SubObject, Stuff, Type, Model, Manufacturer, Warehouse, Seller, SubType, SubModel, Status, History
 from django.contrib.auth.models import User
 from django.db.models import CharField, Value
 from .serializers import *
@@ -23,6 +22,7 @@ import pymysql
 @api_view(['GET', 'POST'])
 def object_list(request):
     # database_migrate()
+    # databaseHistoryMigrate()
     if request.method == 'GET':
         # print('GET OBJ LIST!!!!!!!')
         data = Object.objects.all().order_by('code')
@@ -146,9 +146,11 @@ def modal_ns_stuff_data_list(request):
 
     elif request.method == 'POST':
         print('NEW STUFF REC DATA: ', request.data)
+
         serializer = stuffSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            newHystoryRecord(request.data['user'], request.data['serial'], request.data['event'])
             return Response(status=status.HTTP_201_CREATED)
         else:
             print(serializer.errors)
@@ -424,6 +426,23 @@ def export_to_exel(request, pk):
         json_res = json.loads(json_data)
         return JsonResponse(json_res, content_type='application/json')
 
+@api_view(['POST'])
+def history(request):
+    print('GET HISTPRY:  ', request.data)
+    if request.method == 'POST':
+        stuff = History.objects.filter(serial=request.data['serial'])
+        data = {"date": [], "user": [], "serial": [], "event": []}
+        for elem in stuff:
+            data['date'].append(str(elem.date).split('.')[0])
+            data['user'].append(elem.user)
+            data['serial'].append(elem.serial)
+            data['event'].append(elem.event)
+        json_data = json.dumps(data)
+        json_res = json.loads(json_data)
+        return JsonResponse(json_res, content_type='application/json')
+
+
+# ======================================================================================================================
 
 def database_migrate():
     objLst = Object.objects.all().order_by('id')
@@ -629,3 +648,55 @@ def checkChild(con, pNameId):
         cur.execute("SELECT * FROM treechildobjtbl WHERE ConnectionID LIKE '" + str(pNameId) + "'")
         child_id_sql = cur.fetchall()
         return child_id_sql
+
+def databaseHistoryMigrate():
+
+    passlog = open('C:\itoDB\sqlpasslog.txt', "r")
+    l = [line.strip() for line in passlog]
+
+    SqlHostname = str(l[0])
+    SqlPort = int(l[1])
+    SqlUserName = str(l[2])
+    SqlPwd = str(l[3])
+    SqlDBName = 'itodb'
+
+    con = pymysql.connect(host=str(SqlHostname),
+        port=int(SqlPort),
+        user=str(SqlUserName),
+        passwd=str(SqlPwd),
+        db=str(SqlDBName))
+
+    ores = []
+    kres = []
+
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM hystory")
+        history_sql = cur.fetchall()
+
+
+        for elem in history_sql:
+          print(elem[1])
+          date_str = str(str(elem[1]).split(' ')[0]).split('/')
+          cur_date = date_str[2]+'-'+date_str[1]+'-'+date_str[0]
+          cur_time = str(str(elem[1]).split(' ')[1])+'.01'+'+03'
+          cur_datetime = cur_date+' '+cur_time
+          print(cur_datetime)
+          if elem[2] == None:
+              cur_user = ''
+          else:
+              cur_user = elem[2]
+          History.objects.create(
+              date=cur_datetime,
+              user=cur_user,
+              serial=elem[4],
+              event=elem[5]
+          )
+
+def newHystoryRecord(user, serial, event):
+    p_data = {"user":user, "serial":serial, "event":event}
+    serializer = hystorySerializer(data=p_data)
+    if serializer.is_valid():
+        serializer.save()
+
+
