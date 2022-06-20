@@ -7,6 +7,7 @@ import axios from "axios";
 import {API_HISTORY_URL} from "../constants";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import Tooltip from '@mui/material/Tooltip';
 
 const modalstyle = {
   position: 'absolute',
@@ -32,10 +33,8 @@ export default function HistoryModal(props) {
       axios.post(API_HISTORY_URL, {'serial':props.show[1]}).then((res)=>{
         console.log(res.data)
         for (let i = 0; i<res.data['date'].length; i++ ) {
-          rows[i] = {id:[i], date:res.data['date'][i],user:res.data['user'][i],serial:res.data['serial'][i], event:res.data['event'][i]}
-
+          rows[i] = {id:[i], date:res.data['date'][i], user:res.data['user'][i], serial:res.data['serial'][i], event:res.data['event'][i]}
         }
-        console.log(rows)
         setModalOpen(true)
       })
 
@@ -45,7 +44,15 @@ export default function HistoryModal(props) {
     { field: 'date', headerName: 'Дата', width:150},
     { field: 'user', headerName: 'Пользователь', width:100 },
     { field: 'serial', headerName: 'Серийный номер', width:150},
-    { field: 'event', headerName: 'Событие', width:785}
+    { field: 'event',
+      headerName: 'Событие',
+      width:785,
+    renderCell: (params) =>  {
+      return <Tooltip title={params.value} >
+        <span className="table-cell-trucate">{params.value}</span>
+        </Tooltip>
+      },
+    }
   ];
   const style = makeStyles({
    root: {
@@ -112,6 +119,7 @@ export default function HistoryModal(props) {
               pageSize={20}
               sortModel = {sortModel}
               onSortModelChange={(model) => setSortModel(model)}
+
             />
         </Row>
         <Row>

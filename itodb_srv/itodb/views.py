@@ -183,20 +183,14 @@ def modal_ns_substuff_data_list(request):
 
 @api_view(['PUT', 'DELETE'])
 def stuff_detail(request, pk):
-    print('STUFF DETAIL!')
-    print('pk:', pk)
     object = Stuff.objects.get(id=int(pk))
-    print('object:', object)
-
     if request.method == 'PUT':
         serializer = itodbSerializer(object, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     elif request.method == 'DELETE':
-        print('STUFF DELETE!!!')
         object.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -211,8 +205,11 @@ def stuff_transfer(request, pk):
             object.subobject_fact = data['subObject']
         else:
             object.subobject_fact = ''
+        event = "Перемещение с " + object.object_fact + " на " +data['object']+" | "+data['subObject']
         object.date_transfer = str((data['date'])).replace('/', '-')
         object.save(update_fields=['object_fact', 'subobject_fact', 'date_transfer'])
+        newHystoryRecord(request.data['user'], object.serial, event)
+
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -362,10 +359,26 @@ def login(request):
 
 @api_view(['PUT'])
 def stuff_edit_single(request, pk):
-    print('EDIT SINGLE STUFF')
-    print(pk)
     object = Stuff.objects.get(id=int(pk))
-
+    attr = ''
+    attrOldValue = ''
+    attrNewValue = ''
+    event = "Редактирование \n\n {Тип: "+object.type+\
+            ", Модель: "+object.model + \
+            ", С/Н: "+object.serial + \
+            ", Производитель: "+object.manufacturer + \
+            ", Поставщик: "+object.seller + \
+            ", Дата поступления: "+object.date_purchase + \
+            ", Целевой объект: "+object.object_target + \
+            ", Коммент.: "+object.comment + \
+            "} => {Тип: "+request.data['type'] + \
+            ", Модель: " + request.data['model'] + \
+            ", С/Н: " + request.data['serial'] + \
+            ", Производитель: " + request.data['manufacturer'] + \
+            ", Поставщик: " + request.data['seller'] + \
+            ", Дата поступления: " + request.data['date_purchase'] + \
+            ", Целевой объект: " + request.data['object_target'] + \
+            ", Коммент.: " + request.data['comment'] + "}"
     if request.method == 'PUT':
         data = request.data
         object.type = data['type']
@@ -377,6 +390,7 @@ def stuff_edit_single(request, pk):
         object.object_target = data['object_target']
         object.comment = data['comment']
         object.save(update_fields=['type', 'model', 'serial', 'manufacturer', 'seller', 'date_purchase', 'object_target', 'comment'])
+        newHystoryRecord(request.data['user'], object.serial, event)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])

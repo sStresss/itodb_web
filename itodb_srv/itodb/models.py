@@ -99,7 +99,7 @@ class History(models.Model):
     date = models.DateTimeField("date", auto_now_add=True)
     user = models.CharField("user", max_length=40, blank=True)
     serial = models.CharField("serial", max_length=50)
-    event = models.CharField("event", max_length=200)
+    event = models.CharField("event", max_length=500)
 
     def __str__(self):
         return f'{self.id}'

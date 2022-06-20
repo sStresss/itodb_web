@@ -55,3 +55,9 @@
 .hov_button:hover {
   background-color: #eeeeee;
 }
+
+.table-cell-trucate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

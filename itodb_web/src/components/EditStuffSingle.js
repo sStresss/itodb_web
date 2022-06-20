@@ -50,7 +50,8 @@ export default function EditStuffSingleModal(props) {
       seller: document.getElementById("seSeller").textContent,
       date_purchase: (document.getElementById("edit_stuff_datepurchase").value).replaceAll('/', '.'),
       object_target: document.getElementById("seTargetObject").textContent,
-      comment: document.getElementById("edit_stuff_comment").value})
+      comment: document.getElementById("edit_stuff_comment").value,
+      user: localStorage.getItem('user')})
     reloadTableCallback()
     }
 

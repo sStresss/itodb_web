@@ -58,9 +58,11 @@ export default function TransferStuffModal(props) {
         let object = document.getElementById('trTargetObj').textContent
         let subObject = document.getElementById('trTargetSubObj').textContent
         let date = document.getElementById('transDate').value
+        const user = localStorage.getItem('user')
         for (let ind in props.show[1]) {
             let pk = (props.show[1])[ind]
-            axios.put(API_TRANSFERSTUFF_URL + pk, {object, subObject, date}).then(res=> {
+
+            axios.put(API_TRANSFERSTUFF_URL + pk, {object, subObject, date, user}).then(res=> {
                 if (parseInt(ind, 10)  === parseInt((((props.show[1]).length))-1,10)) {
                   setModalOpen(false);
                   props.stateSaveCallback()
