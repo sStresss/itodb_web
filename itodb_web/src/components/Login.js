@@ -40,6 +40,7 @@ export default function Login({ setToken }) {
           password
         });
         setToken(token);
+        localStorage.setItem('user', username);
       }
       else {
         if (mes == 'wr_name') {setLblWrName(false) }

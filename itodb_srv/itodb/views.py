@@ -213,6 +213,7 @@ def stuff_transfer(request, pk):
             object.subobject_fact = ''
         object.date_transfer = str((data['date'])).replace('/', '-')
         object.save(update_fields=['object_fact', 'subobject_fact', 'date_transfer'])
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
@@ -694,9 +695,15 @@ def databaseHistoryMigrate():
           )
 
 def newHystoryRecord(user, serial, event):
+    print('NEW HYSTORY REC')
     p_data = {"user":user, "serial":serial, "event":event}
+    print(user)
+    print(serial)
+    print(event)
     serializer = hystorySerializer(data=p_data)
+    print(serializer)
     if serializer.is_valid():
         serializer.save()
+        print('NEW HYSTORY REC SAVE')
 
 

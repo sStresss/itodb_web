@@ -204,7 +204,8 @@ export default function AddSTuffModal(props) {
       const date_transfer = ""
       const object_fact = document.getElementById("seWarehouse").textContent
       const comment = document.getElementById("new_stuff_comment").value
-      const user = "ksv"
+      const user = localStorage.getItem('user')
+      console.log(user)
       const event = "Добавлен в базу"
       var state = ''
       if (nsToggle === 'stuff') {

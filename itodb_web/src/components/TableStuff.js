@@ -294,7 +294,6 @@ export default function TableStuff(props)  {
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);editTableStuff(e)}}>Редактировать</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);transTableStuff(e)}}>Переместить</MenuItem>
                                 <MenuItem onClick={(e)=> {setContextStatusTblMenu(null);openDeleteStuffDialog(e)}}>Удалить</MenuItem>
-                                <MenuItem onClick={(e)=> {test(e)}}>Тест</MenuItem>
                             </Menu>
 
     const stateModalAddNewStuffCallback = (event) => {
@@ -523,37 +522,35 @@ export default function TableStuff(props)  {
     }
 
     return (
-    <Row style={{
-            height: "100vh",
-            marginTop:"-11px",
-            borderTop:"1px solid #B4B4B4",
-        }}
-    >
-        <span id={"connect_state"} hidden={true}>global</span>
-        <span id={"connect_pid"} hidden={true}></span>
-        <span id={"connect_cid"} hidden={true}></span>
-        <IconButton
-            sx={{width:"40px",height:"41px", marginLeft:"17px", marginRight:"0px", marginTop:"7px", color:"#5f5f5f", position:"absolute",zIndex:1}}
-            aria-label="filter"
-            id="addNewSruffBtn"
-            onClick={(e)=>addTableStuff(e)}
-            hidden={addStuffBtnHide}
-        >
-            <img src={"./add_btn.png"} style={{height:'18px'}}/>
-        </IconButton>
-        {Table}
-        {TableContextMenu}
-        <span id={"connectTreeState"}  hidden={true} onChange={loadTableData()}>{props.update || 'Главная'} </span>
-        <span id={"connectSearch"}  hidden={true} onChange={srchTableData()}>{props.srch || ['','']} </span>
-        <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
-        <TransferStuffModal show={transferStuffModalShow} stateCallback={stateModalTransferStuffCallback} stateSaveCallback={stateModalTransferStuffSaveCallback}/>
-        <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>
-        <EditStuffSingleModal show={editSingleModalShow} stateCallback={stateModalEditStuffSingleCallback} stateSaveCallback={stateModalEditStuffSingleSaveCallback}/>
-        <EditStuffGroupModal show={editGroupModalShow} stateCallback={stateModalEditStuffGroupCallback} stateSaveCallback={stateModalEditStuffGroupSaveCallback}/>
-        <HistoryModal show={historyModalShow} stateCallback={stateModalHystoryCallback} />
-        <a id={"connectGetTblMetric"} onChange={getMetric()} hidden={true}>{props.getMetricData || ''} </a>
-    </Row>
+      <Row style={{
+              height: "100vh",
+              marginTop:"-11px",
+              borderTop:"1px solid #B4B4B4",
+          }}
+      >
+          <span id={"connect_state"} hidden={true}>global</span>
+          <span id={"connect_pid"} hidden={true}></span>
+          <span id={"connect_cid"} hidden={true}></span>
+          <IconButton
+              sx={{width:"40px",height:"41px", marginLeft:"17px", marginRight:"0px", marginTop:"7px", color:"#5f5f5f", position:"absolute",zIndex:1}}
+              aria-label="filter"
+              id="addNewSruffBtn"
+              onClick={(e)=>addTableStuff(e)}
+              hidden={addStuffBtnHide}
+          >
+              <img src={"./add_btn.png"} style={{height:'18px'}}/>
+          </IconButton>
+          {Table}
+          {TableContextMenu}
+          <span id={"connectTreeState"}  hidden={true} onChange={loadTableData()}>{props.update || 'Главная'} </span>
+          <span id={"connectSearch"}  hidden={true} onChange={srchTableData()}>{props.srch || ['','']} </span>
+          <AddStuffModal show={addStuffModalShow} stateCallback={stateModalAddNewStuffCallback} stateSaveCallback={stateModalAddNewStuffSaveCallback}/>
+          <TransferStuffModal show={transferStuffModalShow} stateCallback={stateModalTransferStuffCallback} stateSaveCallback={stateModalTransferStuffSaveCallback}/>
+          <DialogBoxDelStuff show={dialogBoxDelStuffState} callback={dialogBoxDelStuffCallback}/>
+          <EditStuffSingleModal show={editSingleModalShow} stateCallback={stateModalEditStuffSingleCallback} stateSaveCallback={stateModalEditStuffSingleSaveCallback}/>
+          <EditStuffGroupModal show={editGroupModalShow} stateCallback={stateModalEditStuffGroupCallback} stateSaveCallback={stateModalEditStuffGroupSaveCallback}/>
+          <HistoryModal show={historyModalShow} stateCallback={stateModalHystoryCallback} />
+          <a id={"connectGetTblMetric"} onChange={getMetric()} hidden={true}>{props.getMetricData || ''} </a>
+      </Row>
     );
 }
-
-// boxShadow:"0px 5px 5px #B4B4B4 inset"

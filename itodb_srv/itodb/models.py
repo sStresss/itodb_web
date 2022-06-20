@@ -96,7 +96,7 @@ class Status(models.Model):
         return f'{self.id}'
 
 class History(models.Model):
-    date = models.DateTimeField("date")
+    date = models.DateTimeField("date", auto_now_add=True)
     user = models.CharField("user", max_length=40, blank=True)
     serial = models.CharField("serial", max_length=50)
     event = models.CharField("event", max_length=200)
