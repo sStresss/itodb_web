@@ -1,9 +1,0 @@
-itodb_srv> python manage.py runserver
-itodb_srv> celery -A itodb_srv_app.celery worker --pool=solo -l info
-itodb_srv> celery -A itodb_srv_app.celery beat
-itodb_web> npm start
-itodb_web> node server js
-
-
-2. добавить и перенести историю stuff
-3. нужно перенести сервер на виртуалку, проблемы с redis
