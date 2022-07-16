@@ -321,7 +321,6 @@ def modal_stat_edit_rec(request, pk):
         object.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
 def getElemStat(curRows, objName, curType, curModel):
     pFactNum = 0
     for row in curRows:
@@ -399,6 +398,53 @@ def object_referal_edit(request, pk):
         json_res = json.loads(json_data)
         return JsonResponse(json_res, content_type='application/json')
 
+@api_view(['GET'])
+def export_to_exel(request, pk):
+    print('EXPORT TO EXEL REQ RECIEVE: ', request.data)
+    object = Object.objects.get(id=int(pk))
+    print(object.name)
+    if request.method == 'GET':
+        stuff = Stuff.objects.filter(Q(object_fact=object.name) | Q(object_target=object.name, object_fact='Склад Офис'))
+        data = {"type": [], "model": [], "unittype": [], "count": [], "serial": [], "location": []}
+        for elem in stuff:
+            data['type'].append(elem.type)
+            data['model'].append(elem.model)
+            data['unittype'].append('шт.')
+            data['count'].append('1')
+            data['serial'].append(elem.serial)
+            if elem.object_fact == 'Склад Офис':
+                data['location'].append('Склад Офис')
+            else:
+                data['location'].append('Установлен ' + str(elem.object_fact) + ' || ' + str(elem.subobject_fact))
+        json_data = json.dumps(data)
+        json_res = json.loads(json_data)
+        return JsonResponse(json_res, content_type='application/json')
+
+@api_view(['GET'])
+def export_wh_to_exel(request, pk):
+    print('EXPORT WH TO EXEL REQ RECIEVE: ', request.data)
+    if request.method == 'GET':
+        stuff = Stuff.objects.filter(Q(object_fact='Склад Офис'))
+        data = {"type": [],
+                "model": [],
+                "serial": [],
+                "manufacturer": [],
+                "date_purchase": [],
+                "object_target": [],
+                "object_fact": [],
+                "comment": []}
+        for elem in stuff:
+            data['type'].append(elem.type)
+            data['model'].append(elem.model)
+            data['serial'].append(elem.serial)
+            data['manufacturer'].append(elem.manufacturer)
+            data['date_purchase'].append(elem.date_purchase)
+            data['object_target'].append(elem.object_target)
+            data['object_fact'].append(elem.object_fact)
+            data['comment'].append(elem.comment)
+        json_data = json.dumps(data)
+        json_res = json.loads(json_data)
+        return JsonResponse(json_res, content_type='application/json')
 
 def database_migrate():
     objLst = Object.objects.all().order_by('id')
@@ -407,10 +453,6 @@ def database_migrate():
         if i>=0:
             obj_migrate(str(elem.name))
         i+=1
-
-
-
-
 
 def obj_migrate(objName):
     object_pg = Object.objects.filter(name=objName)
@@ -601,7 +643,6 @@ def obj_migrate(objName):
                     state='Комплектующее',
                     subobject_fact=elem[12]
                 )
-
 
 def checkChild(con, pNameId):
     with con:

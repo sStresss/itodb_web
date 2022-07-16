@@ -52,6 +52,13 @@ urlpatterns = [
     re_path(r'^api/stuffgroupedit/$', stuff_edit_group),
     re_path(r'^api/objectreferal/([0-9]{1})$', object_referal_edit),
     re_path(r'^api/objectreferal/([0-9]{2})$', object_referal_edit),
-    re_path(r'^api/objectreferal/([0-9]{3})$', object_referal_edit)
-
+    re_path(r'^api/objectreferal/([0-9]{3})$', object_referal_edit),
+    re_path(r'^api/exporttoexel/([0-9]{1})$', export_to_exel),
+    re_path(r'^api/exporttoexel/([0-9]{2})$', export_to_exel),
+    re_path(r'^api/exporttoexel/([0-9]{3})$', export_to_exel),
+    re_path(r'^api/exporttoexel/([0-9]{4})$', export_to_exel),
+    re_path(r'^api/exportwhtoexel/([0-9]{1})$', export_wh_to_exel),
+    re_path(r'^api/exportwhtoexel/([0-9]{2})$', export_wh_to_exel),
+    re_path(r'^api/exportwhtoexel/([0-9]{3})$', export_wh_to_exel),
+    re_path(r'^api/exportwhtoexel/([0-9]{4})$', export_wh_to_exel),
 ]
