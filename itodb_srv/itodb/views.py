@@ -372,7 +372,7 @@ def stuff_edit_single(request, pk):
         object.save(update_fields=['type', 'model', 'serial', 'manufacturer', 'seller', 'date_purchase', 'object_target', 'comment'])
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['PUT'])
+@api_view(['POST'])
 def stuff_edit_group(request):
     if request.method == 'POST':
         data = request.data
